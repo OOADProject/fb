@@ -6,7 +6,7 @@
 
 	<constant name="struts.devMode" value="true" />
 
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="tiles-default">
 	</package>
 
 	<include file="module01/struts-abhishek.xml"></include>

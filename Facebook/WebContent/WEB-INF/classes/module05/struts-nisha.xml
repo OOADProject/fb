@@ -4,7 +4,7 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="nisha" namespace="/module05" extends="struts-default">
+	<package name="nisha" namespace="/module05" extends="tiles-default">
 		<!-- All action Mappings will go over here -->
 		
 	</package>
