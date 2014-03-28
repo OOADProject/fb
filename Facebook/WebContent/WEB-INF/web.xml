@@ -30,6 +30,6 @@
 
 	<context-param>
 		<param-name>org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
-		<param-value>/WEB-INF/classes/tiles.xml,/WEB-INF/classes/module02/tiles-abhishek.xml,/WEB-INF/classes/module02/tiles-dipesh.xml,/WEB-INF/classes/module02/tiles-divya.xml,/WEB-INF/classes/module02/tiles-monika.xml,/WEB-INF/classes/module02/tiles-nisha.xml,/WEB-INF/classes/module02/tiles-prakash.xml,/WEB-INF/classes/module02/tiles-satya.xml,/WEB-INF/classes/module02/tiles-tuli.xml</param-value>
+		<param-value>/WEB-INF/classes/tiles.xml,/WEB-INF/classes/module01/tiles-abhishek.xml,/WEB-INF/classes/module02/tiles-dipesh.xml,/WEB-INF/classes/module03/tiles-divya.xml,/WEB-INF/classes/module04/tiles-monika.xml,/WEB-INF/classes/module05/tiles-nisha.xml,/WEB-INF/classes/module06/tiles-prakash.xml,/WEB-INF/classes/module07/tiles-satya.xml,/WEB-INF/classes/module08/tiles-tuli.xml</param-value>
 	</context-param>
 </web-app>
