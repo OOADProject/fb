@@ -6,6 +6,10 @@
 <struts>
 	<package name="tuli" namespace="/module08" extends="tiles-default">
 		<!-- All action Mappings will go over here -->
-		
+		<action name="redirectLogin" class="iiitb.fb.actions.Success"
+			method="execute">
+			<result name="success" type="tiles">loginPage</result>
+			<result name="error" type="tiles">error</result>
+		</action>
 	</package>
 </struts>
