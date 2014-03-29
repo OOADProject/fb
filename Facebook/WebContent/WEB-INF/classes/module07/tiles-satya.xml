@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 	<!-- Definitions Goes here -->
-	<definition name="success" extends="baseLayout">
-		<put-attribute name="body" value="/success.jsp" />
+	<definition name="categorylink" extends="baseLayout">
+		<put-attribute name="body" value="/DisplayFriendCat.jsp" />
 	</definition>
 </tiles-definitions>
