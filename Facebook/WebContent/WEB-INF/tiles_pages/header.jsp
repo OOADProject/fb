@@ -18,7 +18,7 @@
 					<ul class="dropdown-menu">
 						<li>Test1</li>
 					</ul></li>
-				<li class="dropdown"><a href="#"
+				<li class="dropdown"><a href="module01/messageclick"
 					style="padding-left: 5px; padding-top: 35%;"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="/Facebook/asset/images/msg_ico.png" height="25px"
