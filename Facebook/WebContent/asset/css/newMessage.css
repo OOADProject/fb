@@ -35,22 +35,34 @@
 #messages{
 	
 overflow : auto;
-height:527px;
+height:393px;
+border:1px solid transparent;
+}
 
+#messages li{
+		border-right-color: transparent;
+		border-left-color: transparent;
+	
 }
 
 #messages li small{
 	color:#cccccc;
 }
 
+
+#messages li a img{
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
  ul.nav-tabs {
 box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
 }
+
 ul.nav-tabs li {
 	height:55px;
 	 border: 1px solid  #cccccc;
 	 border-bottom-color: transparent;
-	 border-left-color: transparent;
 	padding-top:0px;
 	margin: 0;
 	color: black;
@@ -63,8 +75,14 @@ ul.nav-tabs li a {
 	margin: 0;
 	color: black;
 	border-radius: 0;
+	text-decoration: none;
 }
-ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
+ul.nav-tabs li:hover{
+	color: #fff;
+	background: #F0F0F0;
+	border-bottom-color: transparent;
+}
+ul.nav-tabs li:active{
 	color: #fff;
 	background: #3b5998;
 	border-bottom-color: transparent;

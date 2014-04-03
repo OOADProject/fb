@@ -14,56 +14,23 @@
 	<div id="container1">
 		<div id="left">
 			<div id="title">
-				<a href="#">Inbox</a><span class="badge">4</span>
+				<a href="#">Inbox</a><span class="badge"><s:property value="unreadMessages"/></span>
 
 			</div>
 			<div id="messages">
-				<ul class="nav nav-tabs nav-stacked affix-top" data-spy="affix"
+				<ul class="nav nav-tabs nav-stacked affix-top" 
 					data-offset-top="125">
-					<li ><a href="#monu"><img
-							src="/Facebook/asset/images/monika.png" />&nbsp;&nbsp;&nbsp;&nbsp;Monika
-							Sharma&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>9:12 pm</small></a></li>
-					<li><a href="#abc"><img src="/Facebook/asset/images/ashok.png" />&nbsp;&nbsp;&nbsp;&nbsp;Ashok
-							Dhiman&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>7:48 pm</small></a></li>
-					<li><a href="#ashu"><img src="/Facebook/asset/images/divya.png" />&nbsp;&nbsp;&nbsp;&nbsp;Divya
-							Maharshi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>4:04 pm</small></a></li>
-					<li><a href="#abc"><img src="/Facebook/asset/images/prakash.png" />&nbsp;&nbsp;&nbsp;&nbsp;Prakash
-							Kharche&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>11:37
-								am</small></a></li>
-					<li><a href="#monu"><img src="/Facebook/asset/images/nisha.png" />&nbsp;&nbsp;&nbsp;&nbsp;Nisha
-							Basia&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>08:41 am</small></a></li>
-					<li><a href="#abc"><img src="/Facebook/asset/images/parush.png" />&nbsp;&nbsp;&nbsp;&nbsp;Parush
-							Aggarwal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>Sat</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/sanjana.png" />&nbsp;&nbsp;&nbsp;&nbsp;Sanjana
-							Mehra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>Sat</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/tuli.png" />&nbsp;&nbsp;&nbsp;&nbsp;Tuli
-							Kundu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>fri</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/vishal.png" />&nbsp;&nbsp;&nbsp;&nbsp;Vishal
-							Sharma&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>fri</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/prakash.png" />&nbsp;&nbsp;&nbsp;&nbsp;Prakash
-							Kharche&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>thu</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/prakash.png" />&nbsp;&nbsp;&nbsp;&nbsp;Prakash
-							Kharche&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>thu</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/prakash.png" />&nbsp;&nbsp;&nbsp;&nbsp;Prakash
-							Kharche&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>wed</small></a></li>
-					<li><a href="#"><img src="/Facebook/asset/images/prakash.png" />&nbsp;&nbsp;&nbsp;&nbsp;Prakash
-							Kharchu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<small>mon</small></a></li>
+					
+					
+					<s:iterator value="namelist">
+					<li ><fieldset><a href="conversation?conversation_id=<s:property value="profile_id"/>">
+					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
+										
+						</a>
+					</fieldset></li>				
+					</s:iterator>					
 				</ul>
-
 			</div>
-
 		</div>
 
 		<div id="middle">
@@ -82,7 +49,7 @@
 					
 						<textarea name="message_body" rows="4" cols="97" placeholder="Write a message..."></textarea>
 						<br>
-						<button type="submit" class="btn btn-xs btn-primary ">Reply</button>
+						<button type="submit" class="btn btn-xs btn-primary ">Send </button>
 					
 				</div>
 			</div>

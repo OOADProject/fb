@@ -102,12 +102,13 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 
 	public String findConv()
 	{
+		
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
 		 conversation = new ArrayList<MessageNameList>();
 		System.out.println("conversation id = "+conversation_id);
 		conversation = mp.getconversation(profile_id, conversation_id);
-		
+		firstMessageName = mp.getChatPersonName(conversation_id);   // name over detailed msgs when user clicks on any name in his msglist
 		/*size = conversation.size();
 		while(i<size)
 		{

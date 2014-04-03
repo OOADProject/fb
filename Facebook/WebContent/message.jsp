@@ -17,7 +17,7 @@
 
 			</div>
 			<div id="messages">
-				<ul class="nav nav-tabs nav-stacked affix-top" data-spy="affix"
+				<ul class="nav nav-tabs nav-stacked affix-top" 
 					data-offset-top="125">
 					
 					
@@ -86,14 +86,20 @@
 			</div>
 			<div id="replyarea">
 				<div id="reply">
-					<form>
-						<textarea rows="4" cols="97" placeholder="Write a reply..."></textarea>
+					<form action="replyMsg">
+						<textarea rows="4" cols="97" id="replytext" placeholder="Write a reply..."></textarea>
 						<br>
-						<button type="submit" class="btn btn-xs btn-primary ">Reply</button>
+						<button type="submit" id="replyBtn" class="btn btn-xs btn-primary ">Reply</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	$("#detailmsg").animate({ scrollTop: $(document).height() }, "slow");
+	  return false;
+	</script>
+	
 </body>
 </html>

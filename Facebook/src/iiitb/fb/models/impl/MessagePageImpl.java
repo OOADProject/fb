@@ -216,4 +216,21 @@ public int totalUnreadMessages(int profile_id)
 	return unreadmsg;
 }
 
+public String getChatPersonName(int conversation_id1)
+{
+	String name=null;
+	try{
+		ResultSet rs9 = db.getData("select first_name,last_name from profile where profile_id ="+conversation_id1+"");
+		while(rs9.next())
+		{
+			name = rs9.getString("first_name")+" "+ rs9.getString("last_name");
+		}
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	return name;
+}
+
 }
