@@ -21,6 +21,9 @@
 <link href="/Facebook/asset/css/bootstrap.css.map" rel="stylesheet" />
 
 <style type="text/css">
+body{
+	background-color: #E9EAED;
+}
 #container {
 	position: relative;
 	float: left;
@@ -31,7 +34,7 @@
 
 #body {
 	float: left;
-	width: 70%;
+	width: 60%;
 	height: 100%;
 }
 
@@ -39,11 +42,15 @@
 	margin-top: 1%;
 	float: left;
 	width: 20%;
-	height:1066px;
-	border-right: 1px solid #cccccc;
-	border-bottom:1px solid #cccccc;
-	display: table-cell;
-	display: 
+	height: 200px;
+	min-height: 20px;
+	padding: 8px 0px 0px 0px;
+	margin-bottom: 20px;
+	background-color: white;
+	border: 1px solid #e3e3e3;
+	border-radius: 2px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
 }
 
 #footer {
