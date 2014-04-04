@@ -18,9 +18,24 @@ public class ComposeImpl {
 			while(rs.next())
 			{
 				m.setReceiver_id(rs.getInt("profile_id"));
-				System.out.println(" id = "+ m.getReceiver_id());
+				System.out.println(" receiver id = "+ m.getReceiver_id());
 
 			}
+			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"') ");
+			res = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	public boolean sendReply(Message m)
+	{
+		try
+		{
+			DatabaseConnect db = new DatabaseConnect();
 			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"') ");
 			res = true;
 		}

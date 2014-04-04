@@ -104,11 +104,51 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 		this.unreadMessages = unreadMessages;
 	}
 
+	
+	
+	public String sendReplyMsg(){
+		
+		System.out.println("reply msg conv id"+conversation_id);
+		System.out.println("reply msg body"+m.getMessage_body());
+		ComposeImpl cm = new ComposeImpl();
+		DateFormat dateFormat = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		
+		System.out.println(date.toString());
+		m.setIsRead(0);
+		m.setSender_id(profile_id);
+		m.setTimestamp(dateFormat.format(date));
+		m.setReceiver_id(conversation_id);
+		
+		if(cm.sendReply(m))
+		{
+			firstMessageName = mp.getFirstChatName(profile_id);
+			unreadMessages = mp.totalUnreadMessages(profile_id);
+			
+		    conversation = new ArrayList<MessageNameList>();
+			namelist= new ArrayList<MessageNameList>();
+			namelist = mp.getnames(profile_id);
+			
+			conversation_id = mp.getFirstChatId(profile_id);
+			System.out.println("in reply msg conversation id = "+conversation_id);
+			conversation = mp.getconversation(profile_id, conversation_id);
+			System.out.println("in reply msg first conv name - "+firstMessageName);
+			return SUCCESS;
+		}
+		else
+		{
+			return ERROR;
+		}
+		
+		
+		
+	}
+	
+	
 	public String execute()
 	{
 		ComposeImpl cm = new ComposeImpl();
-		
-		
+		System.out.println(" conversation_id :" + conversation_id);
 
 		DateFormat dateFormat = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();

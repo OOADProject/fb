@@ -24,7 +24,7 @@
 					<s:iterator value="namelist">
 					<li ><fieldset><a href="conversation?conversation_id=<s:property value="profile_id"/>">
 					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
-										
+							
 						</a>
 					</fieldset></li>				
 					</s:iterator>					
@@ -86,9 +86,9 @@
 			</div>
 			<div id="replyarea">
 				<div id="reply">
-					<form action="replyMsg">
-						<textarea rows="4" cols="97" id="replytext" placeholder="Write a reply..."></textarea>
-						<br>
+					<form action="replyMsg" method="get">             <!-- send conversation_id to compose action and then based on both conv_id and profile_id store the msg and diplay chat -->
+						<textarea rows="4" cols="97" name="message_body" id="replytext" placeholder="Write a reply..." ></textarea>
+						<br><input type="hidden" name="conversation_id"  value="<%= request.getParameter("conversation_id") %>"/>
 						<button type="submit" id="replyBtn" class="btn btn-xs btn-primary ">Reply</button>
 					</form>
 				</div>
@@ -97,8 +97,8 @@
 	</div>
 	
 	<script>
-	$("#detailmsg").animate({ scrollTop: $(document).height() }, "slow");
-	  return false;
+	$("#detailmsg").animate({ scrollTop: $(document).height() }, "fast");
+	 // return false;
 	</script>
 	
 </body>
