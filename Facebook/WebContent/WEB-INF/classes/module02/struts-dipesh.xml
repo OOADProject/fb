@@ -11,9 +11,35 @@
 			<result name="error" type="tiles">error</result>
 		</action>
 		
-		<action name="userLogin" class="iiitb.fb.actions.LoginAction" method="execute">
+		<action name="userLogin" class="iiitb.fb.actions.LoginAction" method="login">
 			<result name="success" type="tiles">success</result>
 			<result name="error" type="tiles">error</result>
 		</action>
+		
+		<action name="signup" class="iiitb.fb.actions.LoginAction" method="registration">
+			<result name="success" type="tiles">fillOutInfo</result>
+			<result name="error" type="tiles">loginPage</result>
+		</action>
+		
+		<action name="skipstep1" class="iiitb.fb.actions.Success" method="skipStep1">
+			<result name="success" type="tiles">step1</result>
+		</action>
+		
+		<action name="backtostep1" class="iiitb.fb.actions.Success" method="backToStep1">
+			<result name="success" type="tiles">backstep1</result>
+		</action>
+		
+		<action name="filloutinfo" class="iiitb.fb.actions.LoginAction" method="addProfileInfo">
+			<result name="success" type="tiles">gotostep2</result>
+		</action>
+		
+		<action name="addprofilepic" class="iiitb.fb.actions.LoginAction" method="addProfilePic">
+			<result name="success" type="tiles">addprofilepic</result>
+		</action>
+		
+		<action name="skipstep2" class="iiitb.fb.actions.Success" method="skipStep2">
+			<result name="success" type="tiles">success</result>
+		</action>
+		
 	</package>
 </struts>

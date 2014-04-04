@@ -18,8 +18,8 @@
 		<div id="logged_in">
 			<input type="checkbox" id="remember_me" name="logged_in">Keep
 			me logged in
-		
-			<p id="forgot_password">Forgot your password?</p>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="forgot_password" style="color: rgb(152, 161, 187);">Forgot your password?</a>
 		</div>	</form>
 
 	</div>

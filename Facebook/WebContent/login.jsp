@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="/Facebook/WebContent/asset/js/jquery-2.1.0.js"/>
+<script>
+
+</script>
 <meta http-equiv="Content-rel" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 <link href="/Facebook/asset/css/bootstrap-theme.css" rel="stylesheet" />
@@ -19,46 +24,43 @@
 
 </head>
 <body>
-	<!-- <div style="width: 20%">
-	<form action="module02/userLogin">
-	
-		<h3><input type="text" class="form-control" name="userName" placeholder="Username"/></h3>
-		<h3><input type="text" class="form-control" name="password" placeholder="Password"/></h3>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>	
-	</form>
-	</div>
-	 -->
+	<form action="/Facebook/module02/signup">
 	<div class="body_login" id="body_login">
 
 		<div class="body_login_signup">
 			<p id="create_account">Sign Up</p>
 			<p id="punch_line">It's free and always will be.</p>
-			<input type="text" placeholder="First Name" id="fname"
-				class="details" /> <input type="text" placeholder="Last Name"
-				id="lname" class="details" /><br> <input type="text"
-				placeholder="Your Email" id="email" class="details" /><br> <input
-				type="text" placeholder="Re-enter Email" id="reemail"
-				class="details" /><br> <input type="password"
-				placeholder="New Password" id="pwd" class="details" /><br>
+			<input type="text" placeholder="First Name" required="true" name="fname" id="fname" class="details" />
+			<input type="text" placeholder="Last Name"  required="true" name="lname" id="lname" class="details" /><br> 
+			<input type="text" placeholder="Your Email" required="true" name="email" id="email" class="details" /><br> 
+			<input type="text" placeholder="Re-enter Email" required="true" name="reemail" id="reemail" class="details" /><br> 
+			<input type="password" placeholder="New Password" required="true" name="password" id="pwd" class="details" /><br>
 
 			<p id="birthday" style="font-weight: bold;">Birthday</p>
-			<select id="month">
-				<option value="-1">Month</option>
-			</select> <select id="day">
-				<option value="-1">Day</option>
-			</select> <select id="year">
-				<option value="-1">Year</option>
-			</select><br>
+			<s:select theme="simple" list="monthList" id="month" name="month" required="true">
+			</s:select> 
+			<s:select theme="simple" list="dayList" id="day" name="day" required="true">
+			</s:select>
+			 <s:select theme="simple" list="yearList" id="year" name="year" required="true">
+				
+			</s:select><br>
 			<h4>
-				<input type="radio" />&nbsp;&nbsp;Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-					type="radio" />&nbsp;&nbsp;Female
+				<input type="radio" name="gender" value="male" required="true"/>&nbsp;&nbsp;Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<input	type="radio" name="gender" value="female" required="true" />&nbsp;&nbsp;Female
 			</h4>
 			<p style="font-size: x-small;">
 				By clicking Sign Up, you agree to our Terms and that you have<br>
 				read our Data Use Policy, including our Cookie Use
 			</p>
-			<button type="button" class="btn btn-lg btn-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign Up
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+			<button type="submit" class="btn btn-lg btn-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign Up
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button><br>
+			<s:if test="%{errorstatus==null}">
+			</s:if>
+			<s:else>
+			<div id="errormessageid" style="height: 50px;width: 400px; margin-top: 5px;font-size: x-small;" class="alert alert-danger">
+			<s:property value="errorstatus"/>
+			</div>
+			</s:else>
 		</div>
 		<div class="body_login_left">
 			<p id="help">
@@ -69,5 +71,6 @@
 			<p><img src="/Facebook/asset/images/home3.png" align="left"><h4 class="featurette-heading">&nbsp;&nbsp;&nbsp;Find more  <span class="text-muted">of what you're looking for with Graph Search.</span></h4></p><br><br>
 		</div>
 	</div>
+	</form>
 </body>
 </html>

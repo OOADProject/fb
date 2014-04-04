@@ -13,6 +13,36 @@
 	</definition>
 	
 	<definition name="error" extends="baseLayout2">
-		<put-attribute name="body" value="/error.jsp"/>
+		<put-attribute name="body" value="/login.jsp"/>
+	</definition>
+	
+	<definition name="fillOutInfo" extends="baseLayout">
+		<put-attribute name="body" value="/FillOutInfo.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<definition name="step1" extends="baseLayout">
+		<put-attribute name="body" value="/AddProfilePic.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<definition name="backstep1" extends="baseLayout">
+		<put-attribute name="body" value="/FillOutInfo.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<definition name="gotostep2" extends="baseLayout">
+		<put-attribute name="body" value="/AddProfilePic.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>	
+	
+	<definition name="addprofilepic" extends="baseLayout">
+		<put-attribute name="body" value="/success.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
 </tiles-definitions>
