@@ -1,0 +1,107 @@
+.button
+{
+	
+	 align:right;
+	 float:right;
+	 width:70px;
+	 height:30px;  
+	 margin-right:30px; 
+	 margin-top:15px;
+  
+
+}
+
+
+#about {
+
+border:1px solid lightblue;	
+height:80px;
+width:1130px;	
+ margin-left:70px;
+}
+
+#work_education
+{
+	border:1px solid lightblue; 
+	height:300px;
+	width:550px; 
+	float:left;
+	margin-left:70px;
+	
+	
+}
+
+#placeslived
+{
+	border:1px solid lightblue;
+	height:300px;
+	width:550px;
+	float:right;
+}
+
+
+#relationship
+{
+	
+	border:1px solid lightblue;
+	height:300px;
+	width:550px;
+	float:left;
+	margin-left:70px;
+}
+
+
+
+#basicinfo
+{
+	
+	border:1px solid lightblue;
+	height:300px;
+	width:550px;
+	float:right;"
+}
+
+#aboutme
+{
+border:1px solid blue;
+height:150px;
+width:550px;
+float:left;
+margin-left:70px;
+}
+
+#favquote
+{
+border:1px solid blue;
+height:150px;
+width:550px;
+float:left;
+margin-left:70px;
+}
+
+#contactinfo
+{
+border:1px solid lightblue; 
+height:300px; 
+width:550px; 
+float:right;  
+margin-top: -150px;
+}
+
+.lable
+{
+margin-left:20px; 
+float:left;
+margin-top:30px;	
+}
+
+
+.data
+{
+	margin-left:20px; 
+	float:left; 
+	margin-top:20px; 
+	width:550px;
+    color:blue;
+    
+}

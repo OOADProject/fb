@@ -11,5 +11,11 @@
 			<result name="success" type="tiles">loginPage</result>
 			<result name="error" type="tiles">error</result>
 		</action>
+	
+	<action name="Call_To_geteductaiondata" class="iiitb.fb.actions.ProfileDisplay" method="geteducationdetails">
+			<result name="success" type="tiles">ProfileDisplay</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+	
 	</package>
 </struts>

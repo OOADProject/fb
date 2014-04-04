@@ -8,4 +8,20 @@
 	<definition name="success" extends="baseLayout">
 		<put-attribute name="body" value="/success.jsp"/>
 	</definition>
+	
+	<definition name="messagePage" extends="baseLayout">
+		<put-attribute name="body" value="/message.jsp"/>
+	</definition>
+	
+	<definition name="errorPage" extends="baseLayout">
+		<put-attribute name="body" value="/error.jsp"/>
+	</definition>
+	
+	<definition name="newMessagePage" extends="baseLayout">
+		<put-attribute name="body" value="/newMessage.jsp"/>
+	</definition>
+	
+	
+	
+	
 </tiles-definitions>

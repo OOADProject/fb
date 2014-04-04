@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 	<!-- Definitions Goes here -->
-	<definition name="success" extends="baseLayout">
-		<put-attribute name="body" value="/success.jsp" />
+	<definition name="event" extends="baseLayout">
+		<put-attribute name="body" value="/event.jsp" />
 	</definition>
 </tiles-definitions>

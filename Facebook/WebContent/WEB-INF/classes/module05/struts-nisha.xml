@@ -6,9 +6,9 @@
 <struts>
 	<package name="nisha" namespace="/module05" extends="tiles-default">
 		<!-- All action Mappings will go over here -->
-		<action name="redirectLogin" class="iiitb.fb.actions.Success"
+		<action name="eventaction" class="iiitb.fb.actions.EventAction"
 			method="execute">
-			<result name="success" type="tiles">loginPage</result>
+			<result name="success" type="tiles">event</result>
 			<result name="error" type="tiles">error</result>
 		</action>
 	</package>

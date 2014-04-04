@@ -6,9 +6,41 @@
 <struts>
 	<package name="abhishek" namespace="/module01" extends="tiles-default">
 		<!-- All action Mappings will go over here -->
-		<action name="redirectLogin" class="iiitb.fb.actions.Success" method="execute">
-			<result name="success" type="tiles">loginPage</result>
-			<result name="error" type="tiles">error</result>
+		
+		<action name="messageclick" class="iiitb.fb.actions.MessagePage"
+			method="execute">
+			<result name="success" type="tiles">messagePage</result>
+			<result name="error" type="tiles">errorPage</result>
+		</action>
+		
+		<action name="newMessageButton" class="iiitb.fb.actions.MessagePage"
+			method="execute">
+			<result name="success" type="tiles">newMessagePage</result>
+			<result name="error" type="tiles">errorPage</result>
+		</action>
+		
+		<action name="newMsgSend" class="iiitb.fb.actions.Compose"
+			method="execute">
+			<result name="success" type="tiles">messagePage</result>
+			<result name="error" type="tiles">errorPage</result>
+		</action>
+		
+		<action name="replyMsg" class="iiitb.fb.actions.Compose"
+			method="sendReplyMsg">
+			<result name="success" type="tiles">messagePage</result>
+			<result name="error" type="tiles">errorPage</result>
+		</action>
+		
+		<action name="conversation" class="iiitb.fb.actions.MessagePage"
+			method="findConv">
+			<result name="success" type="tiles" >messagePage</result>
+			<result name="error" type="tiles">errorPage</result>
+		</action>
+		
+		<action name="inboxTitle" class="iiitb.fb.actions.MessagePage"
+			method="execute">
+			<result name="success" type="tiles" >errorPage</result>
+			<result name="error" type="tiles">errorPage</result>
 		</action>
 	</package>
 </struts>
