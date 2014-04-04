@@ -6,9 +6,9 @@
 <struts>
 	<package name="satya" namespace="/module07" extends="tiles-default">
 		<!-- All action Mappings will go over here -->
-		<action name="redirectLogin" class="iiitb.fb.actions.Success"
+		<action name="display_frnd_cat_list" class="iiitb.fb.actions.PrepareFriendsCategory"
 			method="execute">
-			<result name="success" type="tiles">loginPage</result>
+			<result name="success" type="tiles">categorylink</result>
 			<result name="error" type="tiles">error</result>
 		</action>
 	</package>
