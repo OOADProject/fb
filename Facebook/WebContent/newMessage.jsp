@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@taglib uri="/struts-dojo-tags" prefix="sx"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
 <link href="/Facebook/asset/css/newMessage.css" rel="stylesheet">
-
+<sx:head />
 </head>
 <body>
 
@@ -14,7 +15,7 @@
 	<div id="container1">
 		<div id="left">
 			<div id="title">
-				<a href="#">Inbox</a><span class="badge"><s:property value="unreadMessages"/></span>
+				<a href="/Facebook/module01/inboxTitle">Inbox</a><span class="badge"><s:property value="unreadMessages"/></span>
 
 			</div>
 			<div id="messages">
@@ -23,12 +24,12 @@
 					
 					
 					<s:iterator value="namelist">
-					<li ><fieldset><a href="conversation?conversation_id=<s:property value="profile_id"/>">
+					<li ><a href="conversation?conversation_id=<s:property value="profile_id"/>"><fieldset>
 					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
-										
-						</a>
-					</fieldset></li>				
-					</s:iterator>					
+							
+						
+					</fieldset></a></li>				
+					</s:iterator>						
 				</ul>
 			</div>
 		</div>
@@ -41,13 +42,13 @@
 			</div>
 			<div  id="detailmsg">
 			<div id="to">
-			To:&nbsp; <input type="text" name="receiver_name" placeholder="Name">
+			To:&nbsp; <sx:autocompleter size="1" list="friendslist" name="receiver_name" showDownArrow="false" ></sx:autocompleter>
 			</div>
 			</div>
 			<div id="replyarea">
 				<div id="reply">
 					
-						<textarea name="message_body" rows="4" cols="97" placeholder="Write a message..."></textarea>
+						<textarea name="message_body" rows="4" cols="82" placeholder="Write a message..."></textarea>
 						<br>
 						<button type="submit" class="btn btn-xs btn-primary ">Send </button>
 					

@@ -37,9 +37,15 @@
 			<result name="error" type="tiles">errorPage</result>
 		</action>
 		
+		<action name="deleteconversation" class="iiitb.fb.actions.MessagePage"
+			method="deleteConv">
+			<result name="success" type="tiles" >messagePage</result>
+			<result name="error" type="tiles">errorPage</result>
+		</action>
+		
 		<action name="inboxTitle" class="iiitb.fb.actions.MessagePage"
 			method="execute">
-			<result name="success" type="tiles" >errorPage</result>
+			<result name="success" type="tiles" >messagePage</result>
 			<result name="error" type="tiles">errorPage</result>
 		</action>
 	</package>

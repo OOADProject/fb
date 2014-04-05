@@ -15,7 +15,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	int profile_id=1;
 	int i=0,size=0;
 	int conversation_id;
@@ -25,7 +25,28 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 	List<MessageNameList> conversation = null;
 	String firstMessageName;
 	int unreadMessages;
-	
+	public ArrayList<String> friendslist;
+	public String receiver_name;
+
+
+
+
+	public String getReceiver_name() {
+		return receiver_name;
+	}
+
+	public void setReceiver_name(String receiver_name) {
+		this.receiver_name = receiver_name;
+	}
+
+	public List<String> getFriendslist() {
+		return friendslist;
+	}
+
+	public void setFriendslist(ArrayList<String> friendslist) {
+		this.friendslist = friendslist;
+	}
+
 	public int getConversation_id() {
 		return conversation_id;
 	}
@@ -33,7 +54,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 	public void setConversation_id(int conversation_id) {
 		this.conversation_id = conversation_id;
 	}
-	
+
 	public int getUnreadMessages() {
 		return unreadMessages;
 	}
@@ -75,14 +96,14 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 	{
 		firstMessageName = mp.getFirstChatName(profile_id);
 		unreadMessages = mp.totalUnreadMessages(profile_id);
-		
-	    conversation = new ArrayList<MessageNameList>();
+		friendslist = mp.getFriendsName(profile_id);
+		conversation = new ArrayList<MessageNameList>();
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
 		size = namelist.size();
 		System.out.println("first conv name - "+firstMessageName);
 		System.out.println("total unread msg - "+unreadMessages);
-
+		System.out.println("In MessagePage friends name are : "+friendslist);
 
 		System.out.println("in MessagePage  names are - ");
 		while(i<size)
@@ -90,22 +111,22 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 			System.out.println(namelist.get(i).getFirstname()+" "+ namelist.get(i).getLastname());
 			i++;
 		}
-			
-			conversation_id = mp.getFirstChatId(profile_id);
-			System.out.println("conversation id = "+conversation_id);
-			conversation = mp.getconversation(profile_id, conversation_id);
-		
+
+		conversation_id = mp.getFirstChatId(profile_id);
+		System.out.println("conversation id = "+conversation_id);
+		conversation = mp.getconversation(profile_id, conversation_id);
+
 		return SUCCESS;
 	}
-		
-	
+
+
 
 	public String findConv()
 	{
-		
+
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
-		 conversation = new ArrayList<MessageNameList>();
+		conversation = new ArrayList<MessageNameList>();
 		System.out.println("conversation id = "+conversation_id);
 		conversation = mp.getconversation(profile_id, conversation_id);
 		firstMessageName = mp.getChatPersonName(conversation_id);   // name over detailed msgs when user clicks on any name in his msglist
@@ -115,10 +136,26 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 			System.out.println(" name , convertation is  "+ conversation.get(i).getFirstname()+" "+ conversation.get(i).getConversation_body());
 			i++;
 		}*/
-		
+
 		return SUCCESS;
 	}
 
+	public String deleteConv()
+	{
+		System.out.println("conversation id = "+conversation_id);
+		mp.deleteConversation(profile_id, conversation_id);
+
+		firstMessageName = mp.getFirstChatName(profile_id);
+		unreadMessages = mp.totalUnreadMessages(profile_id);
+
+		conversation = new ArrayList<MessageNameList>();
+		namelist= new ArrayList<MessageNameList>();
+		namelist = mp.getnames(profile_id);
+
+		conversation_id = mp.getFirstChatId(profile_id);
+		conversation = mp.getconversation(profile_id, conversation_id);
+		return SUCCESS;
+	}
 
 	@Override
 	public MessageNameList getModel() {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,11 +23,11 @@
 					
 					
 					<s:iterator value="namelist">
-					<li ><fieldset><a href="conversation?conversation_id=<s:property value="profile_id"/>">
+					<li ><a href="conversation?conversation_id=<s:property value="profile_id"/>"><fieldset>
 					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
 							
-						</a>
-					</fieldset></li>				
+						
+					</fieldset></a></li>				
 					</s:iterator>					
 				</ul>
 			</div>
@@ -35,7 +36,7 @@
 		<div id="middle">
 			<div id="namenmsg">
 				<div id="name">
-					<a href="#"><b><s:property value="firstMessageName"/></b></a>
+					<a href="#"><h4><b><s:property value="firstMessageName"/></b></h4></a>
 
 				</div>
 				<div id="newmsg">
@@ -55,7 +56,7 @@
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
 								<li><a href="#"><font size="1">Delete Messages</font></a></li>
-								<li><a href="#"><font size="1">Delete
+								<li><a href="deleteconversation?conversation_id=<%= request.getParameter("conversation_id") %>"><font size="1">Delete
 											Conversation</font></a></li>
 								<li><a href="#"><font size="1">Report Spam</font></a></li>
 							</ul>
@@ -76,9 +77,9 @@
 				
 					<s:iterator value="conversation">
 					<fieldset> <a href="#">                                  <!-- <a href="profile?profile_id=<s:property value="profile_id"/>"> -->
-					&nbsp;&nbsp;&nbsp;&nbsp;<img src="<s:property value="profile_pic"/>" />&nbsp;<b><s:property value="firstname"/>&nbsp;<s:property value="lastname"/></b></a>
-					<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<s:property value="conversation_body"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;<img src="<s:property value="profile_pic"/>" align="left" />&nbsp;<b><s:property value="firstname"/>&nbsp;<s:property value="lastname"/></b></a>
+					<br>&nbsp;&nbsp;&nbsp;&nbsp;
+					<s:property value="conversation_body"/><br><br><s:property value="message_id"/>
 					
 					</fieldset>				
 					</s:iterator>	
@@ -87,7 +88,7 @@
 			<div id="replyarea">
 				<div id="reply">
 					<form action="replyMsg" method="get">             <!-- send conversation_id to compose action and then based on both conv_id and profile_id store the msg and diplay chat -->
-						<textarea rows="4" cols="97" name="message_body" id="replytext" placeholder="Write a reply..." ></textarea>
+						<textarea rows="4" cols="82" name="message_body" id="replytext" placeholder="Write a reply..." ></textarea>
 						<br><input type="hidden" name="conversation_id"  value="<%= request.getParameter("conversation_id") %>"/>
 						<button type="submit" id="replyBtn" class="btn btn-xs btn-primary ">Reply</button>
 					</form>

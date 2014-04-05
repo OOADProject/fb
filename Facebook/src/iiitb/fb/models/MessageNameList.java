@@ -5,6 +5,7 @@ import java.util.Date;
 public class MessageNameList {
 	
 	private String profile_pic;
+	private Integer message_id;
 	private String firstname;
 	private String lastname;
 	private Integer profile_id;
@@ -13,10 +14,19 @@ public class MessageNameList {
 	
 	
 	
+	
 	public String getProfile_pic() {
 		return profile_pic;
 	}
 	
+	public Integer getMessage_id() {
+		return message_id;
+	}
+
+	public void setMessage_id(Integer message_id) {
+		this.message_id = message_id;
+	}
+
 	public String getConversation_body() {
 		return conversation_body;
 	}
