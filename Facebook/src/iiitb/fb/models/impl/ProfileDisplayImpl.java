@@ -37,7 +37,7 @@ public class ProfileDisplayImpl {
 		DatabaseConnect obj= new DatabaseConnect();   // object of database_connect
 		
 		
-		con=DatabaseConnect.getConnection();   // establish the database connection 
+		con=obj.getConnection();   // establish the database connection 
 		System.out.println("Connection Successful");
 		
 		ResultSet result1=obj.getData(edudata);   // get data
