@@ -8,4 +8,10 @@
 	<definition name="success" extends="baseLayout">
 		<put-attribute name="body" value="/success.jsp" />
 	</definition>
+
+<definition name="ProfileDisplay" extends="baseLayout">
+		<put-attribute name="body" value="/ProfileDisplay.jsp"/>
+	</definition>
+
+
 </tiles-definitions>
