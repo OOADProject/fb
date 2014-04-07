@@ -2,11 +2,14 @@ package iiitb.fb.actions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
+import iiitb.fb.models.User;
 import iiitb.fb.models.UserWallPost;
 import iiitb.fb.models.WallPost;
 import iiitb.fb.models.impl.WallPostImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -15,12 +18,15 @@ public class WallPostAjaxAction extends ActionSupport implements ModelDriven<Use
 	private static final long serialVersionUID = 7692234736372795694L;
 	UserWallPost uwp = new UserWallPost();
 	public String addWallPost(){
-
+		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
 		WallPostImpl wpi = new WallPostImpl();
 		//hardcoded replace with session
 		WallPost wp =new WallPost();
-		wp.setPostFrom(1);
-		wp.setPostTo(1);
+		wp.setPostFrom(user.getProfile_id());
+		wp.setPostTo(user.getProfile_id());
 		wp.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		wp.setWallPostText(uwp.getWallPostText());
 		wp.setVisibility("Public");
@@ -29,10 +35,11 @@ public class WallPostAjaxAction extends ActionSupport implements ModelDriven<Use
 		int status = wpi.addWallPost(wp);
 		if(status > 0){
 			//hardcoded apply session
-			uwp.setPostFromName("Prakash Kharche");
-			uwp.setPostFrom(1);
+			uwp.setPostFromName(user.getFname()+" "+user.getLname());
+			uwp.setPostFrom(user.getProfile_id());
 			uwp.setWallPostText(wp.getWallPostText());
 			uwp.setWallPostId(status);
+			uwp.setPostFromPicture(user.getProfilePic());
 			return SUCCESS;
 		}else{
 			return ERROR;

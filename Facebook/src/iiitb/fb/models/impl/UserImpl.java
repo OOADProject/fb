@@ -111,11 +111,14 @@ public class UserImpl{
 			}
 			if(userpassword.equals(user.getPassword()))
 			{
-				String q="select profile_id from profile where login_id=(select login_id from login where email='"+user.getUserName()+"'or uname='"+user.getUserName()+"' )";
+				String q="select profile_id,first_name,last_name,profile_pic from profile where login_id=(select login_id from login where email='"+user.getUserName()+"'or uname='"+user.getUserName()+"' )";
 				ResultSet rs1=db.getData(q);
 				while(rs1.next())
 				{
 				user.setProfile_id(rs1.getInt("profile.profile_id"));
+				user.setFname(rs1.getString("profile.first_name"));
+				user.setLname(rs1.getString("profile.last_name"));
+				user.setProfilePic(rs1.getString("profile.profile_pic"));
 				}
 				return user;
 			}

@@ -2,10 +2,13 @@ package iiitb.fb.actions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import iiitb.fb.models.Like;
+import iiitb.fb.models.User;
 import iiitb.fb.models.impl.LikeImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -15,9 +18,13 @@ public class LikeAction extends ActionSupport implements ModelDriven<Like>{
 	Like l = new Like();
 	
 	public String likeWallPost(){
+		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+
 		LikeImpl li = new LikeImpl();
 		//hardcoded
-		l.setProfileId(1);
+		l.setProfileId(user.getProfile_id());
 		l.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		if(li.likeWallPost(l)){
 			return SUCCESS;

@@ -169,8 +169,6 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		}
 	}
 
-	
-
 
 
 

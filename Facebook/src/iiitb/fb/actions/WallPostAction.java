@@ -1,11 +1,14 @@
 package iiitb.fb.actions;
 
 import java.util.List;
+import java.util.Map;
 
+import iiitb.fb.models.User;
 import iiitb.fb.models.UserWallPost;
 import iiitb.fb.models.WallPost;
 import iiitb.fb.models.impl.WallPostImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -31,8 +34,11 @@ public class WallPostAction extends ActionSupport implements ModelDriven<WallPos
 	public String getWallPosts(){
 		
 		WallPostImpl wpi = new WallPostImpl();
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
 		//hardcoded replace with session
-		wallPostsList = wpi.getWallPosts(1);
+		wallPostsList = wpi.getWallPosts(user.getProfile_id());
 		System.out.println("WallPostAction");
 		return SUCCESS;
 	}

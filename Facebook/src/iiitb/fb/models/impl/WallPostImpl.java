@@ -70,7 +70,7 @@ public class WallPostImpl {
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = dbc.getConnection();
 		String query = "select * from (select w.*,p.profile_id,p.first_name,p.last_name,p.profile_pic from wallpost w left join profile p on p.profile_id=w.post_from) as temp, friends f"
-				+ " where temp.post_from=? or f.profile_id=? and f.friend_id=temp.post_from order by temp.timestamp desc";
+				+ " where temp.post_from=? or f.profile_id=? and f.friend_id=temp.post_from group by temp.wallpost_id order by temp.timestamp desc";
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
