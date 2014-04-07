@@ -30,7 +30,6 @@
 	font-size: 12px;
 	font-weight: bold;
 	padding-bottom: 3px;
-	padding-top: 3px;
 }
 
 #menu_items:hover {
@@ -131,7 +130,7 @@ a:hover {
 		    		type:'POST', 
 					url:'/Facebook/module06/commentWallPost.action?wallPostId='+$(y).val()+"&commentText="+$(x).val(),
 					success: function(data){
-						var temp = '<div id="comment"><img src="/Facebook/asset/images/unknown.jpg" width="32px" height="32px" align="left" />'+
+						var temp = '<div id="comment"><img src="/Facebook/asset/images/profilepics/'+data.profileId+'.jpg" width="32px" height="32px" align="left" />'+
 						'<a href="#" id="full_name_comment">&nbsp;&nbsp;'+data.fullName+'</a>&nbsp;'+
 						'<font size="2.5">'+data.commentText+'</font> <br></div>';
 						$(z).append(temp);
@@ -149,7 +148,7 @@ a:hover {
 				url:'/Facebook/module06/addWallPost.action?wallPostText='+$("#newWallPostText").val(),
 				success:function(data){
 						var temp = 	"<div id=\"single_wallpost\"><div id=\"wallpost_body\">";
-						temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src=\"/Facebook/asset/images/unknown.jpg\" /></a>";
+						temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";
 						temp += "&nbsp;&nbsp;<a href=\"#\" id=\"full_name\">"+data.postFromName+"</a> <br>";
 						temp += "<br> <br> <font size=\"2.7\"><div class=\"text1\">"+data.wallPostText+"</div></font> <br>";
 						temp += "<a href=\"#\" id=\"like_comment_button\">Like</a>&nbsp;*&nbsp;<a href=\"#\" id=\"like_comment_button\">Comment</a></div>";
@@ -171,26 +170,33 @@ a:hover {
 			});
 		});
 	});
+	
 </script>
 </head>
 <body>
-	<div id="side_menu">
-		<br> <br> <br> <br>
+
+	<div id="side_menu" >
+	<div style="height:60px;width:300px; margin-left:0px; margin-top:15%;">
+		<img src='<s:property value="#session.user.getProfilePic()"/>' height="50px" width="50px" align="left"/>&nbsp;
+			<a href="#" style="color: black; font-size: 12px;font-weight: bold;"><s:property value="#session.user.getFname()"/>&nbsp;<s:property value="#session.user.getLname()"/></a>
+			<br>&nbsp;&nbsp;<a href="#" style="font-size: 12px;">Edit Profile</a>
+	</div>
+	
 		<h6 style="font-weight: bold; color: gray;">FAVORITES</h6>
 		<p id="menu_items">
-			<a href="#"><img src="/Facebook/asset/images/newsfeed.png"
+			<a href="/Facebook/module02/loadWall"><img src="/Facebook/asset/images/newsfeed.png"
 				height="15px">&nbsp;&nbsp;News Feed</a><br>
 		</p>
 
 
 		<p id="menu_items">
-			<a href="#"><img src="/Facebook/asset/images/messages.png"
+			<a href="/Facebook/module01/messageclick"><img src="/Facebook/asset/images/messages.png"
 				height="17px">&nbsp;&nbsp;Messages</a><br>
 		</p>
 
 
 		<p id="menu_items">
-			<a href="#" id="menu_items"><img
+			<a href="/Facebook/module05/eventaction" id="menu_items"><img
 				src="/Facebook/asset/images/events.png" height="15px">&nbsp;&nbsp;Events</a><br>
 		</p>
 
@@ -227,7 +233,7 @@ a:hover {
 		<s:iterator value="wallPostsList">
 			<div id="single_wallpost">
 				<div id="wallpost_body">
-					<a href="#" id="full_name"><img height="40px" width="40px" align="left" src="/Facebook/asset/images/unknown.jpg" /></a>
+					<a href="#" id="full_name"><img height="40px" width="40px" align="left" src='<s:property value="postFromPicture"/>' /></a>
 					 &nbsp;&nbsp;<a href="#" id="full_name"><s:property value="postFromName" /></a> <br>
 					<br> <br> <font size="2.7"><div class="text1"><s:property value="wallPostText" /></div></font> <br> 
 					<s:url id="url" action="likeWallPost">
@@ -262,7 +268,7 @@ a:hover {
 
 
 						<div id="comment">
-							<img src="/Facebook/asset/images/unknown.jpg" width="32px"
+							<img src="<s:property value="profilePicture"/>" width="32px"
 								height="32px" align="left" /><a href="#" id="full_name_comment">&nbsp;&nbsp;<s:property
 									value="fullName" /></a>&nbsp;<font size="2.5"><s:property
 									value="commentText" /></font> <br>
@@ -271,7 +277,7 @@ a:hover {
 										</div>
 					
 						<div class="comment_form">
-							<img src="/Facebook/asset/images/unknown.jpg" width="32px"
+							<img src='<s:property value="/Facebook/asset/images/profilepics/"/>' width="32px"
 								height="32px" align="left" />&nbsp;&nbsp;
 								<input type="hidden" value='<s:property value="wallPostId"/>' id="comment_wp_id"/>	
 								<input style="height: 27px;" type="text" id="comment_wp_text" name="commentText"
