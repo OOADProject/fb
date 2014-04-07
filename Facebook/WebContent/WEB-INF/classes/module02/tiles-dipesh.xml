@@ -41,8 +41,24 @@
 	</definition>	
 	
 	<definition name="addprofilepic" extends="baseLayout">
-		<put-attribute name="body" value="/success.jsp"/>
+		<put-attribute name="body" value="/wallPost.jsp"/>
 		<put-attribute name="menu" value=""/>
 		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<definition name="wallPost" extends="baseLayout">
+		<put-attribute name="body" value="/wallPost.jsp"/>
+	</definition>
+	
+	<definition name="profilepage" extends="baseLayout">
+		<put-attribute name="body" value="/ProfilePage.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""/>
+	</definition>
+	
+	<definition name="friendspage" extends="baseLayout">
+		<put-attribute name="body" value="/Friends.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""/>
 	</definition>
 </tiles-definitions>

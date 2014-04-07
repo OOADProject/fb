@@ -12,10 +12,14 @@
 		</action>
 		
 		<action name="userLogin" class="iiitb.fb.actions.LoginAction" method="login">
-			<result name="success" type="tiles">success</result>
+			<result name="success" type="redirect">loadWall</result>
 			<result name="error" type="tiles">error</result>
 		</action>
 		
+		<action name="loadWall" class="iiitb.fb.actions.WallPostAction" method="getWallPosts">
+			<result name="success" type="tiles">wallPost</result>
+			<result name="error">error</result>
+		</action>
 		<action name="signup" class="iiitb.fb.actions.LoginAction" method="registration">
 			<result name="success" type="tiles">fillOutInfo</result>
 			<result name="error" type="tiles">loginPage</result>
@@ -38,7 +42,15 @@
 		</action>
 		
 		<action name="skipstep2" class="iiitb.fb.actions.Success" method="skipStep2">
-			<result name="success" type="tiles">success</result>
+			<result name="success" type="redirect">loadWall</result>
+		</action>
+		
+		<action name="gotoprofilepage" class="iiitb.fb.actions.Success" method="profile">
+			<result name="success" type="tiles">profilepage</result>
+		</action>
+		
+		<action name="friends" class="iiitb.fb.actions.Success" method="profile">
+			<result name="success" type="tiles">friendspage</result>
 		</action>
 		
 	</package>
