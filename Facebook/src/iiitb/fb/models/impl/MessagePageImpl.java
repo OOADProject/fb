@@ -252,10 +252,10 @@ public class MessagePageImpl {
 			int i=0;
 			while(i<size)
 			{
-				ResultSet rs11 = db.getData("select first_name from profile where profile_id ="+friendsId.get(i)+"");
+				ResultSet rs11 = db.getData("select first_name,last_name from profile where profile_id ="+friendsId.get(i)+"");
 				while(rs11.next())
 				{
-					friendsName.add(rs11.getString("first_name"));
+					friendsName.add(rs11.getString("first_name")+" "+rs11.getString("last_name"));
 				}
 				i++;
 			}
