@@ -30,6 +30,7 @@ public class LikeAction extends ActionSupport implements ModelDriven<Like>{
 			return SUCCESS;
 		}else{
 			return ERROR;
+			
 		}
 	}
 	@Override

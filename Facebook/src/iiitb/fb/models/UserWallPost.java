@@ -15,6 +15,7 @@ public class UserWallPost {
 	private String timestamp;
 	private String visibility;
 	private int eventId;
+	private int isLiked;
 	private List<UserComment> commentsList = new ArrayList<UserComment>();
 	private List<UserLike> likesList = new ArrayList<UserLike>();
 	
@@ -91,4 +92,12 @@ public class UserWallPost {
 	public void setWallPostId(int wallPostId) {
 		this.wallPostId = wallPostId;
 	}
+	public int getIsLiked() {
+		return isLiked;
+	}
+	public void setIsLiked(int isLiked) {
+		this.isLiked = isLiked;
+	}
+	
+	
 }

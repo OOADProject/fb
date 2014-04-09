@@ -11,7 +11,12 @@
 			method="addWallPost">
 			<result name="success" type="json"></result>
 		</action>
-		
+		<action name="likePost" class="iiitb.fb.actions.LikeAction" method="likeWallPost">
+		    <result name="success" type="json"></result>
+		</action>
+		<action name="getLikes" class="iiitb.fb.actions.LikeAjaxAction" method="getLikes">
+		    <result name="success" type="json"></result>
+		</action>
 		<action name="commentWallPost" class="iiitb.fb.actions.CommentAction" method="commentWallPost">
 		    <result name="success" type="json"></result>
 		</action>

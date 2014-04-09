@@ -16,10 +16,10 @@ import iiitb.fb.models.WallPost;
 
 public class WallPostImpl {
 	
+	private int profile_id, isLiked;
 	public int addWallPost(WallPost wp){
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = dbc.getConnection();
-		
 		String query = "insert into wallpost (wallpost_id,post_from, post_to, wallpost_text, timestamp, visibility)"
 				+ "values (default, ?,?,?,?,?)";
 		try {
@@ -67,6 +67,7 @@ public class WallPostImpl {
 	}
 	
 	public List<UserWallPost> getWallPosts(int profileId){
+		this.profile_id = profileId;
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = dbc.getConnection();
 		String query = "select * from (select w.*,p.profile_id,p.first_name,p.last_name,p.profile_pic from wallpost w left join profile p on p.profile_id=w.post_from) as temp, friends f"
@@ -92,6 +93,10 @@ public class WallPostImpl {
 				uwp.setWallPostText(rs.getString("wallpost_text"));
 				uwp.setCommentsList(getComments(uwp.getWallPostId()));
 				uwp.setLikesList(getLikes(uwp.getWallPostId()));
+				if(isLiked == 1){
+					uwp.setIsLiked(1);
+					isLiked = 0;
+				}
 				postsList.add(uwp);
 				
 			}
@@ -105,8 +110,9 @@ public class WallPostImpl {
 	
 	}
 	//helper function to get likes of a particular post
-	private List<UserLike> getLikes(int wallPostId) {
+	public List<UserLike> getLikes(int wallPostId) {
 		// TODO Auto-generated method stub
+		boolean isCurrentUser = false;
 		List<UserLike> likesList = new ArrayList<UserLike>();
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = dbc.getConnection();
@@ -122,8 +128,20 @@ public class WallPostImpl {
 				ul.setFullName(rs.getString("first_name")+" "+rs.getString("last_name"));
 				ul.setWallPostId(wallPostId);
 				ul.setProfileId(rs.getInt("profile_id"));
+				if(ul.getProfileId() == profile_id){
+					ul.setIsLiked(1);
+					isLiked = 1;
+					isCurrentUser = true;
+				}
 				ul.setTimestamp(rs.getString("timestamp"));
 				likesList.add(ul);
+				if (isCurrentUser) {
+					UserLike temp = likesList.get(0);
+					likesList.set(0, likesList.get(likesList.size()-1));
+					likesList.remove(likesList.size()-1);
+					likesList.add(temp);
+					isCurrentUser = false;
+				}
 			}
 			
 			return likesList;

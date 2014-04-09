@@ -5,7 +5,15 @@ public class UserLike {
 	private String fullName;
 	private int wallPostId;
 	private String timestamp;
+	//to check whether it is liked by logged in user
+	private int isLiked;
 	
+	public int getIsLiked() {
+		return isLiked;
+	}
+	public void setIsLiked(int isLiked) {
+		this.isLiked = isLiked;
+	}
 	public int getProfileId() {
 		return profileId;
 	}
