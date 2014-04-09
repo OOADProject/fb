@@ -117,11 +117,11 @@ $(document).ready(function(){
 								<li><a href="#"><font size="1">Report Spam</font></a></li>
 							</ul>
 						</div>
-						<button type="button"
+					<!--  	<button type="button"
 							class="btn btn-xs btn-default dropdown-toggle"
 							data-toggle="dropdown">
 							<span class="glyphicon glyphicon-search"></span>&nbsp;
-						</button>
+						</button>   -->
 							
 					</div>
 					</form>
