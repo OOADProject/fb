@@ -99,8 +99,10 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 
 		firstMessageName = mp.getFirstChatName(profile_id);
 		unreadMessages = mp.totalUnreadMessages(profile_id);
+		
 		friendslist = mp.getFriendsName(profile_id);
 		conversation = new ArrayList<MessageNameList>();
+		
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
 		size = namelist.size();

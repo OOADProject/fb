@@ -22,7 +22,7 @@ $(document).ready(function(){
 			var x = f.find('#replytext');
 			var y = f.find('#conversation_id');
 			
-			$.when(
+		//	$.when(
 			$.ajax({
 				type:'POST', 
 				url:'/Facebook/module01/replyMsg1.action?conversation_id='+$(y).val()+"&conversation_body="+$(x).val(),
@@ -40,7 +40,7 @@ $(document).ready(function(){
 								
 							
 				}
-			})).then( function(){
+			});/*).then( function(){
 				 alert('strt');
 		        $.ajax({
 		        	type:'POST', 
@@ -54,7 +54,7 @@ $(document).ready(function(){
 		        });
 		        alert('all complete');
 		        
-		    });	
+		    });	*/
 		}
 	});
 
