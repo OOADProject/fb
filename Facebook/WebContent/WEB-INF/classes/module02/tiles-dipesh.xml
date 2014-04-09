@@ -61,4 +61,14 @@
 		<put-attribute name="menu" value=""/>
 		<put-attribute name="footer" value=""/>
 	</definition>
+	
+	<definition name="addcoverpic" extends="baseLayout">
+		<put-attribute name="body" value="/Friends.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""/>
+	</definition>
+	
+	<definition name="gotohomepage" extends="baseLayout">
+		<put-attribute name="body" value="/wallPost.jsp"/>
+	</definition>
 </tiles-definitions>

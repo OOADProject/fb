@@ -49,9 +49,24 @@
 			<result name="success" type="tiles">profilepage</result>
 		</action>
 		
-		<action name="friends" class="iiitb.fb.actions.Success" method="profile">
+		<action name="reloadprofile" class="iiitb.fb.actions.Success" method="profile">
+			<result name="success" type="tiles">profilepage</result>
+		</action>
+		
+		<action name="friends" class="iiitb.fb.actions.FriendsAction" method="getFriends">
 			<result name="success" type="tiles">friendspage</result>
 		</action>
 		
+		<action name="displayfriends" class="iiitb.fb.actions.FriendsAction" method="getFriends">
+			<result name="success" type="tiles">friendspage</result>
+		</action>
+		
+		<action name="uploadcoverpic" class="iiitb.fb.actions.LoginAction" method="addCoverPic">
+			<result name="success" type="tiles">addcoverpic</result>
+		</action>
+		
+		<action name="gotohomepage" class="iiitb.fb.actions.LoginAction" method="addCoverPic">
+			<result name="success" type="tiles">gotohomepage</result>
+		</action>
 	</package>
 </struts>

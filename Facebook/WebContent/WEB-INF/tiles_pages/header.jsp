@@ -13,7 +13,7 @@
 			<ul class="nav navbar-nav navbar-right">
 			
 				<li><a href="/Facebook/module02/gotoprofilepage" style="float:right; color: #9AA9C8; font-weight: bold;"><div style="height: 30px;width: 30px;float: left; border: 1px solid; border-color: rgb(71, 99, 158);"><img src="<s:property value="#session.user.getProfilePic()"  />" style="height: 30px;width: 30px; "></div>&nbsp;&nbsp;<div style=" color:white; height: 20px;width: 30px; float: right; font-size: 12px;"><s:property value="#session.user.getFname()"  /></div></a></li>
-				<li><a href="#" style="color: white; font-size:12px; font-weight: bold;">Home</a></li>
+				<li><a href="/Facebook/module02/gotohomepage" style="color: white; font-size:12px; font-weight: bold;">Home</a></li>
 			
 
 				<li class="dropdown"><a href="#" style="padding-right: 0px;"

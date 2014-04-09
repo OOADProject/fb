@@ -6,27 +6,6 @@
 <head>
 <script src="/Facebook/asset/js/jquery-2.1.0.js">
 </script>
-<script>
-$(document).ready(function(){
-
-	var thumb = $('#thumb');	
-
-	new AjaxUpload('imageUpload', {
-		action: $('#uploadform').attr('action'),
-		name: 'image',
-		onSubmit: function(file, extension) {
-			$('#preview').addClass('loading');
-		},
-		onComplete: function(file, response) {
-			thumb.load(function(){
-				$('#preview').removeClass('loading');
-				thumb.unbind();
-			});
-			thumb.attr('src', response);
-		}
-	});
-});
-</script>
 
 <link href="/Facebook/asset/css/bootstrap-theme.css" rel="stylesheet" />
 <link href="/Facebook/asset/css/bootstrap-theme.min.css"

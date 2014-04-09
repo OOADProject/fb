@@ -29,13 +29,7 @@
 <body>
 
 <div class="header" style="width:55%;height:50px; margin-left:22%;margin-top:7% ;background-color:rgb(231,233,239);" >
-      <!--    <ul class="nav nav-pills pull-left" style="position: relative;float: left;" >
-          <li class="active" style="margin-left: 10px;" >Step 1<br>Fill out info</li>
-          
-          <li class="active" style="margin-left: 30px;">Step 2<br> Choose interests</li>
-          <li class="active" style="margin-left: 30px;">Step 3 <br> Add profile pic</li>
-        </ul>
-       -->
+     
        <div style="margin-left: 10px; float: left;"><b>&nbsp;&nbsp;&nbsp;&nbsp;Step 1</b><br>&nbsp;&nbsp;Fill out info</div>
        <div style="margin-left: 30px; float: left; background-color:white;height: 50px; width: 1px;"></div>
        <div style="margin-left: 30px;  float: left; color:white; " ><b>Step 2</b><br>Add profile pic</div>

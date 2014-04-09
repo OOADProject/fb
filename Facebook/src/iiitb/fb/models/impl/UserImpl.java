@@ -135,25 +135,21 @@ public class UserImpl{
 	
 	public void addProfilepic(User user , String path)
 	{
-		try {
 			DatabaseConnect db=new DatabaseConnect();
-			String loginid="";
-			String query="select login_id from login where email='"+user.getEmail()+"'";
-			ResultSet rs=db.getData(query);
-
-			while(rs.next())
-			{
-				loginid=rs.getString("login_id");
-			}
-
-			String query1="update profile set profile_pic='"+path+"' where login_id='"+loginid+"'";
+			String query1="update profile set profile_pic='"+path+"' where profile_id='"+user.getProfile_id()+"'";
 			db.updateData(query1);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
+	public User assignUserNameAndId(User user )
+	{
+			DatabaseConnect db= new DatabaseConnect();
+			user.setUserName(user.getFname()+"."+user.getLname()+user.getProfile_id());
+			user.setFbemail(user.getUserName()+"@facebook.com");
+			String q1="update login set uname='"+user.getUserName()+"',fb_email='"+user.getFbemail()+"' where email='"+user.getEmail()+"'"; 
+			db.updateData(q1);
+			return user;
+	}
+	
 	
 }

@@ -136,10 +136,27 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		File destfile=new File(destpath,user.getMyFileFileName());
 		FileUtils.copyFile(user.getMyFile(), destfile);
 		dbpathofimage="/Facebook/asset/images/profilepics/"+user.getMyFileFileName();
-		UserImpl ui = new UserImpl();
-		
+		user.setProfilePic(dbpathofimage);
+		user.setBirthday(tempuser.getBirthday());
 		user.setEmail(tempuser.getEmail());
-		ui.addProfilepic(user,dbpathofimage);
+		user.setFname(tempuser.getFname());
+		user.setGender(tempuser.getGender());
+		user.setLname(tempuser.getLname());
+		user.setPassword(tempuser.getPassword());
+		user.setProfile_id(tempuser.getProfile_id());
+		user.setHighschool(tempuser.getHighschool());
+		user.setHometown(tempuser.getHometown());
+		user.setCollege(tempuser.getCollege());
+		user.setCompanyname(tempuser.getCompanyname());
+		user.setCurrentcity(tempuser.getCurrentcity());
+		user.setHometown(tempuser.getHometown());
+		UserImpl ui = new UserImpl();
+		ui.addProfilepic(user,user.getProfilePic());
+		User temp=ui.assignUserNameAndId(user);
+		user.setUserName(temp.getUserName());
+		user.setFbemail(temp.getFbemail());
+		session.put("user", user);
+		
 		return SUCCESS;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -148,6 +165,17 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		
 		return ERROR;
 	}
+	
+	
+	
+	
+	
+	public String addCoverPic()
+	{
+		System.out.println("HELLO");
+		return SUCCESS;
+	}
+	
 	
 	
 	

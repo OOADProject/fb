@@ -41,6 +41,11 @@ public class Success extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	public String profile()
+	{
+		return SUCCESS;
+	}
+	
 	public String skipStep1()
 	{
 		return SUCCESS;

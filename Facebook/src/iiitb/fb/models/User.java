@@ -6,6 +6,7 @@ public class User {
 	private String email;
 	private String password;
 	private String userName;
+	private String fbemail;
 	private String fname;
 	private String lname;
 	private String birthday;
@@ -15,11 +16,14 @@ public class User {
 	private String companyname;
 	private String currentcity;
 	private String hometown;
-	private File myFile;
 	private int profile_id;
-	String myFileFileName;
-	String myFileContentType;
+	private File myFile;
+	private String myFileFileName;
+	private String myFileContentType;
 	private String profilePic;
+	private File coverpic;
+	private String coverpicFileName;
+	private String coverpicContentType;
 	
 
 	
@@ -39,6 +43,24 @@ public class User {
 		return birthday;
 	}
 	
+	public File getCoverpic() {
+		return coverpic;
+	}
+	public void setCoverpic(File coverpic) {
+		this.coverpic = coverpic;
+	}
+	public String getCoverpicFileName() {
+		return coverpicFileName;
+	}
+	public void setCoverpicFileName(String coverpicFileName) {
+		this.coverpicFileName = coverpicFileName;
+	}
+	public String getCoverpicContentType() {
+		return coverpicContentType;
+	}
+	public void setCoverpicContentType(String coverpicContentType) {
+		this.coverpicContentType = coverpicContentType;
+	}
 	public File getMyFile() {
 		return myFile;
 	}
@@ -125,5 +147,11 @@ public class User {
 	}
 	public void setProfile_id(int profile_id) {
 		this.profile_id = profile_id;
+	}
+	public String getFbemail() {
+		return fbemail;
+	}
+	public void setFbemail(String fbemail) {
+		this.fbemail = fbemail;
 	}
 }
