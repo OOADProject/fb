@@ -51,7 +51,7 @@
 	</definition>
 	
 	<definition name="profilepage" extends="baseLayout3">
-		<put-attribute name="body" value="/ProfilePage.jsp"/>
+		<put-attribute name="body" value="/userWallPosts.jsp"/>
 		<put-attribute name="menu" value=""/>
 		<put-attribute name="footer" value=""/>
 	</definition>

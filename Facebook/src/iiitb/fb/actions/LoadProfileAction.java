@@ -1,9 +1,13 @@
 package iiitb.fb.actions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import iiitb.fb.models.User;
+import iiitb.fb.models.UserWallPost;
 import iiitb.fb.models.impl.LoadProfileImpl;
+import iiitb.fb.models.impl.WallPostImpl;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -16,13 +20,17 @@ public class LoadProfileAction extends ActionSupport {
 
 	User user=new User();
 	int profileId;
-
-
+	List<UserWallPost> wallPostsList;
+	
 	public String loadProfile()
 	{
 		LoadProfileImpl pimpl =new LoadProfileImpl();
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		session.put("currentProfile", profileId);
+		
+		wallPostsList = new ArrayList<UserWallPost>();
+		WallPostImpl wpi = new WallPostImpl();
+		wallPostsList = wpi.getWallPosts(profileId);
 		user=pimpl.getUser(profileId);
 		if(user!=null)		
 		return SUCCESS;
@@ -34,7 +42,10 @@ public class LoadProfileAction extends ActionSupport {
 		LoadProfileImpl pimpl =new LoadProfileImpl();
 		profileId = ((User)session.get("user")).getProfile_id();
 		session.put("currentProfile", profileId);
-
+		
+		WallPostImpl wpi = new WallPostImpl();
+		wallPostsList = wpi.getWallPosts(profileId);
+		
 		user=pimpl.getUser(profileId);
 		if(user!=null)		
 		return SUCCESS;
@@ -60,6 +71,12 @@ public class LoadProfileAction extends ActionSupport {
 	public void setProfileId(int profileId) {
 		this.profileId = profileId;
 	}
-		
+	public List<UserWallPost> getWallPostsList() {
+		return wallPostsList;
+	}
+	public void setWallPostsList(List<UserWallPost> wallPostsList) {
+		this.wallPostsList = wallPostsList;
+	}
+	
 
 }
