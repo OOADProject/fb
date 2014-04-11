@@ -33,6 +33,20 @@ public class LikeAction extends ActionSupport implements ModelDriven<Like>{
 			
 		}
 	}
+	
+	public String unlikeWallPost(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		LikeImpl li = new LikeImpl();
+		l.setProfileId(user.getProfile_id());
+		
+		if(li.unlikeWallPost(l)){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
 	@Override
 	public Like getModel() {
 		// TODO Auto-generated method stub

@@ -2,6 +2,7 @@ package iiitb.fb.models;
 
 public class UserLike {
 	private int profileId;
+	private String profilePic;
 	private String fullName;
 	private int wallPostId;
 	private String timestamp;
@@ -38,5 +39,12 @@ public class UserLike {
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
+	public String getProfilePic() {
+		return profilePic;
+	}
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+	
 
 }

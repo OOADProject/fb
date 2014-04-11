@@ -128,6 +128,7 @@ public class WallPostImpl {
 				ul.setFullName(rs.getString("first_name")+" "+rs.getString("last_name"));
 				ul.setWallPostId(wallPostId);
 				ul.setProfileId(rs.getInt("profile_id"));
+				ul.setProfilePic(rs.getString("profile_pic"));
 				if(ul.getProfileId() == profile_id){
 					ul.setIsLiked(1);
 					isLiked = 1;

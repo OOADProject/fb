@@ -30,4 +30,29 @@ public class LikeImpl {
 		}
 	}
 
+	public boolean unlikeWallPost(Like l) {
+		// TODO Auto-generated method stub
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = dbc.getConnection();
+		
+		String query = "delete from likes where wallpost_id=? and profile_id=?";
+		
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			
+			ps.setInt(1, l.getWallPostId());
+			ps.setInt(2, l.getProfileId());
+			dbc.updateData(ps);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		
+	}
+
 }
