@@ -18,7 +18,7 @@ public class DatabaseConnect {
             String driver="com.mysql.jdbc.Driver";
             String url="jdbc:mysql://localhost:3306/facebook";
             String user="root";
-            String pass="dipesh";
+            String pass="sandeep";
 
             Class.forName(driver);
             con=DriverManager.getConnection(url,user,pass);

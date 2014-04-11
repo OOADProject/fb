@@ -13,7 +13,7 @@ import iiitb.fb.models.UserComment;
 import iiitb.fb.models.UserLike;
 import iiitb.fb.models.UserWallPost;
 import iiitb.fb.models.WallPost;
-
+//
 public class WallPostImpl {
 	
 	private int profile_id, isLiked;

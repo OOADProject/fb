@@ -6,7 +6,7 @@ import iiitb.fb.models.Like;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+//
 public class LikeImpl {
 	
 	public boolean likeWallPost(Like l){

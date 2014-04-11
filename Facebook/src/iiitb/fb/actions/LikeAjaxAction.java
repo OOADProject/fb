@@ -17,7 +17,7 @@ public class LikeAjaxAction extends ActionSupport{
 	private List<UserLike> likesList;
 	private int wallPostId;
 	public String loadLikes(){
-		// to control the ajax call happening one after the other for unlike
+		// to control the ajax call happening one after the other for unlike 
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {

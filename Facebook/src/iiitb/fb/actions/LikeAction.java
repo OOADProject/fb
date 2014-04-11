@@ -23,7 +23,7 @@ public class LikeAction extends ActionSupport implements ModelDriven<Like>{
 		User user = (User)session.get("user");
 
 		LikeImpl li = new LikeImpl();
-		//hardcoded
+		//hardcodeds
 		l.setProfileId(user.getProfile_id());
 		l.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		if(li.likeWallPost(l)){

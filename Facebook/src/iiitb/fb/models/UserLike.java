@@ -6,7 +6,7 @@ public class UserLike {
 	private String fullName;
 	private int wallPostId;
 	private String timestamp;
-	//to check whether it is liked by logged in user
+	//to check whether it is liked by logged in user 
 	private int isLiked;
 	
 	public int getIsLiked() {

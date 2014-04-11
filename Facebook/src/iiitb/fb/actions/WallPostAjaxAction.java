@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class WallPostAjaxAction extends ActionSupport implements ModelDriven<UserWallPost>{
-
+//
 	private static final long serialVersionUID = 7692234736372795694L;
 	UserWallPost uwp = new UserWallPost();
 	public String addWallPost(){

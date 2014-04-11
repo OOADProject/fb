@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class WallPostAction extends ActionSupport implements ModelDriven<WallPost>{
-
+//
 	private static final long serialVersionUID = 1L;
 	
 	WallPost wp = new WallPost();

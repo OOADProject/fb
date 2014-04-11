@@ -14,7 +14,7 @@
 <style type="text/css">
 
 #side_menu {
-	width: 23%;
+	 width: 23%;
 	padding-left: 2%;
 	position: relative;
 	float: left;
