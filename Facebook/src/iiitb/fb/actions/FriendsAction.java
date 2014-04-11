@@ -14,11 +14,12 @@ import iiitb.fb.models.User;
 
 
 import iiitb.fb.models.impl.FriendsImpl;
+import iiitb.fb.models.impl.LoadProfileImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class FriendsAction extends ActionSupport implements ModelDriven<User>,SessionAware{
+public class FriendsAction extends ActionSupport{
 	/**
 	 * 
 	 */
@@ -27,16 +28,20 @@ public class FriendsAction extends ActionSupport implements ModelDriven<User>,Se
 	
 	int numberoffriends;
 	List<Friend> allfriends;
+	private int profileId;
 	Map<String, Object> session;
 	
 	
 	public String getFriends()
 	{
+		
 		FriendsImpl friends=new FriendsImpl();
-		user=(User)session.get("user");
+		LoadProfileImpl lpi = new LoadProfileImpl();
+		user.setProfile_id(profileId);
 		allfriends=friends.allFriends(user);
+		user = lpi.getUser(profileId);
 		numberoffriends=allfriends.size();
-		System.out.println(numberoffriends);
+		System.out.println(numberoffriends);		
 		return SUCCESS;
 	}
 	
@@ -53,23 +58,6 @@ public class FriendsAction extends ActionSupport implements ModelDriven<User>,Se
 	public void setAllfriends(List<Friend> allfriends) {
 		this.allfriends = allfriends;
 	}
-
-
-
-
-	@Override
-	public User getModel() {
-		return user;
-	}
-
-
-
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session=session;
-		
-	}
-
 
 
 	public User getUser() {
@@ -100,4 +88,18 @@ public class FriendsAction extends ActionSupport implements ModelDriven<User>,Se
 		return session;
 	}
 
+
+
+
+	public int getProfileId() {
+		return profileId;
+	}
+
+
+
+
+	public void setProfileId(int profileId) {
+		this.profileId = profileId;
+	}
+	
 }

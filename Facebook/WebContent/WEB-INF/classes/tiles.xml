@@ -23,4 +23,13 @@
 		<put-attribute name="footer"  value="/WEB-INF/tiles_pages/footer2.jsp"/>
 			
 	</definition>
+
+	<definition name="baseLayout3" template="/WEB-INF/tiles_pages/baseLayout3.jsp">
+		<put-attribute name="title" value="Facebook"/>
+		<put-attribute name="header" value="/WEB-INF/tiles_pages/header.jsp"/>
+		<put-attribute name="subheader" value="/WEB-INF/tiles_pages/subheader.jsp"></put-attribute>
+		<put-attribute name="menu" value="/WEB-INF/tiles_pages/sidebar.jsp"/>
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"  value="/WEB-INF/tiles_pages/footer.jsp"/>
+	</definition>
 </tiles-definitions>
