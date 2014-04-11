@@ -7,10 +7,16 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+import java.util.Map;
+
 import iiitb.fb.models.Profile;
+import iiitb.fb.models.User;
 import iiitb.fb.models.WorkEducation;
 import iiitb.fb.models.impl.EditProfileImpl;
+import iiitb.fb.models.impl.LoadProfileImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -27,7 +33,7 @@ public class EditProfileAction extends  ActionSupport implements ModelDriven<Wor
 	private List<WorkEducation> listofeducationdetails = new ArrayList<WorkEducation>();
 	private List<WorkEducation> listofplaceslived1 = new ArrayList<WorkEducation>();
 	private List<WorkEducation> listofbasicinformation = new ArrayList<WorkEducation>();
-    
+    User user = new User();
 	
 	public String relationship;
 	public String aboutme;
@@ -40,17 +46,17 @@ public class EditProfileAction extends  ActionSupport implements ModelDriven<Wor
 		
 		EditProfileImpl pfimpl= new EditProfileImpl();
 		
-		//Map<String,Object> session = ActionContext.getContext().getSession();
-		//int profile_id=(Integer)session.get("profile_id");
+		Map<String,Object> session = ActionContext.getContext().getSession();
+		int profile_id=(Integer)session.get("currentProfile");
 		//int login_id= (Integer)session.get("login_id");
-	
-		listofeducationdetails=pfimpl.getWorkEducationData(1);
-		relationship=pfimpl.getRelationshipStatus(1);
-	    aboutme=pfimpl.getAboutMe(1);
-		favquote=pfimpl.getFavQuote(1);
-		listofplaceslived1=pfimpl.getPlacesLived(1);
+		user = new LoadProfileImpl().getUser(profile_id);
+		listofeducationdetails=pfimpl.getWorkEducationData(profile_id);
+		relationship=pfimpl.getRelationshipStatus(profile_id);
+	    aboutme=pfimpl.getAboutMe(profile_id);
+		favquote=pfimpl.getFavQuote(profile_id);
+		listofplaceslived1=pfimpl.getPlacesLived(profile_id);
 		
-		listofbasicinformation=pfimpl.getBasicContactInfo(1);
+		listofbasicinformation=pfimpl.getBasicContactInfo(profile_id);
 		return SUCCESS;
 		
 	}
@@ -171,6 +177,22 @@ public class EditProfileAction extends  ActionSupport implements ModelDriven<Wor
 
 	public void setListofbasicinformation(List<WorkEducation> listofbasicinformation) {
 		this.listofbasicinformation = listofbasicinformation;
+	}
+
+
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	

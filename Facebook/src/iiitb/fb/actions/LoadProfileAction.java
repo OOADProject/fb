@@ -21,7 +21,8 @@ public class LoadProfileAction extends ActionSupport {
 	public String loadProfile()
 	{
 		LoadProfileImpl pimpl =new LoadProfileImpl();
-		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.put("currentProfile", profileId);
 		user=pimpl.getUser(profileId);
 		if(user!=null)		
 		return SUCCESS;
@@ -32,6 +33,8 @@ public class LoadProfileAction extends ActionSupport {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		LoadProfileImpl pimpl =new LoadProfileImpl();
 		profileId = ((User)session.get("user")).getProfile_id();
+		session.put("currentProfile", profileId);
+
 		user=pimpl.getUser(profileId);
 		if(user!=null)		
 		return SUCCESS;

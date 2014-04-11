@@ -69,7 +69,7 @@
        		<li style="font-weight: bold; "><a href="/Facebook/module03/Call_To_geteductaiondata" style="color: rgb(82, 110, 166);">About</a></li>
        		<li style="font-weight: bold; "><a href="#" style="color: rgb(82, 110, 166);">Photo</a></li>
             <li style="font-weight: bold; ">
-            <s:url action="/Facebook/module02/friends" var="loadFriends">
+            <s:url namespace="/module02" action="/Facebook/module02/friends" var="loadFriends">
             	<s:param name="profileId">
             		<s:property value="user.getProfile_id()"/>
             	</s:param>

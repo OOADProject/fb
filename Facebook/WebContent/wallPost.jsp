@@ -321,7 +321,10 @@ likes_list_others{
 
 					
 					 $.each(data.likesList, function(index, value){
-						temp += '<a href="#"><img src="'+value.profilePic+'" height="50px" width="50px" style="float:left;position:relative;"></a>';
+						temp +='<s:url action="#" var="profileLink" escapeAmp="false"><s:param name="profileId">';
+						temp += value.profileId;
+						temp += '</s:param></s:url>';
+						temp += '<s:a href="#"><img src="'+value.profilePic+'" height="50px" width="50px" style="float:left;position:relative;"></s:a>';
 						temp += '&nbsp;&nbsp;<a href="#"><p style="font-weight:bold; width:50%;float:left;position:relative;">&nbsp;&nbsp;'+value.fullName+'</p></a>';
 						temp += "<br><br><hr>";
 						
@@ -345,11 +348,17 @@ likes_list_others{
 		<div
 			style="height: 60px; width: 300px; margin-left: 0px; margin-top: 15%;">
 			<img src='<s:property value="#session.user.getProfilePic()"/>'
-				height="50px" width="50px" align="left" />&nbsp; <a href="#"
+				height="50px" width="50px" align="left" />&nbsp; 
+				<s:url action="/Facebook/module02/gotoprofilepage" var="profileLink">
+					<s:param name="profileId">
+						<s:property value="#session.user.getProfile_id()"/>
+					</s:param>
+				</s:url>
+				<s:a href="%{profileLink}"
 				style="color: black; font-size: 12px; font-weight: bold;"><s:property
 					value="#session.user.getFname()" />&nbsp;<s:property
-					value="#session.user.getLname()" /></a> <br>&nbsp;&nbsp;<a
-				href="#" style="font-size: 12px;">Edit Profile</a>
+					value="#session.user.getLname()" /></s:a> <br>&nbsp;&nbsp;
+					<a href="#" style="font-size: 12px;">Edit Profile</a>
 		</div>
 
 		<h6 style="font-weight: bold; color: gray;">FAVORITES</h6>
@@ -420,10 +429,21 @@ likes_list_others{
 			<s:iterator value="wallPostsList">
 				<div class="single_wallpost">
 					<div id="wallpost_body">
-						<a href="#" id="full_name"><img height="40px" width="40px"
-							align="left" src='<s:property value="postFromPicture"/>' /></a>
-						&nbsp;&nbsp;<a href="#" id="full_name"><s:property
-								value="postFromName" /></a> <br> <br> <br> <font
+							<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
+								<s:param name="profileId">
+									<s:property value="postFrom"/>
+								</s:param>
+							</s:url>
+						<s:a href="%{profileLink}" id="full_name"><img height="40px" width="40px"
+							align="left" src='<s:property value="postFromPicture"/>' /></s:a>
+						&nbsp;&nbsp;
+							<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
+								<s:param name="profileId">
+									<s:property value="postFrom"/>
+								</s:param>
+							</s:url>
+						<s:a href="%{profileLink}" id="full_name"><s:property
+								value="postFromName" /></s:a> <br> <br> <br> <font
 							size="2.7"><div class="text1">
 								<s:property value="wallPostText" />
 							</div></font> <br>
@@ -453,7 +473,12 @@ likes_list_others{
 											You
 										</s:if>
 										<s:if test="%{isLiked == 0}">
-											,<a href="#" style="color:#6D84B4; "><s:property value="fullName"/></a>
+										<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
+											<s:param name="profileId">
+												<s:property value="profileId"/>
+											</s:param>
+										</s:url>
+											,<s:a href="%{profileLink}" style="color:#6D84B4; "><s:property value="fullName"/></s:a>
 										
 										</s:if>
 									</s:if>
@@ -492,9 +517,15 @@ likes_list_others{
 
 								<div id="comment">
 									<img src="<s:property value="profilePicture"/>" width="32px"
-										height="32px" align="left" /><a href="#"
+										height="32px" align="left" />
+								<s:url action="/Facebook/module02/gotoprofilepage" var="profileLink">
+									<s:param name="profileId">
+										<s:property value="profileId"/>
+									</s:param>
+								</s:url>
+										<s:a href="%{profileLink}"
 										id="full_name_comment">&nbsp;&nbsp;<s:property
-											value="fullName" /></a>&nbsp;<font size="2.5"><s:property
+											value="fullName" /></s:a>&nbsp;<font size="2.5"><s:property
 											value="commentText" /></font> <br>
 								</div>
 							</s:iterator>
