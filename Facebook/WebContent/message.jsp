@@ -28,8 +28,8 @@ $(document).ready(function(){
 				url:'/Facebook/module01/replyMsg1.action?conversation_id='+$(y).val()+"&conversation_body="+$(x).val(),
 				success: function(data){
 					var temp =  ' <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<img src="'+data.profile_pic+'" align="left" />'+
-								'&nbsp;<b>'+data.firstname+'&nbsp;'+data.lastname+'</b></a>'+
-								'<br>&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation_body+'<br><br>';
+								'&nbsp;<b>'+data.firstname+'&nbsp;'+data.lastname+'</b></a><span class="label label-info">'+data.time+
+								'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation_body+'&nbsp;&nbsp;<br><br>';
 								
 								
 								$("#detailmsg").append(temp);
@@ -130,16 +130,15 @@ $(document).ready(function(){
 			</div>
 
 			<div  id="detailmsg">
-				
+					
 					<s:iterator value="conversation">
 					<fieldset> <a href="#">                                  <!-- <a href="profile?profile_id=<s:property value="profile_id"/>"> -->
 					&nbsp;&nbsp;&nbsp;&nbsp;<img src="<s:property value="profile_pic"/>" align="left" />&nbsp;<b><s:property value="firstname"/>&nbsp;<s:property value="lastname"/></b></a>
-					<br>&nbsp;&nbsp;&nbsp;&nbsp;
-					<s:property value="conversation_body"/><br><br>
+					<span class="label label-info"><s:property value="time"/></span><br>&nbsp;&nbsp;&nbsp;&nbsp;
+					<s:property value="conversation_body"/>&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 					
 					</fieldset>				
-					</s:iterator>	
-
+					</s:iterator>		
 			</div>
 			<div id="replyarea">
 				<div id="reply">

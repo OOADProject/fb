@@ -54,7 +54,7 @@ public class MessageReplyAjaxAction  extends ActionSupport implements ModelDrive
 		m.setReceiver_id(conversation_id);
 		m.setSender_id(profile_id);
 		m.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-		
+		nm.setTime(m.getTimestamp().substring(0, 19).replace(".", ":"));
 		if(cm.sendReply(m))
 		{
 			System.out.println("in ajax fn and message is added to the db");

@@ -1,7 +1,7 @@
 package iiitb.fb.models.impl;
 
 import java.sql.ResultSet;
-
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class MessagePageImpl {
 	String firstChatName;
 	int firstChatId;
 	int unreadmsg;
-
+	List<String> times = new ArrayList<String>();
 	List<Integer> conversation_ids= new ArrayList<Integer>();
 	List<String> chatting = new ArrayList<String>();   // for individual conversation ids
 	List<Integer> chatting_ids= new ArrayList<Integer>();
@@ -112,12 +112,13 @@ public class MessagePageImpl {
 	{
 		try{
 			db.updateData(" update facebook.messages set isread=1 where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or  (sender_id="+conversation_id+" and receiver_id="+profile_id+")");
-			ResultSet rs2 = db.getData("select message_id,sender_id,message_text from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")  order by timestamp;");
+			ResultSet rs2 = db.getData("select message_id,sender_id,message_text,timestamp from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")  order by timestamp;");
 			while(rs2.next())
 			{
 				chatting_ids.add(rs2.getInt("sender_id")); 
 				chatting.add(rs2.getString("message_text"));
 				message_ids.add(rs2.getInt("message_id"));
+				times.add(rs2.getString("timestamp").substring(0, 19));
 			}
 
 			int i=0,size;
@@ -135,7 +136,7 @@ public class MessagePageImpl {
 					nm3.setLastname(rs3.getString("last_name"));
 					nm3.setProfile_pic(rs3.getString("profile_pic"));
 					nm3.setMessage_id(message_ids.get(i));
-
+					nm3.setTime(times.get(i).replace(".", ":"));
 					conversationList.add(nm3);
 				}
 				i++;

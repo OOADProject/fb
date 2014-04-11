@@ -1,4 +1,7 @@
-
+body{
+	
+	background-color: white;
+}
 #container1{	
 background-color:white;
 	width:100%;
@@ -23,6 +26,8 @@ background-color:white;
 	border: 1px solid #cccccc;
 	border-right-color: transparent;
 	border-left-color: transparent;
+	border-top-color: transparent;
+	
 }
 #title a{
 	color:black;
@@ -65,6 +70,7 @@ ul.nav-tabs li {
 	
 }
 ul.nav-tabs li:first-child {
+	border-top-color:transparent;
 	border-top: none;
 }
 ul.nav-tabs li a {
@@ -101,6 +107,8 @@ ul.nav-tabs.affix {
 	width:70%;
 	height: 100%;
 	border: 1px solid  #cccccc;
+	border-right-color: transparent;
+	border-top-color: transparent;
 	
 	
 }
@@ -112,6 +120,8 @@ ul.nav-tabs.affix {
 	border: 1px solid #cccccc;
 	border-left-color: transparent;
 	border-right-color: transparent;
+border-top-color: transparent;
+
 }
 #name{
 		padding-top:15px;
@@ -157,6 +167,14 @@ ul.nav-tabs.affix {
 	text-decoration: none;
 
 	}
+	
+	#detailmsg .label {
+
+float :right;
+	
+	
+	}
+	
 #replyarea{
 	background-color: #F0F0F0;
 	
