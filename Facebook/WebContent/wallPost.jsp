@@ -8,13 +8,11 @@
 <title>Success</title>
 <link href="/Facebook/asset/css/jquery.cssemoticons.css" media="screen"
 	rel="stylesheet" type="text/css" />
-<link href="/Facebook/asset/css/jquery.custombox.css" media="screen"
-	rel="stylesheet" type="text/css" />
 <script src="/Facebook/asset/js/jquery.cssemoticons.js"
 	type="text/javascript"></script>
-<script src="/Facebook/asset/js/jquery.custombox.js"
-	type="text/javascript"></script>
+
 <style type="text/css">
+
 #side_menu {
 	width: 23%;
 	padding-left: 2%;
@@ -99,7 +97,10 @@ a:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
-
+#unlike_link:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
 .comments_div {
 	background-color: #F6F7F8;
 	width: 100%;
@@ -139,102 +140,81 @@ likes_list_others{
 #wallpost_body {
 	padding-left: 10px;
 }
+
+#myModal .modal-body{
+	max-height: 500px;
+	overflow-y: auto;
+
+}
+.modal-header{
+	background-color: #F5F6F7;
+}
 </style>
 <script type="text/javascript">
 	
 </script>
 <script type="text/javascript">
 	//for new wall post
-	$(document)
-			.ready(
-					function() {
-						$(".text1").emoticonize();
-						$(".comments_div").emoticonize();
-
-						$(".comments_div")
-								.live(
-										"keypress",
-										function(e) {
-											if (e.which == 13) {
-												var f = $(this);
-												var x = f
-														.find('#comment_wp_text');
-												var y = f
-														.find('#comment_wp_id');
-												var z = f
-														.find("#comments_collection");
-												$
-														.ajax({
-															type : 'POST',
-															url : '/Facebook/module06/commentWallPost.action?wallPostId='
-																	+ $(y)
-																			.val()
-																	+ "&commentText="
-																	+ $(x)
-																			.val(),
-															success : function(
-																	data) {
-																var temp = '<div id="comment"><img src="/Facebook/asset/images/profilepics/'+data.profileId+'.jpg" width="32px" height="32px" align="left" />'
+	$(document).ready(
+			function() {
+					$(".text1").emoticonize();
+					$(".comments_div").emoticonize();
+					$(".comments_div").live("keypress",	function(e) {
+									if (e.which == 13) {
+										var f = $(this);
+										var x = f.find('#comment_wp_text');
+										var y = f.find('#comment_wp_id');
+										var z = f.find("#comments_collection");
+										$.ajax({
+											type : 'POST',
+											url : '/Facebook/module06/commentWallPost.action?wallPostId='+$(y).val()+ "&commentText="+ $(x).val(),
+											success : function(data) {
+														var temp = '<div id="comment"><img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />'
 																		+ '<a href="#" id="full_name_comment">&nbsp;&nbsp;'
 																		+ data.fullName
 																		+ '</a>&nbsp;'
 																		+ '<font size="2.5">'
 																		+ data.commentText
 																		+ '</font> <br></div>';
-																$(z).append(
-																		temp);
-																$(x).val("");
-																$(
-																		".comments_div")
-																		.emoticonize();
-															}
+												$(z).append(temp);
+												$(x).val("");
+												$(".comments_div").emoticonize();
+													}
 
-														});
-											}
-										});
+											});
+										}
+								});
 
-						$("#newButton")
-								.click(
-										function(event) {
-											$
-													.ajax({
-														type : 'POST',
-														url : '/Facebook/module06/addWallPost.action?wallPostText='
-																+ $(
-																		"#newWallPostText")
-																		.val(),
-														success : function(data) {
-															var temp = "<div class=\"single_wallpost\"><div id=\"wallpost_body\">";
-															temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";
-															temp += "&nbsp;&nbsp;<a href=\"#\" id=\"full_name\">"
-																	+ data.postFromName
-																	+ "</a> <br>";
-															temp += "<br> <br> <font size=\"2.7\"><div class=\"text1\">"
-																	+ data.wallPostText
-																	+ "</div></font> <br>";
-															temp += "<a href=\"#\" id=\"like_comment_button\">Like</a>&nbsp;*&nbsp;<a href=\"#\" id=\"like_comment_button\">Comment</a></div>";
-															temp += "<div class=\"comments_div\">";
-															temp += "<div id=\"likes\">&nbsp;&nbsp;&nbsp;<img alt=\"Like\" src=\"/Facebook/asset/images/like_icon.png\" height=\"13\" width=\"15\"></div>";
-															temp += '<center><div style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div></center>';
-															temp += '<div id="comments_collection"></div><div class="comment_form">'
-																	+ '<img src="/Facebook/asset/images/unknown.jpg" width="32px" height="32px" align="left" />&nbsp;&nbsp;'
-																	+ '<input type="hidden" value='+data.wallPostId+' id="comment_wp_id"/>'
-																	+ '<input style="height: 27px;" type="text" name="commentText" id="comment_wp_text" placeholder="Write a comment.." size="79" /></div>';
-															temp += '</div>';
-															$(
-																	"#wallposts_collection")
-																	.prepend(
-																			temp)
-																	.children(
-																			':first')
-																	.hide()
-																	.fadeIn(
-																			1000);
-															$(
-																	"#newWallPostText")
-																	.val("");
-															$(".text1")
-																	.emoticonize();
+					$("#newButton").click(function(event){
+								$.ajax({
+									type : 'POST',
+									url : '/Facebook/module06/addWallPost.action?wallPostText='+ $("#newWallPostText").val(),
+									success : function(data) {
+											var temp = "<div class=\"single_wallpost\"><div id=\"wallpost_body\">";
+											temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";
+											temp += "&nbsp;&nbsp;<a href=\"#\" id=\"full_name\">"
+											+ data.postFromName+ "</a> <br>";
+											temp += "<br> <br> <font size=\"2.7\"><div class=\"text1\">"
+											+ data.wallPostText
+											+ "</font> <br><br>";
+											temp += '<div class="likes_container"><div class="like_comment_button" style="padding-bottom: 1%;">'+
+											'<input type="hidden" value="'+data.wallPostId+'" id="like_wp_id" />';
+											temp += '<div class="clickable" id="like_link" style="float: left;">Like</div>';
+											temp += '<div id="intermediate" style="float: left;">&nbsp;*&nbsp;</div>';
+											temp += '<div class="clickable" id="comment_link" style="float: left;">Comment</div></div>';
+											temp +='<div id="likes" style="position: absolute; float: left; font-size: 12px; padding-top: 4%;">&nbsp;&nbsp;'+
+											'<img alt="Like" src="/Facebook/asset/images/like_icon.png" height="13" width="15" id="like_image">';
+											temp += 'like this</div></div></div></div><br>';
+											temp +='<div class="comments_div"><br>';
+											temp += '<center><div style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div></center>';
+											temp += '<div id="comments_collection"></div><div class="comment_form">'
+											+ '<img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />&nbsp;&nbsp;'
+											+ '<input type="hidden" value='+data.wallPostId+' id="comment_wp_id"/>'
+											+ '<input style="height: 27px;" type="text" name="commentText" id="comment_wp_text" placeholder="Write a comment.." size="79" /></div>';
+											temp += '</div>';
+											$("#wallposts_collection").prepend(temp).children(':first').hide().fadeIn(1000);
+											$("#newWallPostText").val("");
+											$(".text1").emoticonize();
 
 														}
 
@@ -248,7 +228,7 @@ likes_list_others{
 		
 
 			$("#comment_link").unbind();
-			$(".single_wallpost").on("click","#like_link",function(event) {
+			$("#wallposts_collection").on("click","#like_link",function(event) {
 				debugger;
 				var element = $(this).parents(".single_wallpost");
 				var hiddenBox = element.find("#like_wp_id");
@@ -261,48 +241,103 @@ likes_list_others{
 						url : '/Facebook/module06/likePost.action?wallPostId='+$(hiddenBox).val(),
 						success : function(data) {
 										$(link).html("Unlike");
+										$(link).attr('id','unlike_link');
 										$(status).after("&nbsp;You");
 										}
 									});
 
 				});
-			$(".single_wallpost").on("click","#comment_link",function(event) {
+			
+			$("#wallposts_collection").on("click","#unlike_link",function(event) {
+				debugger;
 				var element = $(this).parents(".single_wallpost");
-				var commentTextBox = element.find("#comment_wp_text");
-				$(commentTextBox).focus();
+				var hiddenBox = element.find("#like_wp_id");
+				var link = element.find("#unlike_link");
+				var status = element.find("#like_image");
+				var likesDiv = element.find("#likes");
+				var str = $(likesDiv).text().replace('You','');
+				var img = element.find("#like_image");
 				
+				
+				$.ajax({
+						type : 'POST',
+						url : '/Facebook/module06/unlikePost.action?wallPostId='+$(hiddenBox).val(),
+						success : function(data) {
+										
+										$(link).html("Like");
+										$(link).attr('id','like_link');
+										//$(likesDiv).html(str);
+										//$(likesDiv).prepend(img);
+										//$(likesDiv).prepend("&nbsp;&nbsp;");
+										}
+									});
+				var temp = "";
+				debugger;
+				$.ajax({
+					type : 'POST',
+					url : '/Facebook/module06/loadLikes.action?wallPostId='+$(hiddenBox).val(),
+					success: function(data1){
+						$.each(data1.likesList, function(index, value1){
+							temp = temp + ',<a href="#" style="color:#6D84B4; ">'+value1.fullName+'</a>';
+							alert(value1.fullName);
+						});
+						temp += " like this";
+						$(likesDiv).html(temp);
+						$(likesDiv).prepend(img);
+						$(likesDiv).prepend("&nbsp;&nbsp;");
+						
+					}
 				});
-			});
+
+				});
+				$(".single_wallpost").on("click","#comment_link",function(event) {
+					debugger;
+					var element = $(this).parents(".single_wallpost");
+					var commentTextBox = element.find("#comment_wp_text");
+					$(commentTextBox).focus();
+				
+					});
+				});
 </script>
 <script type="text/javascript">
-var temp;
 	$(document).ready(function(){
 		$("#wallposts_collection").on("click",".likes_others", function(e){
 			debugger;
 
-			var parent = $(this).parents("#wallposts_collection");
-			var likesListDiv = parent.find("#likes_list_others");
-			var hiddenBox = parent.find("#like_wp_id");
+		/* 	var parent = $(this).parents("#wallposts_collection");
+			var likesListDiv = parent.find("#likes_list_others"); */
+			var parent1 = $(this).parents(".single_wallpost");
+			var hiddenBox = parent1.find("#like_wp_id");
+			var url = '/Facebook/module06/loadLikes.action?wallPostId='+$(hiddenBox).val();
+			$("#likes_list_others").html("");
+			$("#loader_likes").show();
+			$("#loader_likes").delay(1000).hide(1);
+
 			$.ajax({
 				type : 'POST',
-				url : '/Facebook/module06/getLikes?wallPostId='+$(hiddenBox).val() ,
+				url : url,
 				success: function(data){
-					$.each(data.likesList, function(index, value){
-						temp += value.fullName;
+					var temp = "";
+
+					
+					 $.each(data.likesList, function(index, value){
+						temp += '<a href="#"><img src="'+value.profilePic+'" height="50px" width="50px" style="float:left;position:relative;"></a>';
+						temp += '&nbsp;&nbsp;<a href="#"><p style="font-weight:bold; width:50%;float:left;position:relative;">&nbsp;&nbsp;'+value.fullName+'</p></a>';
+						temp += "<br><br><hr>";
 						
 					});
-					$(likesListDiv).html(temp);
+
+					 $("#likes_list_others").html(temp);
+					
 				}
 			});
 			
-			 $.fn.custombox( this, {
-		            effect: 'fadein'
-		      });
-		      e.preventDefault();
+
 
 		});
 	});
 </script>
+
 </head>
 <body>
 
@@ -341,7 +376,7 @@ var temp;
 			<a href="#" id="menu_items"><img
 				src="/Facebook/asset/images/photos.png" height="15px">&nbsp;&nbsp;Photos</a><br>
 		</p>
-
+	<a href="/Facebook/module07/display_frnd_cat_list"><h6 style="font-weight: bold; color: gray;">FRIENDS</h6></a>
 	</div>
 
 	<div id="news_feeds_div">
@@ -366,8 +401,22 @@ var temp;
 			</div>
 		</div>
 		<div id="wallposts_collection">
-			<div id='likes_list_others' style='display: none; color: white;'>
-												</div>
+			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    			<div class="modal-dialog">
+      				<div class="modal-content">
+					  <div class="modal-header">
+          				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          					<h4 class="modal-title" id="myModalLabel">People Who Like This</h4>
+        				</div>
+        				<div id="loader_likes" style="background-color: #E9EAED;width: 100%;border: 1px solid #e3e3e3;">
+         				 	<center><img src="/Facebook/asset/images/loader.gif" height="30px" ></center>
+       					</div>
+        				<div class="modal-body" id="likes_list_others">
+        				
+       					</div>
+      				</div><!-- /.modal-content -->
+   			 	</div><!-- /.modal-dialog -->
+  			</div>
 			<s:iterator value="wallPostsList">
 				<div class="single_wallpost">
 					<div id="wallpost_body">
@@ -388,9 +437,10 @@ var temp;
 							<s:if test="%{isLiked == 1}">
 								<div class="clickable" id="unlike_link" style="float: left;">Unlike</div>
 							</s:if>
-								<div id="unlike_link" style="float: left;">&nbsp;*&nbsp;</div>
+								<div id="intermediate" style="float: left;">&nbsp;*&nbsp;</div>
 								<div class="clickable" id="comment_link" style="float: left;">Comment</div>
 						</div>
+													
 						<div id="likes"
 							style="position: absolute; float: left; font-size: 12px; padding-top: 4%;">
 							&nbsp;&nbsp;<img alt="Like"
@@ -407,11 +457,16 @@ var temp;
 										
 										</s:if>
 									</s:if>
-									<s:if test="#currentIndex.index > 0">
+									<!-- 
+									<s:if test="#currentIndex.index > 2">
 										and &nbsp;<a class="likes_others" href="#likes_list_others"><s:property value="likesList.size()-2"/>&nbsp; others</a>
 											
-									</s:if>
+									</s:if> -->
 								</s:iterator>
+							</s:if>
+							<s:if test="likesList.size() > 1">
+										and &nbsp;<a class="likes_others" href="#likes_list_others" data-toggle="modal" data-target="#myModal"><s:property value="likesList.size()-1"/>&nbsp; others</a>
+								
 							</s:if>
 							<s:if test="%{likesList.size() == 0}">
 								&nbsp;
@@ -447,7 +502,7 @@ var temp;
 
 						<div class="comment_form">
 							<img
-								src='<s:property value="/Facebook/asset/images/profilepics/"/>'
+								src='<s:property value="#session.user.getProfilePic()"/>'
 								width="32px" height="32px" align="left" />&nbsp;&nbsp; <input
 								type="hidden" value='<s:property value="wallPostId"/>'
 								id="comment_wp_id" /> <input style="height: 27px;" type="text"
@@ -459,6 +514,7 @@ var temp;
 
 			</s:iterator>
 		</div>
+		
 	</div>
 
 </body>
