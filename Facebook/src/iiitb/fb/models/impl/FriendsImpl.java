@@ -16,20 +16,19 @@ public class FriendsImpl {
 	
 	public List<Friend> allFriends(User user)
 	{
-		Friend f=new Friend();
-		int i=0;
+		
 		try {
 		DatabaseConnect db=new DatabaseConnect();
-		String query="select profile_id,fname,lname,profilepic from profile where profile_id=(select friend_id from friends where profile_id='"+user.getProfile_id()+"')";
+		String query="select p.first_name,p.last_name,f.friend_id,p.profile_pic from profile p left join friends f on p.profile_id = f.friend_id where f.profile_id='"+user.getProfile_id()+"'";
 		ResultSet rs=db.getData(query);
 		while(rs.next())
 			{
-			f.setProfile_id(rs.getInt("profile_id"));
-			f.setFname(rs.getString("fname"));
-			f.setLname(rs.getString("lname"));
+			Friend f=new Friend();
+			f.setProfile_id(rs.getInt("friend_id"));
+			f.setFname(rs.getString("first_name"));
+			f.setLname(rs.getString("last_name"));
 			f.setFriendprofilepic(rs.getString("profile_pic"));
-			friendsid.add(i,f);
-			i++;
+			friendsid.add(f);
 			}
 		
 		} catch (SQLException e) {

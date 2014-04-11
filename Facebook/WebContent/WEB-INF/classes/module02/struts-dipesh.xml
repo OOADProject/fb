@@ -45,7 +45,7 @@
 			<result name="success" type="redirect">loadWall</result>
 		</action>
 		
-		<action name="gotoprofilepage" class="iiitb.fb.actions.Success" method="profile">
+		<action name="gotoprofilepage" class="iiitb.fb.actions.LoadProfileAction" method="timepass">
 			<result name="success" type="tiles">profilepage</result>
 		</action>
 		
@@ -67,6 +67,10 @@
 		
 		<action name="gotohomepage" class="iiitb.fb.actions.LoginAction" method="addCoverPic">
 			<result name="success" type="tiles">gotohomepage</result>
+		</action>
+		
+		<action name="loadProfilePage" class="iiitb.fb.actions.LoadProfileAction" method="loadProfile">
+			<result name="success" type="tiles">profilepage</result>
 		</action>
 	</package>
 </struts>
