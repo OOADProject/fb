@@ -42,15 +42,15 @@
 			</div>
 			<div  id="detailmsg">
 			<div id="to">
-			To:&nbsp; <sx:autocompleter size="1" list="friendslist" name="receiver_name" showDownArrow="false" ></sx:autocompleter>
+			To:&nbsp; <sx:autocompleter size="1" list="friendslist" name="receiver_fullname" showDownArrow="false" ></sx:autocompleter>
 			</div>
 			</div>
 			<div id="replyarea">
 				<div id="reply">
 					
 						<textarea name="message_body" rows="4" cols="82" placeholder="Write a message..."></textarea>
-						<br>
-						<button type="submit" class="btn btn-xs btn-primary ">Send </button>
+						<br><input type="hidden" name="conversation_id" id="conversation_id" value='<s:property value ="conversation_id"/>'/> 
+												<button type="submit" class="btn btn-xs btn-primary ">Send </button>
 					
 				</div>
 			</div>

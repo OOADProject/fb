@@ -2,10 +2,12 @@ package iiitb.fb.actions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import iiitb.fb.models.*;
 import iiitb.fb.models.impl.MessagePageImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -16,8 +18,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 	 */
 	private static final long serialVersionUID = 1L;
 
-	int profile_id=1;
-	int i=0,size=0;
+		int i=0,size=0;
 	int conversation_id;
 	MessageNameList nm = new MessageNameList();
 	List<MessageNameList> namelist=null ;
@@ -27,10 +28,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 	int unreadMessages;
 	public ArrayList<String> friendslist;
 	public String receiver_name;
-
-
-
-
+	
 	public String getReceiver_name() {
 		return receiver_name;
 	}
@@ -94,10 +92,17 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 
 	public String execute()
 	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int profile_id = user.getProfile_id();
+
 		firstMessageName = mp.getFirstChatName(profile_id);
 		unreadMessages = mp.totalUnreadMessages(profile_id);
+		
 		friendslist = mp.getFriendsName(profile_id);
 		conversation = new ArrayList<MessageNameList>();
+		
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
 		size = namelist.size();
@@ -115,6 +120,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 		conversation_id = mp.getFirstChatId(profile_id);
 		System.out.println("conversation id = "+conversation_id);
 		conversation = mp.getconversation(profile_id, conversation_id);
+		System.out.println("timing : "+conversation.get(0).getTime());
 
 		return SUCCESS;
 	}
@@ -123,6 +129,11 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 
 	public String findConv()
 	{
+
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int profile_id = user.getProfile_id();
 
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
@@ -142,8 +153,16 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 
 	public String deleteConv()
 	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int profile_id = user.getProfile_id();
+
 		System.out.println("conversation id = "+conversation_id);
+	
 		mp.deleteConversation(profile_id, conversation_id);
+	//	System.out.println("monikaId in msg page"+ monikaId);
+	//		mp.deleteConversation(profile_id, monikaId);
 
 		firstMessageName = mp.getFirstChatName(profile_id);
 		unreadMessages = mp.totalUnreadMessages(profile_id);

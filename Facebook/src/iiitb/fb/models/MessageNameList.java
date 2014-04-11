@@ -10,11 +10,18 @@ public class MessageNameList {
 	private String lastname;
 	private Integer profile_id;
 	private String conversation_body;
-	//private Date time;  // is to be used for timing
+	private String time;  // is to be used for timing
 	
 	
-	
-	
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	public String getProfile_pic() {
 		return profile_pic;
 	}

@@ -8,10 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import iiitb.fb.models.*;
 import iiitb.fb.models.impl.*;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -22,8 +25,9 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 	 */
 	private static final long serialVersionUID = 1L;
 	Message m=new Message();
-	int profile_id = 1;
+
 	int conversation_id;
+	String receiver_fullname;
 	MessageNameList nm = new MessageNameList();
 	List<MessageNameList> namelist=null ;
 	MessagePageImpl mp = new MessagePageImpl();
@@ -31,6 +35,15 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 	String firstMessageName;
 	int unreadMessages;
 	
+
+	public String getReceiver_fullname() {
+		return receiver_fullname;
+	}
+
+	public void setReceiver_fullname(String receiver_fullname) {
+		this.receiver_fullname = receiver_fullname;
+	}
+
 	public Message getM() {
 		return m;
 	}
@@ -40,13 +53,7 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 	}
 
 	
-	public int getProfile_id() {
-		return profile_id;
-	}
-
-	public void setProfile_id(int profile_id) {
-		this.profile_id = profile_id;
-	}
+	
 
 	public int getConversation_id() {
 		return conversation_id;
@@ -107,7 +114,13 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 	
 	
 	public String sendReplyMsg(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
 		
+		int profile_id = user.getProfile_id();
+
+		
+		m.setReceiver_name(receiver_fullname);
 		System.out.println("reply msg conv id"+conversation_id);
 		System.out.println("reply msg body"+m.getMessage_body());
 		ComposeImpl cm = new ComposeImpl();
@@ -147,14 +160,19 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 	
 	public String execute()
 	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int profile_id = user.getProfile_id();
+
 		ComposeImpl cm = new ComposeImpl();
 		System.out.println(" conversation_id :" + conversation_id);
-
+		
 		DateFormat dateFormat = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		
 		System.out.println(date.toString());
-		
+		m.setReceiver_name(receiver_fullname);
 		m.setIsRead(0);
 		m.setSender_id(profile_id);
 		m.setTimestamp(dateFormat.format(date));
@@ -169,10 +187,12 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 			namelist = mp.getnames(profile_id);
 			
 			conversation_id = mp.getFirstChatId(profile_id);
+		
 			System.out.println("conversation id = "+conversation_id);
 			conversation = mp.getconversation(profile_id, conversation_id);
 			System.out.println("first conv name - "+firstMessageName);
 			System.out.println("total unread msg - "+unreadMessages);
+			//System.out.println("monika-id - "+monikaId);
 			return SUCCESS;
 		}
 		else
