@@ -1,32 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib prefix="s" uri="/struts-tags"%>
+    <%@taglib prefix="sx" uri="/struts-dojo-tags" %>
+   
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>EVENT</title>
 
-<link rel="stylesheet" type="text/css" href="/Facebook/asset/css/eventlist.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="/Facebook/asset/js/jquery-1.9.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="/Facebook/asset/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#example1').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            
+            });
+        </script>
+
+<link rel="stylesheet" href="/Facebook/asset/css/datepicker.css">
+ 
+ <link rel="stylesheet" type="text/css" href="/Facebook/asset/css/eventlist.css">
+
+ <sx:head />
 
 </head>
 <body>
+<div id="main-content">
 <div class="main-header"> 
+<span id="createEventBtn"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#mymodal">
+        <b> + Create Event</b>
+        </button>
+</span>
+<h3>
+<b>Events</b>
+</h3>
 
-<h2>
-Events
-</h2>
-<a class="mrs mlm _42ft _4jy0 _4jy3 _517h" href="" rel="dialog">
-<i class="mrs img sp_575v6c sx_d54c77"></i>
-+ Create Event
-
-</a>
 
 </div>
 <div class ="upcoming-events">
 <div class="upcoming-events-header">
-<h2>
- Upcoming Events
-</h2>
+<h4>
+ <b>Upcoming Events</b>
+</h4>
 </div>
 
 </div>
@@ -38,21 +61,31 @@ Events
   <div class ="event-content">
 <ul>
 <li>
-<table>
-<tr >
-<td> 1:00 pm
-</td>
-<td> <a class="_8o _8t lfloat _ohe" href="" > <img class="event-img" src="C:\Users\Nisha Basia\Desktop\happy_smiley-t2.jpg"/></a>
-</td>
-<td>
 
-You are hosting.
-
-</td>
-
-
-</tr>
+<table  width="40%">
+ 
+  <tr>
+    <td rowspan="4" valign="top" width="20%"> 1:00 pm</td>
+    <td rowspan="4"><a class="_8o _8t lfloat _ohe" href="" > <img class="event-img" src="C:\Users\Nisha Basia\Desktop\happy_smiley-t2.jpg"/></a></td>
+    <td >Event Name</td>
+  </tr>
+  <tr>
+    
+    <td>where</td>
+  </tr>
+ <tr>
+    
+    <td>Owner Name</th>
+  </tr>
+ <tr>
+    
+    <td><button class="btn btn-default btn-sm">
+        <b> + Invite friends</b>
+        </button></td>
+  </tr>
 </table>
+
+
 
 </li>
 
@@ -118,12 +151,36 @@ Next day
 </div>
 </div>
 
-</body>
-<html>
 
-
-
-
-
+       <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="background-color: #6d84b4;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Create Event</h4>
+              </div>
+              <div class="modal-body">
+					<s:form name="createEvent" action="#">
+						Name: &nbsp; &nbsp;<input type="text" placeholder="Ex. Birthday Party" /><br><br>
+									Details:<br>
+									 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <textarea rows="3" cols="50"placeholder="Add more info."></textarea><br><br>
+								
+									Where: &nbsp; &nbsp; <input type="text" value="" placeholder="Add a place." /><br><br>
+								
+							
+									When:  &nbsp; &nbsp;<input  type="text" placeholder="click to show datepicker"  id="example1">  &nbsp; &nbsp;<input type="text" placeholder="Add a time." /><br>
+								 
+					</s:form>
+				</div>
+                
+              </div>
+              <div class="modal-footer">
+                 <button type="button" class="btn btn-primary">Save</button>
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+             </div>
+            
+            </div>
+          </div>
+</div>
 </body>
 </html>

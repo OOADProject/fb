@@ -11,5 +11,9 @@
 			<result name="success" type="tiles">event</result>
 			<result name="error" type="tiles">error</result>
 		</action>
+		
+	
+		
+		
 	</package>
 </struts>

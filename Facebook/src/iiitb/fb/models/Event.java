@@ -5,6 +5,13 @@ import java.util.Date;
 public class Event {
 
 	private int eventId;
+	private int eventOwnerId;
+	public int getEventOwnerId() {
+		return eventOwnerId;
+	}
+	public void setEventOwnerId(int eventOwnerId) {
+		this.eventOwnerId = eventOwnerId;
+	}
 	private String eventTitle;
 	private String description;
 	private String event_where ;
@@ -12,8 +19,15 @@ public class Event {
 	private Date eventStart ;
 	private Date eventEnd;
 	private String eventPhoto;
+	private int isBirthday;
 	
 	
+	public int getIsBirthday() {
+		return isBirthday;
+	}
+	public void setIsBirthday(int isBirthday) {
+		this.isBirthday = isBirthday;
+	}
 	public int getEventId() {
 		return eventId;
 	}

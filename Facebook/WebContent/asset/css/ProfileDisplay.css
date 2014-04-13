@@ -20,34 +20,50 @@ width:1130px;
  margin-left:70px;
 }
 
+#leftdivision
+{
+	 
+	width:550px; 
+	float:left;
+    
+	
+}
+
+
+#rightdivision
+{
+	width:580px;
+	float:right;
+ }
+
 #work_education
 {
 	border:1px solid lightblue; 
-	height:300px;
 	width:550px; 
 	float:left;
 	margin-left:70px;
-	
+	background-color: rgb(255, 255, 255);
 	
 }
 
 #placeslived
 {
 	border:1px solid lightblue;
-	height:300px;
 	width:550px;
-	float:right;
+	float:left;
+    background-color: rgb(255, 255, 255);
 }
+
 
 
 #relationship
 {
 	
 	border:1px solid lightblue;
-	height:300px;
 	width:550px;
 	float:left;
 	margin-left:70px;
+ background-color: rgb(255, 255, 255);
 }
 
 
@@ -56,46 +72,54 @@ width:1130px;
 {
 	
 	border:1px solid lightblue;
-	height:300px;
 	width:550px;
-	float:right;"
+	float:left;
+    background-color: rgb(255, 255, 255);
 }
 
 #aboutme
 {
 border:1px solid blue;
-height:150px;
+
 width:550px;
 float:left;
 margin-left:70px;
+background-color: rgb(255, 255, 255);
 }
 
 #favquote
 {
 border:1px solid blue;
-height:150px;
 width:550px;
 float:left;
 margin-left:70px;
+background-color: rgb(255, 255, 255);
 }
 
 #contactinfo
 {
-border:1px solid lightblue; 
-height:300px; 
+border:1px solid lightblue;  
 width:550px; 
-float:right;  
-margin-top: -150px;
+float:left;  
+background-color: rgb(255, 255, 255);
 }
 
 .lable
 {
 margin-left:20px; 
 float:left;
-margin-top:30px;	
+margin-top:20px;	
 }
 
-
+.textbox
+{
+	
+	float:left; 
+	margin-top:20px; 
+	margin-left:20px; 
+	width:300px;
+    color:gray;
+}
 .data
 {
 	margin-left:20px; 
@@ -105,3 +129,50 @@ margin-top:30px;
     color:blue;
     
 }
+
+.description
+{
+	margin-left:20px; 
+	float:left; 
+	margin-top:5px; 
+	width:550px;
+    color: rgb(102, 102, 102);
+}
+
+#form_workeducation
+{
+    
+	width:500px; 
+	float:left;
+	margin-left:20px;
+	margin-top:30px;
+   background-color: rgb( 236, 236, 236);
+
+}
+
+.formlable
+{
+
+width:100px; 	
+margin-top:20px;
+float:left;
+color: rgb(102, 102, 102);
+}
+.addbutton
+{
+margin-left:270px;
+margin-top:30px;
+float:left;
+background-color: rgb(59, 89, 152);
+color:white;
+}
+
+.cancelbutton
+{
+margin-left:20px;
+float:left;
+margin-top:30px;
+bacolor: rgb(89, 114, 167);
+}
+
+

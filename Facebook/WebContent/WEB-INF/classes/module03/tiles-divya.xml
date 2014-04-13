@@ -9,8 +9,8 @@
 		<put-attribute name="body" value="/success.jsp" />
 	</definition>
 
-<definition name="ProfileDisplay" extends="baseLayout">
-		<put-attribute name="body" value="/ProfileDisplay.jsp"/>
+<definition name="EditProfileDisplay" extends="baseLayout3">
+		<put-attribute name="body" value="/EditProfileDisplay.jsp"/>
 	</definition>
 
 
