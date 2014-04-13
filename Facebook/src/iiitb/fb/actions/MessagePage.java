@@ -120,7 +120,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 		conversation_id = mp.getFirstChatId(profile_id);
 		System.out.println("conversation id = "+conversation_id);
 		conversation = mp.getconversation(profile_id, conversation_id);
-		System.out.println("timing : "+conversation.get(0).getTime());
+		//System.out.println("timing : "+conversation.get(0).getTime());
 
 		return SUCCESS;
 	}
