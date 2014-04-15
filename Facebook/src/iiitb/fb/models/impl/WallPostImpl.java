@@ -109,6 +109,47 @@ public class WallPostImpl {
 		}
 	
 	}
+	
+	public UserWallPost getSingleWallPost(int wallPostId){
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		String query = "select * from wallpost w , profile p where w.wallpost_id=? and w.post_from=p.profile_id";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			//remove hardcoding from here
+			ps.setInt(1, wallPostId);
+			
+			ResultSet rs = dbc.getData(ps);
+			UserWallPost uwp = null;
+			while(rs.next()){
+				uwp = new UserWallPost();
+				uwp.setWallPostId(rs.getInt("wallpost_id"));
+				uwp.setPostFrom(rs.getInt("post_from"));
+				uwp.setPostFromName(rs.getString("first_name")+" "+rs.getString("last_name"));
+				uwp.setPostFromPicture(rs.getString("profile_pic"));
+				uwp.setPostTo(rs.getInt("post_to"));
+				uwp.setTimestamp(rs.getString("timestamp"));
+				uwp.setVisibility(rs.getString("visibility"));
+				uwp.setWallPostText(rs.getString("wallpost_text"));
+				uwp.setCommentsList(getComments(uwp.getWallPostId()));
+				uwp.setLikesList(getLikes(uwp.getWallPostId()));
+				
+				//to know whether like link to activate or unlike
+				if(isLiked == 1){
+					uwp.setIsLiked(1);
+					isLiked = 0;
+				}
+				
+			}
+			
+			return uwp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 	//helper function to get likes of a particular post
 	public List<UserLike> getLikes(int wallPostId) {
 		// TODO Auto-generated method stub

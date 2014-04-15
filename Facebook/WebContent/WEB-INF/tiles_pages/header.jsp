@@ -1,7 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
  <%@taglib prefix="s" uri="/struts-tags"%>
-
+ <style>
+ .dropdown-menu{
+ 	width: 420px;
+ 	min-height: 100px;
+ 	max-height: 400px;
+ 	overflow-y:auto;
+ 	 
+ }
+ .notification_items{
+ 	min-height: 35px;
+ 	padding-left: 2%;
+ 	padding-bottom: 2%;
+ 	padding-top: 2%;
+ }
+ .notification_items:hover{
+ 	cursor: pointer;
+ 	background-color: #E9EAED;
+ }
+#notifications_count{
+ 	padding: 3px 2px;
+ 	font-size: 11px;
+ 	margin-left: -10px;
+ }
+ </style>
+<script>
+$(document).ready(function(){
+	$.ajax({
+		url: '/Facebook/module06/loadNotifications',
+		type: 'POST',
+		success: function(data){
+			$.each(data.notificationsList, function(index,value){
+				var temp = '<a href="/Facebook/module06/loadSingleNotification?notificationType='+value.notificationType+'&uniqueId='+value.uniqueId+'"><li class="notification_items clickable">'+'<img src="'+value.picture+'" height="50px" width="50px">&nbsp;&nbsp;'+value.notificationText+'</li></a>';
+				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
+				$("#notifications").append(temp);
+				$("#notifications_count").html(index+1);
+			});
+			$("#notification_icon").attr('src','/Facebook/asset/images/noti_icon_2.png');
+		}
+	});
+	$("#notification_icon").click(function(event){
+		$("#notification_icon").attr('src','/Facebook/asset/images/noti_icon.png');
+		$("#notifications_count").hide();
+	});
+});
+</script>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -35,11 +79,10 @@
 					</ul></li>
 				<li class="dropdown"><a href="#" style="padding-left: 0px;"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="/Facebook/asset/images/noti_icon.png" height="25px"
-						width="26px" />
+						src="/Facebook/asset/images/noti_icon.png" id="notification_icon" height="25px"
+						width="26px" /><sup><span class="badge alert-danger" id="notifications_count"></span></sup>
 				</a>
-					<ul class="dropdown-menu">
-						<li>Test1</li>
+					<ul class="dropdown-menu" id="notifications">
 					</ul></li>
 					
 				

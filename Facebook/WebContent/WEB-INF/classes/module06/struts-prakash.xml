@@ -25,6 +25,15 @@
 		<action name="unlikePost" class="iiitb.fb.actions.LikeAction" method="unlikeWallPost">
 		    <result name="success" type="json"></result>
 		</action>
-
+		<action name="loadNotifications" class="iiitb.fb.actions.NotificationsAction" method="loadNotifications">
+		    <result name="success" type="json"></result>
+		</action>
+		
+		<action name="loadSingleNotification" class="iiitb.fb.actions.NotificationsAction" method="loadSingleNotification">
+		    <result name="loadWallpost" type="tiles">loadSingleWallPost</result>
+		    <result name="loadProfile" type="tiles">profilepage</result>
+		    <result name="error">/error.jsp</result>
+		    
+		</action>
 	</package>
 </struts>

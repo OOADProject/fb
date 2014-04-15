@@ -8,4 +8,7 @@
 	<definition name="success" extends="baseLayout">
 		<put-attribute name="body" value="/success.jsp" />
 	</definition>
+	<definition name="loadSingleWallPost" extends="baseLayout">
+	    <put-attribute name="body" value="/singleWallPost.jsp"/>
+	</definition>
 </tiles-definitions>
