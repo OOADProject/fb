@@ -24,6 +24,39 @@
             
             });
         </script>
+        
+ <script type="text/javascript">
+var temp = '<form action="#">';
+debugger;
+var ajaxvar="nisha";
+	$(document).ready(function(){
+		$("#inviteBtn").click(function(event){
+				$.ajax({
+				url : "/Facebook/module05/loadFriendstoInvite",
+				type: 'POST',
+				success: function(data){
+					var i=1;	
+					$.each(data.friendlist, function(index, value){
+						if(i%2!=0)						
+						{temp += '<input type="checkbox" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5>';
+						 i++;
+						}
+						else
+						{   temp += '<input type="checkbox" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5></td>';
+							i++;
+						 				
+							
+						}
+						});
+					
+					temp +='<button type="button" class="btn btn-primary" id="inviteSaveBtns">Save</button></form>';
+					$("#invitemodal-body").append(temp);
+					
+				}
+			});
+		});
+	});
+</script>
 
 <link rel="stylesheet" href="/Facebook/asset/css/datepicker.css">
  
@@ -35,7 +68,7 @@
 <body>
 <div id="main-content">
 <div class="main-header"> 
-<span id="createEventBtn"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#mymodal">
+<span id="createEventBtn"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#mymodal" aria-hidden="true">
         <b> + Create Event</b>
         </button>
 </span>
@@ -54,101 +87,48 @@
 
 </div>
 <div class="all-eventslist">
+ <s:iterator value="datewiseEventList" var="sublist">
 <div class="event-row">
   <div class="event-header">
- Today
+   <s:property value="eventDateHdr"/>
 </div>
   <div class ="event-content">
 <ul>
+<s:iterator value="sublist" >
+<s:if test="isBirthday==0">
 <li>
-
 <table  width="40%">
- 
+
   <tr>
-    <td rowspan="4" valign="top" width="20%"> 1:00 pm</td>
-    <td rowspan="4"><a class="_8o _8t lfloat _ohe" href="" > <img class="event-img" src="C:\Users\Nisha Basia\Desktop\happy_smiley-t2.jpg"/></a></td>
-    <td >Event Name</td>
+    <td rowspan="4" valign="top" width="20%"><s:property value="eventTime"/></td>
+    <td rowspan="4"><a class="_8o _8t lfloat _ohe" href="" > <img class="event-img" src="<s:property value='eventPhoto'/>"/></a></td>
+    <td ><s:property value="eventTitle"/></td>
   </tr>
   <tr>
     
-    <td>where</td>
+    <td><s:property value="event_where"/></td>
   </tr>
  <tr>
     
-    <td>Owner Name</th>
+    <td><s:property value="eventOwnerId"/></td>
   </tr>
- <tr>
-    
-    <td><button class="btn btn-default btn-sm">
-        <b> + Invite friends</b>
-        </button></td>
-  </tr>
-</table>
-
-
-
-</li>
-
-
-<li>
-<table>
-<tr>
-<td> B'day 1
-</td>
-<td> B'day 2
-</td>
-
-</tr>
-
-</table>
-</li>
-</ul>
-
-
-</div>
-</div>
-
-
-<div class ="event-row">
-  <div class="event-header">
-Next day
  
-</div>
-  <div class="event-content">
-<ul>
-<li>
-<table>
-<tr >
-<td> 1st
-</td>
-<td> <a > img </a>
-</td>
-
-</tr>
-</table>
-
+ </table>
 </li>
+</s:if>
 
+<s:else>
 
-<li>
-<table>
-<tr>
-<td> B'day 1
-</td>
-<td> B'day 2
-</td>
+<a href="" > <img class="event-img" src="<s:property value='eventPhoto'/>"/></a>
 
-</tr>
+</s:else>
 
-</table>
-</li>
+</s:iterator>
 </ul>
-
-
-
-
 </div>
 </div>
+ </s:iterator>
+
 </div>
 
 
@@ -171,16 +151,51 @@ Next day
 									When:  &nbsp; &nbsp;<input  type="text" placeholder="click to show datepicker"  id="example1">  &nbsp; &nbsp;<input type="text" placeholder="Add a time." /><br>
 								 
 					</s:form>
+					
+					
+
+</div>
+					
 				</div>
                 
               </div>
               <div class="modal-footer">
+              <span id="inviteBtn"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#invitemodal" aria-hidden="true">
+       <span class="glyphicon glyphicon-envelope">
+       </span>
+       Invite Friend 
+        </button>
+</span>
                  <button type="button" class="btn btn-primary">Save</button>
                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
              </div>
             
             </div>
+            					<div class="modal fade" id="invitemodal" tabindex="-1" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="background-color: #6d84b4;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="inviteModalLabel">Invite Friends</h4>
+              </div>
+              <div id="invitemodal-body" class="modal-body">
+					
+					
+					<!-- friends list with checkbox -->
+					
+					
+					
+					
+				</div>
+                
+              </div>
+             
+            
+            </div>
           </div>
-</div>
+          </div>
+
+
+
 </body>
 </html>

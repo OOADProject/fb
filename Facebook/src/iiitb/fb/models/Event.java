@@ -6,20 +6,46 @@ public class Event {
 
 	private int eventId;
 	private int eventOwnerId;
+	private String eventOwnerName;
+	private String eventTitle;
+	private String description;
+	private String event_where ;
+	private String eventDateHdr;
+	private String eventTime;
+	private Date eventDate;
+	private Date eventStart ;
+	private Date eventEnd;
+	private String eventPhoto;
+	private int isBirthday;
+	
+	public String getEventOwnerName() {
+		return eventOwnerName;
+	}
+	public void setEventOwnerName(String eventOwnerName) {
+		this.eventOwnerName = eventOwnerName;
+	}
+	
 	public int getEventOwnerId() {
 		return eventOwnerId;
 	}
 	public void setEventOwnerId(int eventOwnerId) {
 		this.eventOwnerId = eventOwnerId;
 	}
-	private String eventTitle;
-	private String description;
-	private String event_where ;
-	private Date eventDate;
-	private Date eventStart ;
-	private Date eventEnd;
-	private String eventPhoto;
-	private int isBirthday;
+	
+	
+	public String getEventDateHdr() {
+		return eventDateHdr;
+	}
+	public void setEventDateHdr(String eventDateHdr) {
+		this.eventDateHdr = eventDateHdr;
+	}
+	public String getEventTime() {
+		return eventTime;
+	}
+	public void setEventTime(String eventTime) {
+		this.eventTime = eventTime;
+	}
+	
 	
 	
 	public int getIsBirthday() {
