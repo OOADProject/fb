@@ -8,4 +8,13 @@
 	<definition name="success" extends="baseLayout">
 		<put-attribute name="body" value="/success.jsp" />
 	</definition>
+	
+	<definition name="settingsPage" extends="baseLayout">
+		<put-attribute name="body" value="/settings.jsp" />
+	</definition>
+	
+	<definition name="privacySettings" extends="baseLayout">
+		<put-attribute name="body" value="/privacySettings.jsp" />
+	</definition>
+	
 </tiles-definitions>
