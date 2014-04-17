@@ -57,7 +57,7 @@ a:hover{
 			<p id="menu_items"><a href="/Facebook/module01/messageclick"><img src="/Facebook/asset/images/messages.png" height="17px">&nbsp;&nbsp;Messages</a><br></p>
 		
 			
-			<p id="menu_items"><a href="#" id="menu_items"><img src="/Facebook/asset/images/events.png" height="15px">&nbsp;&nbsp;Events</a><br></p>
+			<p id="menu_items"><a href="/Facebook/module05/eventaction" id="menu_items"><img src="/Facebook/asset/images/events.png" height="15px">&nbsp;&nbsp;Events</a><br></p>
 		
 			
 			<p id="menu_items"><a href="#" id="menu_items"><img src="/Facebook/asset/images/photos.png" height="15px">&nbsp;&nbsp;Photos</a><br></p>

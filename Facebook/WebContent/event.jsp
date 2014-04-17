@@ -9,28 +9,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>EVENT</title>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="/Facebook/asset/js/jquery-1.9.1.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="/Facebook/asset/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
+ 
+<!--<script type="text/javascript">
             // When the document is ready
             $(document).ready(function () {
                 
                 $('#example1').datepicker({
-                    format: "dd/mm/yyyy"
+                    format: "yyyy-mm-dd"
                 });  
             
-            });
-        </script>
+            }); 
+        </script>-->
         
  <script type="text/javascript">
-var temp = '<form action="#">';
-debugger;
-var ajaxvar="nisha";
-	$(document).ready(function(){
+
+
+
+$(document).ready(function(){
 		$("#inviteBtn").click(function(event){
+			debugger;
+				var temp = '<form>';
 				$.ajax({
 				url : "/Facebook/module05/loadFriendstoInvite",
 				type: 'POST',
@@ -38,24 +36,58 @@ var ajaxvar="nisha";
 					var i=1;	
 					$.each(data.friendlist, function(index, value){
 						if(i%2!=0)						
-						{temp += '<input type="checkbox" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5>';
+						{temp += '<input id="selectFriend" type="checkbox" value="'+value.profile_id+'" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5>';
 						 i++;
 						}
 						else
-						{   temp += '<input type="checkbox" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5></td>';
+						{   temp += '<input id="selectFriend" type="checkbox" value="'+value.profile_id+'" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5>';
 							i++;
 						 				
 							
 						}
 						});
 					
-					temp +='<button type="button" class="btn btn-primary" id="inviteSaveBtns">Save</button></form>';
-					$("#invitemodal-body").append(temp);
+					
+					temp +='<button type="button" class="btn btn-primary" id="inviteSaveBtns" onclick="saveInvited()">Save</button></form>';
+					$("#invitemodal-body").html(temp);
+					
 					
 				}
 			});
 		});
-	});
+			
+	}); 
+	
+
+
+	function saveInvited(){
+		var idString="";
+		var count=0;
+		
+		$('#selectFriend:checked').each(function(){
+	    if(count!=0)
+		    	{
+		    	idString +="," + $(this).val();
+		    	
+		    	}
+		    else 
+		    	idString += $(this).val();
+		    	    
+		    count++;
+		    });
+		count +=" Friends Invited";
+		
+		   // $("#inviteBtn").hide();
+		    $("#invitedCount").append(count);
+		    $("#hiddenField").val(idString);
+		    $("#invitemodal").hide();
+		    $("#inviteBtn").hide();
+		   	    
+		
+		} 
+
+			
+
 </script>
 
 <link rel="stylesheet" href="/Facebook/asset/css/datepicker.css">
@@ -102,7 +134,7 @@ var ajaxvar="nisha";
   <tr>
     <td rowspan="4" valign="top" width="20%"><s:property value="eventTime"/></td>
     <td rowspan="4"><a class="_8o _8t lfloat _ohe" href="" > <img class="event-img" src="<s:property value='eventPhoto'/>"/></a></td>
-    <td ><s:property value="eventTitle"/></td>
+    <td ><a href='/Facebook/module05/loadSpecificEvent?eventId=<s:property value="eventId"/>'><s:property value="eventTitle"/></a></td>
   </tr>
   <tr>
     
@@ -116,10 +148,10 @@ var ajaxvar="nisha";
  </table>
 </li>
 </s:if>
-
+<!-- else for birthday events -->
 <s:else>
 
-<a href="" > <img class="event-img" src="<s:property value='eventPhoto'/>"/></a>
+<a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="eventOwnerId"/>' > <img class="event-img" src="<s:property value='eventPhoto'/>"/></a>
 
 </s:else>
 
@@ -133,42 +165,47 @@ var ajaxvar="nisha";
 
 
        <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+         <form action="/Facebook/module05/createEventAction">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header" style="background-color: #6d84b4;">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create Event</h4>
               </div>
-              <div class="modal-body">
-					<s:form name="createEvent" action="#">
-						Name: &nbsp; &nbsp;<input type="text" placeholder="Ex. Birthday Party" /><br><br>
+              <div class="modal-body" id="createEventBody">
+					
+						Name: &nbsp; &nbsp;<input type="text" placeholder="Ex. Birthday Party" name="eventTitle"/><br><br>
 									Details:<br>
-									 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <textarea rows="3" cols="50"placeholder="Add more info."></textarea><br><br>
+									 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <textarea rows="3" cols="50"placeholder="Add more info." name="description"></textarea><br><br>
 								
-									Where: &nbsp; &nbsp; <input type="text" value="" placeholder="Add a place." /><br><br>
+									Where: &nbsp; &nbsp; <input type="text" value="" placeholder="Add a place." name="event_where" /><br><br>
 								
 							
-									When:  &nbsp; &nbsp;<input  type="text" placeholder="click to show datepicker"  id="example1">  &nbsp; &nbsp;<input type="text" placeholder="Add a time." /><br>
-								 
-					</s:form>
-					
-					
+									When:  &nbsp; &nbsp;<input  type="text" placeholder="click to show datepicker" id="example1"  name="eventDateTemp">  &nbsp; &nbsp;<input type="text" placeholder="Add a time." name="eventTime"/><br>
 
-</div>
+							<input type="hidden" id="hiddenField" name="invitedFriendIds"/>								 
+					
+					<br>
+					<p id="invitedCount">        </p>
+									
+
+				</div>
 					
 				</div>
                 
               </div>
               <div class="modal-footer">
-              <span id="inviteBtn"><button class="btn btn-default btn-sm" data-toggle="modal" data-target="#invitemodal" aria-hidden="true">
+              <span id="inviteBtn"><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#invitemodal" aria-hidden="true">
        <span class="glyphicon glyphicon-envelope">
        </span>
        Invite Friend 
         </button>
-</span>
-                 <button type="button" class="btn btn-primary">Save</button>
+        </span>
+        
+                 <button type="submit" class="btn btn-primary">Save</button>
                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
              </div>
+             </form>
             
             </div>
             					<div class="modal fade" id="invitemodal" tabindex="-1" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true" >

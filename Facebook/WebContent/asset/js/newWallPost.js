@@ -3,7 +3,7 @@ $(document).ready(
 		function() {
 			$(".text1").emoticonize();
 			$(".comments_div").emoticonize();
-			$(".comments_div").live("keypress",	function(e) {
+			$(".comments_div").on("keypress",	function(e) {
 				if (e.which == 13) {
 					var f = $(this);
 					var x = f.find('#comment_wp_text');
@@ -32,7 +32,7 @@ $(document).ready(
 			$("#newButton").click(function(event){
 				$.ajax({
 					type : 'POST',
-					url : '/Facebook/module06/addWallPost.action?wallPostText='+ $("#newWallPostText").val(),
+					url : '/Facebook/module06/addWallPost.action?wallPostText='+ $("#newWallPostText").val()+'&eventId='+$("#event_id_hidden").val(),
 					success : function(data) {
 						var temp = "<div class=\"single_wallpost\"><div id=\"wallpost_body\">";
 						temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";

@@ -8,4 +8,14 @@
 	<definition name="event" extends="baseLayout">
 		<put-attribute name="body" value="/event.jsp" />
 	</definition>
+	<definition name="eventPage" extends="baseLayout">
+		<put-attribute name="body" value="/specificEvent.jsp" />
+	</definition>
+
+
+	<definition name="addEvent" extends="baseLayout">
+		<put-attribute name="body" value="/specificEvent.jsp" />
+	</definition>
+
+
 </tiles-definitions>

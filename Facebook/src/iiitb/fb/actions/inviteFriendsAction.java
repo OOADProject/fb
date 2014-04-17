@@ -33,8 +33,8 @@ public void setFriendlist(ArrayList<Friend> friendlist) {
 public String execute()
 {
 	System.out.println("In execute inviteFriendAction");
-	Map<String, Object> session = ActionContext.getContext().getSession();
-	User user = (User)session.get("user");
+	//Map<String, Object> session = ActionContext.getContext().getSession();
+	//User user = (User)session.get("user");
 	//int profile_id=user.getProfile_id();
 	int profile_id = 1;
 	 friendlist =new ArrayList<Friend>();

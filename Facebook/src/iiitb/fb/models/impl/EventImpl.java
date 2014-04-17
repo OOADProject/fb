@@ -4,6 +4,8 @@ import iiitb.fb.database.DatabaseConnect;
 import iiitb.fb.models.Event;
 import iiitb.fb.models.Friend;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -34,7 +36,7 @@ public class EventImpl {
 
 
 		DatabaseConnect dc=new DatabaseConnect();
-		String getEventsQuery = "select * from event where profile_id=1 and isBirthday=0 and event_date>='"+now+"'order by event_date";
+		String getEventsQuery = "select e.* from event e,eventinvite ei where (e.profile_id="+profile_id+" or (ei.invite_id="+profile_id+" and ei.event_id=e.event_id)) and e.isBirthday=0 and e.event_date>='"+now+"'order by e.event_date";
 
 
 		ResultSet eventset = dc.getData(getEventsQuery);
@@ -43,6 +45,7 @@ public class EventImpl {
 			{
 				Event ev = new Event();
 				eventDtTm=new Date();
+				ev.setEventId(eventset.getInt("event_id"));
 				eventDtTm=eventset.getTimestamp("event_date");
 				ev.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(eventDtTm));
 				ev.setEventTime(new SimpleDateFormat("HH:MM aa").format(eventDtTm));									
@@ -124,7 +127,7 @@ public class EventImpl {
 		}
 
 
-		String getBdayQuery = "select * from event where profile_id=1 and isBirthday=1";
+		String getBdayQuery = "select * from event where profile_id="+profile_id+" and isBirthday=1";
 		ArrayList< Event> bDayList=new ArrayList<Event>();
 		ResultSet bDayset = dc.getData(getBdayQuery);
 		try {
@@ -133,6 +136,7 @@ public class EventImpl {
 				Event ev = new Event();
 				eventDtTm=new Date();
 				eventDtTm=bDayset.getTimestamp("event_date");
+				ev.setEventId(bDayset.getInt("event_id"));
 				ev.setEventDateHdr(new SimpleDateFormat("MMMM dd").format(eventDtTm));
 				ev.setEventTime(new SimpleDateFormat("HH:MM aa").format(eventDtTm));									
 				ev.setEventId(bDayset.getInt("event_id"));
@@ -254,17 +258,87 @@ public class EventImpl {
 		return allEventList ;
 	}
 
-	public boolean addEvent()	
+	public int addEvent(Event newEvent,String invited)	
 	{
+		DatabaseConnect dc=new DatabaseConnect();
+		Connection connection = dc.getConnection();
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+		String getAddEventsQuery = "INSERT into event(profile_id,event_title,description,event_where,event_date,event_start,event_end,event_photo,isBirthday)" + "VALUES(?,?,?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement ps = connection.prepareStatement(getAddEventsQuery);
+			ps.setInt(1,newEvent.getEventOwnerId());
+			ps.setString(2,newEvent.getEventTitle());
+			ps.setString(3,newEvent.getDescription());
+			ps.setString(4,newEvent.getEvent_where());
+			ps.setString(5,sdf.format(newEvent.getEventDate()));
+			ps.setString(6,sdf.format(newEvent.getEventStart()));
+			ps.setString(7,sdf.format(newEvent.getEventEnd()));
+			ps.setString(8,newEvent.getEventPhoto());
+			ps.setInt(9,newEvent.getIsBirthday());
+
+			dc.updateData(ps);
+			String queryId = "select last_insert_id()";
+			ps = connection.prepareStatement(queryId);
+			ResultSet rs = dc.getData(ps);
+
+			int eventId=0;
+			if(rs.next()){
+				eventId =  rs.getInt("last_insert_id()");
+			}
+
+			addInvitedFriends(eventId,invited);
+			return eventId;
+
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+
+		} 
 
 
 
-		return true ;
+
+	}
+
+
+
+	/*.............................................................................
+	 * 	Add invited friends to the invite table.								   *
+	 ..............................................................................*/
+
+	public boolean addInvitedFriends(int eventId,String invited)
+	{
+		DatabaseConnect dc=new DatabaseConnect();
+		Connection  connection = dc.getConnection();
+		for (String token : invited.split(","))
+		{
+			int inviteId = Integer.parseInt(token);
+			String addInvitequery = "Insert into eventinvite(event_id,invite_id,status )" + "values(?,?,?)";
+			try {
+				PreparedStatement ps = connection.prepareStatement(addInvitequery);
+				ps.setInt(1,eventId);
+				ps.setInt(2, inviteId);
+				ps.setString(3,"sent");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return true;
 	}
 
 	public boolean editEvent()	{
 		return true ;
 	}
+
+
+
+	/*.........................................................................
+	 * This function get the complete friendlist of the user to show in modal  *
+	 ..........................................................................*/
 
 	public void  inviteFriends(int profileId, ArrayList<Friend> friendlist)	{
 
@@ -285,7 +359,7 @@ public class EventImpl {
 					fr.setFname(frienddetailset.getString("first_name"));
 					fr.setLname(frienddetailset.getString("last_name"));
 				}
-				
+
 				friendlist.add(fr);
 
 			}
@@ -296,17 +370,6 @@ public class EventImpl {
 
 
 	}
-
-	public int showEventPage()	
-	{
-
-
-		return 1;
-
-
-	}
-
-
 
 
 }
