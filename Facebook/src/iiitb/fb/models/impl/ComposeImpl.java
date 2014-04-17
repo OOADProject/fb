@@ -39,9 +39,10 @@ public class ComposeImpl {
 			{
 				m.setReceiver_id(rs.getInt("profile_id"));
 				System.out.println(" receiver id = "+ m.getReceiver_id());
+				m.setVisible2(rs.getInt("profile_id"));
 
 			}
-			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"') ");
+			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp,visible1,visible2) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"',"+m.getVisible1()+","+m.getVisible2()+") ");
 		res=true;
 		}
 		catch(Exception e)
@@ -56,7 +57,7 @@ public class ComposeImpl {
 		try
 		{
 			DatabaseConnect db = new DatabaseConnect();
-			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"') ");
+			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp,visible1,visible2) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"',"+m.getVisible1()+","+m.getVisible2()+") ");
 			res = true;
 		}
 		catch(Exception e)

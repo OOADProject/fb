@@ -132,6 +132,8 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 		m.setSender_id(profile_id);
 		m.setTimestamp(dateFormat.format(date));
 		m.setReceiver_id(conversation_id);
+		m.setVisible1(profile_id);
+		m.setVisible2(conversation_id);
 		
 		if(cm.sendReply(m))
 		{
@@ -166,7 +168,9 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 		int profile_id = user.getProfile_id();
 
 		ComposeImpl cm = new ComposeImpl();
-		System.out.println(" conversation_id :" + conversation_id);
+		System.out.println("in compose execute tt receiver fullname :" + receiver_fullname);
+		System.out.println("in compose execute tt message body :" + m.getMessage_body());
+
 		
 		DateFormat dateFormat = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
@@ -176,6 +180,7 @@ public class Compose extends ActionSupport implements ModelDriven<Message> {
 		m.setIsRead(0);
 		m.setSender_id(profile_id);
 		m.setTimestamp(dateFormat.format(date));
+		m.setVisible1(profile_id);
 		
 		if(cm.sendMessage(m))
 		{

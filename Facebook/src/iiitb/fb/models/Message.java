@@ -8,9 +8,26 @@ public class Message {
 	private int isRead;
 	private String timestamp;
 	private String receiver_name;
-		
+	private int visible1;
+	private int visible2;
 	
 	
+	public int getVisible1() {
+		return visible1;
+	}
+
+	public void setVisible1(int visible1) {
+		this.visible1 = visible1;
+	}
+
+	public int getVisible2() {
+		return visible2;
+	}
+
+	public void setVisible2(int visible2) {
+		this.visible2 = visible2;
+	}
+
 	public String getReceiver_name() {
 		return receiver_name;
 	}

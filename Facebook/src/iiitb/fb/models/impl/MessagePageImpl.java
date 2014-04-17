@@ -39,7 +39,7 @@ public class MessagePageImpl {
 		int i=0,j,flag=0,size;
 
 		try{
-			ResultSet rs = db.getData("select sender_id,receiver_id from facebook.messages where "+profile_id+" in (sender_id,receiver_id) order by timestamp desc");
+			ResultSet rs = db.getData("select sender_id,receiver_id from facebook.messages where "+profile_id+" in (sender_id,receiver_id) and "+profile_id+" in (visible1,visible2) order by timestamp desc");
 			while (rs.next())
 			{
 				if(rs.getInt("receiver_id")==profile_id)
@@ -112,7 +112,7 @@ public class MessagePageImpl {
 	{
 		try{
 			db.updateData(" update facebook.messages set isread=1 where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or  (sender_id="+conversation_id+" and receiver_id="+profile_id+")");
-			ResultSet rs2 = db.getData("select message_id,sender_id,message_text,timestamp from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")  order by timestamp;");
+			ResultSet rs2 = db.getData("select message_id,sender_id,message_text,timestamp from facebook.messages where ((sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")) and "+profile_id+" in (visible1,visible2)  order by timestamp;");
 			while(rs2.next())
 			{
 				chatting_ids.add(rs2.getInt("sender_id")); 
@@ -157,7 +157,7 @@ public class MessagePageImpl {
 	{
 		try
 		{
-			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id)");
+			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2)");
 			while(rs5.next())
 			{
 				if(rs5.getInt("sender_id")==Profile_id)
@@ -186,7 +186,7 @@ public class MessagePageImpl {
 	{
 		try
 		{
-			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id)");
+			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2)");
 			while(rs5.next())
 			{
 				if(rs5.getInt("sender_id")==Profile_id)
@@ -272,11 +272,76 @@ public class MessagePageImpl {
 	public void deleteConversation(int profile_id,int conversation_id)
 	{
 		try{
-			db.updateData("Delete from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")");			
+			ResultSet rs3 = db.getData("select visible1,visible2,message_id from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")");			
+			while(rs3.next())
+			{
+				if(rs3.getInt("visible1")==profile_id)
+				{
+					if(rs3.getInt("visible2")==0)
+					{
+						db.updateData("Delete from facebook.messages where message_id ="+rs3.getInt("message_id")+"");	
+					}
+					else
+					{
+						db.updateData("update facebook.messages set visible1=0 where message_id="+rs3.getInt("message_id")+"");
+					}
+				}
+				else if(rs3.getInt("visible2")==profile_id)
+				{
+					if(rs3.getInt("visible1")==0)
+					{
+						db.updateData("Delete from facebook.messages where message_id ="+rs3.getInt("message_id")+"");	
+					}
+					else
+					{
+						db.updateData("update facebook.messages set visible2=0 where message_id="+rs3.getInt("message_id")+"");
+					}				
+				}				
+				
+			}			
+			//db.updateData("Delete from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")");			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void deleteSelectedMessage(int profile_id,int message_id)
+	{
+		try{
+			ResultSet rs2=db.getData("select visible1,visible2 from facebook.messages where message_id="+message_id+"");
+			while(rs2.next())
+			{
+				if(rs2.getInt("visible1")==profile_id)
+				{
+					if(rs2.getInt("visible2")==0)
+					{
+						db.updateData("Delete from facebook.messages where message_id ="+message_id+"");	
+					}
+					else
+					{
+						db.updateData("update facebook.messages set visible1=0 where message_id="+message_id+"");
+					}
+				}
+				else if(rs2.getInt("visible2")==profile_id)
+				{
+					if(rs2.getInt("visible1")==0)
+					{
+						db.updateData("Delete from facebook.messages where message_id ="+message_id+"");	
+					}
+					else
+					{
+						db.updateData("update facebook.messages set visible2=0 where message_id="+message_id+"");
+					}				
+				}
+			}
+			//db.updateData("Delete from facebook.messages where message_id ="+message_id+"");			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 }
