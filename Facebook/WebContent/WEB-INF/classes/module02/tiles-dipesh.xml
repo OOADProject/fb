@@ -13,7 +13,9 @@
 	</definition>
 	
 	<definition name="error" extends="baseLayout2">
-		<put-attribute name="body" value="/login.jsp"/>
+		<put-attribute name="body" value="/LoginError.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""/> 
 	</definition>
 	
 	<definition name="fillOutInfo" extends="baseLayout">
@@ -27,6 +29,15 @@
 		<put-attribute name="menu" value=""/>
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
+	
+	
+	<definition name="forgot" extends="baseLayout2">
+		<put-attribute name="body" value="/Forgot.jsp"/>
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="footer" value=""/>
+		<put-attribute name="title" value=""/>
+	</definition>
+	
 	
 	<definition name="backstep1" extends="baseLayout">
 		<put-attribute name="body" value="/FillOutInfo.jsp"/>

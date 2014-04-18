@@ -1,6 +1,7 @@
 package iiitb.fb.models.impl;
 
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -53,6 +54,38 @@ public class LoadProfileImpl {
 			return null;
 
 		}
+	}
+	
+	public int isFriend(int currentProfileId, int profile_id) {
+		// TODO Auto-generated method stub
+		try {
+		DatabaseConnect dbc = new DatabaseConnect();
+		
+		String query = "select * from friends where profile_id="+profile_id+" and friend_id="+currentProfileId;
+		ResultSet rs = dbc.getData(query);
+			if(rs.next())
+			{
+				return 1;
+			}
+			else
+			{
+				String query1="select * from friendrequest where request_from="+profile_id+" and request_to="+currentProfileId;
+				ResultSet rs1=dbc.getData(query1);
+				if(rs1.next())
+				{
+					return 2;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+
 	}
 	
 	

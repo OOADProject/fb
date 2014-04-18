@@ -17,7 +17,8 @@
 <title>Forgot Password?</title>
 </head>
 <body>
-<div style="border: 1px solid; color:rgb(204,204,204); height:180px; width:35%; margin-left: 32%; margin-top: 10%;"  > 
+<div style="min-height: 100px;"></div>
+<div style="border: 1px solid; color:rgb(204,204,204); height:180px; width:35%; margin-left: 32%;"  > 
 	<div style="margin-left: 3%;margin-top:3%; color: black; font-weight:bold ; height:15px; width:35%;">
 	Find Your Account
 	</div>

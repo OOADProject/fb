@@ -340,9 +340,67 @@ likes_list_others{
 	});
 </script>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$(".friendRequestId").click(function(e){
+		debugger;
+			$.ajax({
+				url: '/Facebook/module02/friendRequest',
+				type: 'POST',
+				success: function(data){
+					var temp='&nbsp;&nbsp;&nbsp;&nbsp;Friend Request sent.';
+					temp+='<input id="cancelRequestButton" type="button" value="Cancel Friend Request" style="background-color: rgb(106, 167, 79); font-weight:bold;color: white; float:right;margin-right: 2%;">';
+					$("#addFriendID").html(temp);
+				}		
+			});
+			e.preventDefault();
+		});
+		
+		$("#addFriendID").on("click","#cancelRequestButton",function(e){
+			$.ajax({
+				url: '/Facebook/module02/canclefriendRequest',
+				type: 'POST',
+				success: function(data){
+					var temp='&nbsp;&nbsp;&nbsp;&nbsp;To see,what shares with friends,<a class="friendRequestId" href="#" style="color: rgb(59, 89, 152);">Send a friend request.</a>';
+					temp+='<input class="friendRequestId" type="button" value="+1 Add Friend" style="background-color: rgb(106, 167, 79); font-weight:bold;color: white; float:right;margin-right: 2%;">';
+					$("#addFriendID").html(temp);
+				}
+			});
+		});
+	
+	});
+</script>
+
 </head>
 <body>
-
+<div style="height: 100px; width: 100%; border: 1px solid; border-color:rgb(211, 214, 219); background-color: white; font-size:12px; " >
+		<div style="height:35px;width:100%; border: 1px solid; border-color:rgb(211, 214, 219); background-color: rgb(246, 247, 248)">
+			<h5 style="font-weight: bold; color: rgb(106, 116, 128)">&nbsp;&nbsp;&nbsp;Do you Know <s:property value="user.fname" />?</h5>  
+		</div>
+		<br>
+		<div id="addFriendID">
+	<s:if test="%{isFriend == 0}">
+	
+	
+		&nbsp;&nbsp;&nbsp;&nbsp;To see,what shares with friends,<a class="friendRequestId" href="#" style="color: rgb(59, 89, 152);">Send a friend request.</a>
+		
+		<input class="friendRequestId" type="button" value="+1 Add Friend" style="background-color: rgb(106, 167, 79); font-weight:bold;color: white; float:right;margin-right: 2%;">	
+		
+	</s:if>
+	
+	<s:if test="%{isFriend == 1}">
+		&nbsp;&nbsp;&nbsp;&nbsp;You and <s:property value="user.fname"/> are Friends
+	</s:if>
+	
+	<s:if test="%{isFriend == 2}">
+		&nbsp;&nbsp;&nbsp;&nbsp;Friend Request sent to <s:property value="user.fname"/>
+		<input id="cancelRequestButton" type="button" value="Cancel Friend Request" style="background-color: rgb(106, 167, 79); font-weight:bold;color: white; float:right;margin-right: 2%;">
+	</s:if>
+	
+	</div>
+		
+	</div>
 	<div id="side_menu">
 	<!--  	<div
 			style="height: 60px; width: 300px; margin-left: 0px; margin-top: 15%;">

@@ -21,28 +21,30 @@ public class LoadProfileAction extends ActionSupport {
 	User user=new User();
 	int profileId;
 	List<UserWallPost> wallPostsList;
+	private int isFriend;
 	
 	public String loadProfile()
 	{
 		LoadProfileImpl pimpl =new LoadProfileImpl();
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		session.put("currentProfile", profileId);
-		
 		wallPostsList = new ArrayList<UserWallPost>();
 		WallPostImpl wpi = new WallPostImpl();
 		wallPostsList = wpi.getWallPosts(profileId);
 		user=pimpl.getUser(profileId);
+		isFriend = pimpl.isFriend(profileId,((User)session.get("user")).getProfile_id());
 		if(user!=null)		
 		return SUCCESS;
 		else
 		return ERROR;
 	}
+	
 	public String timepass(){
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		LoadProfileImpl pimpl =new LoadProfileImpl();
 		profileId = ((User)session.get("user")).getProfile_id();
 		session.put("currentProfile", profileId);
-		
+		isFriend = 1;
 		WallPostImpl wpi = new WallPostImpl();
 		wallPostsList = wpi.getWallPosts(profileId);
 		
@@ -77,6 +79,15 @@ public class LoadProfileAction extends ActionSupport {
 	public void setWallPostsList(List<UserWallPost> wallPostsList) {
 		this.wallPostsList = wallPostsList;
 	}
+
+	public int getIsFriend() {
+		return isFriend;
+	}
+
+	public void setIsFriend(int isFriend) {
+		this.isFriend = isFriend;
+	}
+
 	
 
 }

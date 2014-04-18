@@ -35,7 +35,6 @@
 	
 	<div style="position:absolute; top:0; ; z-index:2 ;  height:150px; width:150px; border:1px solid; margin-top:24%; margin-left:2%; border:1px solid; border-color: rgb(211, 214, 219);">
 		<a href="#"><img src='<s:property value="user.getProfilePic()" />' style="height:148px; width: 148px;"></a>
-		
 	</div>
 	
 </div>

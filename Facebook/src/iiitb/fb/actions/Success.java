@@ -59,6 +59,11 @@ public class Success extends ActionSupport{
 	{
 		return SUCCESS;
 	}
+	public String forgotPassword()
+	{
+		return SUCCESS;
+	}
+	
 	
 	
 	public ArrayList<String> getMonthList() {
