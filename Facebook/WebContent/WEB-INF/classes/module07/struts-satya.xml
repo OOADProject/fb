@@ -11,5 +11,35 @@
 			<result name="success" type="tiles">categorylink</result>
 			<result name="error" type="tiles">error</result>
 		</action>
+		
+		<action name="loadCategoryWall" class="iiitb.fb.actions.CategoryWallAction">
+			<result name="success" type="tiles">categoryPage</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+		
+		<action name="update-cat-list" class="iiitb.fb.actions.PrepareFriendsCategory"
+			method="updateCategory">
+			<result name="success" type="chain">display_frnd_cat_list</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+		
+		<action name="delete-category" class="iiitb.fb.actions.CategoryWallAction"
+			method="deleteCategory">
+			<result name="success" type="chain">display_frnd_cat_list</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+		
+		<action name="rename-category" class="iiitb.fb.actions.CategoryWallAction"
+			method="renameCategory">
+			<result name="success" type="chain">display_frnd_cat_list</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+		
+		<action name="edit-cat-list" class="iiitb.fb.actions.PrepareFriendsCategory"
+			method="EditCategoryList">
+			<result name="success" type="chain">display_frnd_cat_list</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+		
 	</package>
 </struts>

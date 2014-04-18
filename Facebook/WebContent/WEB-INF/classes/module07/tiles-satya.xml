@@ -8,4 +8,8 @@
 	<definition name="categorylink" extends="baseLayout">
 		<put-attribute name="body" value="/DisplayFriendCat.jsp" />
 	</definition>
+	
+	<definition name="categoryPage" extends="baseLayout">
+		<put-attribute name="body" value="/specificCategory.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
