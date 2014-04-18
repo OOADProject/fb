@@ -17,6 +17,8 @@ public class ComposeImpl {
 
 	public boolean sendMessage(Message m)
 	{
+		System.out.println("in composeimpl sendmessage()");
+
 		String firstname;
 		String lastname;
 		List<String> name = new ArrayList<String>();
@@ -54,6 +56,8 @@ public class ComposeImpl {
 
 	public boolean sendReply(Message m)
 	{
+		System.out.println("in composeimpl sendreply()");
+
 		try
 		{
 			DatabaseConnect db = new DatabaseConnect();
@@ -69,6 +73,8 @@ public class ComposeImpl {
 
 	public Profile getProfileInfo(int profile_id)
 	{
+		System.out.println("in composeimpl getprofileinfo()");
+
 		DatabaseConnect db = new DatabaseConnect();
 		try{
 			ResultSet rs1 = db.getData("select first_name,last_name,profile_pic from profile where profile_id = "+profile_id+" ");

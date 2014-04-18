@@ -37,7 +37,7 @@ public class MessagePageImpl {
 	public List<MessageNameList> getnames(int profile_id)
 	{
 		int i=0,j,flag=0,size;
-
+		System.out.println("in messagepageImpl getnames()");
 		try{
 			ResultSet rs = db.getData("select sender_id,receiver_id from facebook.messages where "+profile_id+" in (sender_id,receiver_id) and "+profile_id+" in (visible1,visible2) order by timestamp desc");
 			while (rs.next())
@@ -110,6 +110,8 @@ public class MessagePageImpl {
 
 	public List<MessageNameList> getconversation(int profile_id,int conversation_id)
 	{
+		System.out.println("in messagepageImpl getconversation()");
+
 		try{
 			db.updateData(" update facebook.messages set isread=1 where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or  (sender_id="+conversation_id+" and receiver_id="+profile_id+")");
 			ResultSet rs2 = db.getData("select message_id,sender_id,message_text,timestamp from facebook.messages where ((sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")) and "+profile_id+" in (visible1,visible2)  order by timestamp;");
@@ -155,9 +157,10 @@ public class MessagePageImpl {
 
 	public String getFirstChatName(int Profile_id)
 	{
+
 		try
 		{
-			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2)");
+			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2) order by timestamp asc ");
 			while(rs5.next())
 			{
 				if(rs5.getInt("sender_id")==Profile_id)
@@ -179,14 +182,17 @@ public class MessagePageImpl {
 		{
 			e.printStackTrace();
 		}
+		System.out.println("in messagepageImpl getFirstchatname() " +firstChatName);
+
 		return firstChatName;
 	}
 
 	public Integer getFirstChatId(int Profile_id)
 	{
+
 		try
 		{
-			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2)");
+			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2)  order by timestamp asc") ;
 			while(rs5.next())
 			{
 				if(rs5.getInt("sender_id")==Profile_id)
@@ -202,6 +208,8 @@ public class MessagePageImpl {
 		{
 			e.printStackTrace();
 		}
+		System.out.println("in messagepageImpl getFirstChatId() "+firstChatId);
+
 		return firstChatId;
 	}
 	public int totalUnreadMessages(int profile_id)
@@ -223,6 +231,8 @@ public class MessagePageImpl {
 
 	public String getChatPersonName(int conversation_id1)
 	{
+		System.out.println("in messagepageImpl getchatPrsonName()");
+
 		String name=null;
 		try{
 			ResultSet rs9 = db.getData("select first_name,last_name from profile where profile_id ="+conversation_id1+"");
@@ -271,6 +281,8 @@ public class MessagePageImpl {
 	
 	public void deleteConversation(int profile_id,int conversation_id)
 	{
+		System.out.println("in messagepageImpl deleteConvrsatn()");
+
 		try{
 			ResultSet rs3 = db.getData("select visible1,visible2,message_id from facebook.messages where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")");			
 			while(rs3.next())
@@ -309,6 +321,8 @@ public class MessagePageImpl {
 	
 	public void deleteSelectedMessage(int profile_id,int message_id)
 	{
+		System.out.println("in messagepageImpl deleteSelctdMsgs()");
+
 		try{
 			ResultSet rs2=db.getData("select visible1,visible2 from facebook.messages where message_id="+message_id+"");
 			while(rs2.next())

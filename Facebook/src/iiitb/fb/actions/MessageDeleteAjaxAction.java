@@ -15,12 +15,21 @@ public class MessageDeleteAjaxAction {
 	String message_ids;
 	int conversation_id;
 	List<MessageNameList> conversation = null;
+	List<MessageNameList> namelist = null;
 	MessagePageImpl mp = new MessagePageImpl();
 	String name;
 	int id;
 	
 	
 	
+	public List<MessageNameList> getNamelist() {
+		return namelist;
+	}
+
+	public void setNamelist(List<MessageNameList> namelist) {
+		this.namelist = namelist;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -102,6 +111,9 @@ public class MessageDeleteAjaxAction {
 		
 		conversation = new ArrayList<MessageNameList>();
 		conversation = mp.getconversation(profile_id, conversation_id);
+		
+		namelist = new ArrayList<MessageNameList>();
+		namelist=mp.getnames(profile_id);
 		
 		name = mp.getChatPersonName(conversation_id);
 		id = conversation_id;

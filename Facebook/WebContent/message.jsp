@@ -10,7 +10,12 @@
 <script src="/Facebook/asset/js/jquery.cssemoticons.js"
 	type="text/javascript"></script>
 <link href="/Facebook/asset/css/message.css" rel="stylesheet">
-
+<style type="text/css">
+#messages:hover{
+	cursor: pointer;
+	text-decoration: none;
+}
+</style>
 <script type="text/javascript">
 
 $(document).ready(
