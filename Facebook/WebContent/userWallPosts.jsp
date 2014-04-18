@@ -10,334 +10,17 @@
 	rel="stylesheet" type="text/css" />
 <script src="/Facebook/asset/js/jquery.cssemoticons.js"
 	type="text/javascript"></script>
-
-<style type="text/css">
-
-#side_menu {
-	 width: 23%;
-	padding-left: 2%;
-	position: relative;
-	float: left;
-}
-
-#news_feeds_div {
-	width: 70%;
-	position: relative;
-	float: right;
-	height: 100%;
-	padding-top: 2%;
-	padding-left: 1%;
-}
-
-#menu_items {
-	font-size: 12px;
-	font-weight: bold;
-	padding-bottom: 3px;
-}
-
-#menu_items:hover {
-	padding-bottom: 3px;
-	padding-top: 3px;
-	background-color: #DDDEE0;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-a:hover {
-	text-decoration: none;
-}
-</style>
-<style type="text/css">
-#full_name {
-	font-size: 13px;
-	font-weight: bolder;
-	color: #3B59A4;
-}
-
-#full_name_comment {
-	font-size: 12px;
-	font-weight: bolder;
-	color: #3B59A4;
-}
-
-#comment {
-	background-color: #F6F7F8;
-	width: 100%;
-	padding-left: 10px;
-	min-height: 40px;
-}
-
-.comment_form {
-	background-color: #F6F7F8;
-	width: 100%;
-	padding-left: 10px;
-	min-height: 40px;
-}
-
-#full_name:hover {
-	text-decoration: underline;
-}
-
-.like_comment_button {
-	color: #6D84B4;
-	font-size: 13px;
-	font-stretch: narrower;
-}
-
-#comment_link:hover {
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-#like_link:hover {
-	text-decoration: underline;
-	cursor: pointer;
-}
-#unlike_link:hover {
-	text-decoration: underline;
-	cursor: pointer;
-}
-.comments_div {
-	background-color: #F6F7F8;
-	width: 100%;
-	border-top: 1px solid #e3e3e3;
-}
-
-#likes {
-	padding-bottom: 1px;
-}
-.likes_others{
-	color: #6D84B4;
-
-}
-.likes_others:hover{
-	text-decoration: underline;
-	cursor: pointer;
-}
-likes_list_others{
-	   width: 600px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    background-color: #FFF;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    outline: 0 none;
-}
-.single_wallpost {
-	min-height: 20px;
-	padding: 19px 0px 0px 0px;
-	margin-bottom: 20px;
-	background-color: white;
-	border: 1px solid #e3e3e3;
-	border-radius: 2px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
-}
-
-#wallpost_body {
-	padding-left: 10px;
-}
-
-#myModal .modal-body{
-	max-height: 500px;
-	overflow-y: auto;
-
-}
-.modal-header{
-	background-color: #F5F6F7;
-}
-</style>
-<script type="text/javascript">
-	
+<link href="/Facebook/asset/css/wallPosts.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript" src="/Facebook/asset/js/newWallPost.js">
 </script>
-<script type="text/javascript">
-	//for new wall post
-	$(document).ready(
-			function() {
-					$(".text1").emoticonize();
-					$(".comments_div").emoticonize();
-					$(".comments_div").live("keypress",	function(e) {
-									if (e.which == 13) {
-										var f = $(this);
-										var x = f.find('#comment_wp_text');
-										var y = f.find('#comment_wp_id');
-										var z = f.find("#comments_collection");
-										$.ajax({
-											type : 'POST',
-											url : '/Facebook/module06/commentWallPost.action?wallPostId='+$(y).val()+ "&commentText="+ $(x).val(),
-											success : function(data) {
-														var temp = '<div id="comment"><img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />'
-																		+ '<a href="#" id="full_name_comment">&nbsp;&nbsp;'
-																		+ data.fullName
-																		+ '</a>&nbsp;'
-																		+ '<font size="2.5">'
-																		+ data.commentText
-																		+ '</font> <br></div>';
-												$(z).append(temp);
-												$(x).val("");
-												$(".comments_div").emoticonize();
-													}
-
-											});
-										}
-								});
-
-					$("#newButton").click(function(event){
-								$.ajax({
-									type : 'POST',
-									url : '/Facebook/module06/addWallPost.action?wallPostText='+ $("#newWallPostText").val(),
-									success : function(data) {
-											var temp = "<div class=\"single_wallpost\"><div id=\"wallpost_body\">";
-											temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";
-											temp += "&nbsp;&nbsp;<a href=\"#\" id=\"full_name\">"
-											+ data.postFromName+ "</a> <br>";
-											temp += "<br> <br> <font size=\"2.7\"><div class=\"text1\">"
-											+ data.wallPostText
-											+ "</font> <br><br>";
-											temp += '<div class="likes_container"><div class="like_comment_button" style="padding-bottom: 1%;">'+
-											'<input type="hidden" value="'+data.wallPostId+'" id="like_wp_id" />';
-											temp += '<div class="clickable" id="like_link" style="float: left;">Like</div>';
-											temp += '<div id="intermediate" style="float: left;">&nbsp;*&nbsp;</div>';
-											temp += '<div class="clickable" id="comment_link" style="float: left;">Comment</div></div>';
-											temp +='<div id="likes" style="position: absolute; float: left; font-size: 12px; padding-top: 4%;">&nbsp;&nbsp;'+
-											'<img alt="Like" src="/Facebook/asset/images/like_icon.png" height="13" width="15" id="like_image">';
-											temp += 'like this</div></div></div></div><br>';
-											temp +='<div class="comments_div"><br>';
-											temp += '<center><div style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div></center>';
-											temp += '<div id="comments_collection"></div><div class="comment_form">'
-											+ '<img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />&nbsp;&nbsp;'
-											+ '<input type="hidden" value='+data.wallPostId+' id="comment_wp_id"/>'
-											+ '<input style="height: 27px;" type="text" name="commentText" id="comment_wp_text" placeholder="Write a comment.." size="79" /></div>';
-											temp += '</div>';
-											$("#wallposts_collection").prepend(temp).children(':first').hide().fadeIn(1000);
-											$("#newWallPostText").val("");
-											$(".text1").emoticonize();
-
-														}
-
-													});
-										});
-					});
+<script type="text/javascript" src="/Facebook/asset/js/deleteWallPost.js">
 </script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		debugger;
-		
-
-			$("#comment_link").unbind();
-			$("#wallposts_collection").on("click","#like_link",function(event) {
-				debugger;
-				var element = $(this).parents(".single_wallpost");
-				var hiddenBox = element.find("#like_wp_id");
-				var link = element.find("#like_link");
-				var status = element.find("#like_image");
-				
-				
-				$.ajax({
-						type : 'POST',
-						url : '/Facebook/module06/likePost.action?wallPostId='+$(hiddenBox).val(),
-						success : function(data) {
-										$(link).html("Unlike");
-										$(link).attr('id','unlike_link');
-										$(status).after("&nbsp;You");
-										}
-									});
-
-				});
-			
-			$("#wallposts_collection").on("click","#unlike_link",function(event) {
-				debugger;
-				var element = $(this).parents(".single_wallpost");
-				var hiddenBox = element.find("#like_wp_id");
-				var link = element.find("#unlike_link");
-				var status = element.find("#like_image");
-				var likesDiv = element.find("#likes");
-				var str = $(likesDiv).text().replace('You','');
-				var img = element.find("#like_image");
-				
-				
-				$.ajax({
-						type : 'POST',
-						url : '/Facebook/module06/unlikePost.action?wallPostId='+$(hiddenBox).val(),
-						success : function(data) {
-										
-										$(link).html("Like");
-										$(link).attr('id','like_link');
-										//$(likesDiv).html(str);
-										//$(likesDiv).prepend(img);
-										//$(likesDiv).prepend("&nbsp;&nbsp;");
-										}
-									});
-				var temp = "";
-				debugger;
-				$.ajax({
-					type : 'POST',
-					url : '/Facebook/module06/loadLikes.action?wallPostId='+$(hiddenBox).val(),
-					success: function(data1){
-						$.each(data1.likesList, function(index, value1){
-							temp = temp + ',<a href="#" style="color:#6D84B4; ">'+value1.fullName+'</a>';
-							alert(value1.fullName);
-						});
-						temp += " like this";
-						$(likesDiv).html(temp);
-						$(likesDiv).prepend(img);
-						$(likesDiv).prepend("&nbsp;&nbsp;");
-						
-					}
-				});
-
-				});
-				$(".single_wallpost").on("click","#comment_link",function(event) {
-					debugger;
-					var element = $(this).parents(".single_wallpost");
-					var commentTextBox = element.find("#comment_wp_text");
-					$(commentTextBox).focus();
-				
-					});
-				});
+<script type="text/javascript"
+	src="/Facebook/asset/js/likeUnlikeComment.js">
 </script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#wallposts_collection").on("click",".likes_others", function(e){
-			debugger;
 
-		/* 	var parent = $(this).parents("#wallposts_collection");
-			var likesListDiv = parent.find("#likes_list_others"); */
-			var parent1 = $(this).parents(".single_wallpost");
-			var hiddenBox = parent1.find("#like_wp_id");
-			var url = '/Facebook/module06/loadLikes.action?wallPostId='+$(hiddenBox).val();
-			$("#likes_list_others").html("");
-			$("#loader_likes").show();
-			$("#loader_likes").delay(1000).hide(1);
-
-			$.ajax({
-				type : 'POST',
-				url : url,
-				success: function(data){
-					var temp = "";
-
-					
-					 $.each(data.likesList, function(index, value){
-						temp +='<s:url action="#" var="profileLink" escapeAmp="false"><s:param name="profileId">';
-						temp += value.profileId;
-						temp += '</s:param></s:url>';
-						temp += '<s:a href="#"><img src="'+value.profilePic+'" height="50px" width="50px" style="float:left;position:relative;"></s:a>';
-						temp += '&nbsp;&nbsp;<a href="#"><p style="font-weight:bold; width:50%;float:left;position:relative;">&nbsp;&nbsp;'+value.fullName+'</p></a>';
-						temp += "<br><br><hr>";
-						
-					});
-
-					 $("#likes_list_others").html(temp);
-					
-				}
-			});
-			
-
-
-		});
-	});
+<script type="text/javascript" src="/Facebook/asset/js/likesOthers.js">
 </script>
 
 <script type="text/javascript">
@@ -456,7 +139,8 @@ likes_list_others{
 				<div
 					style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div>
 			</center>
-
+			<input type="hidden" value="0" id="event_id_hidden">
+			<input type="hidden" id="post_to_id" value='<s:property value="#session.currentProfile"/>'/>
 			<input type="text" id="newWallPostText" size="84"
 				placeholder="Whats on your mind?" required="true"
 				style="border: 0px; height: 40px; margin-left: 2%; outline: none; overflow: visible;" /><br>
@@ -493,6 +177,7 @@ likes_list_others{
 							</s:url>
 						<s:a href="%{profileLink}" id="full_name"><img height="40px" width="40px"
 							align="left" src='<s:property value="postFromPicture"/>' /></s:a>
+							
 						&nbsp;&nbsp;
 							<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
 								<s:param name="profileId">
@@ -500,7 +185,18 @@ likes_list_others{
 								</s:param>
 							</s:url>
 						<s:a href="%{profileLink}" id="full_name"><s:property
-								value="postFromName" /></s:a> <br> <br> <br> <font
+								value="postFromName" /></s:a>
+								<s:if test="%{postFrom != postTo}">
+									&nbsp;<img src="/Facebook/asset/images/right-normal.png" width="5px" height="7px">&nbsp;
+										<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
+											<s:param name="profileId">
+												<s:property value="postTo"/>
+											</s:param>
+										</s:url>
+									<s:a href="%{profileLink}" id="full_name"><s:property
+									value="postToName" /></s:a>
+								</s:if>
+								 <br> <br> <br> <font
 							size="2.7"><div class="text1">
 								<s:property value="wallPostText" />
 							</div></font> <br>

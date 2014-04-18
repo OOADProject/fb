@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,15 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 	//private List<Event> eventlist= new ArrayList<Event>() ;
 	Event newEvent=new Event();
 	private ArrayList<ArrayList<Event>> datewiseEventList=null;
+	Map<String,ArrayList<Event>> datedEventMap=null;
+	public Map<String, ArrayList<Event>> getDatedEventMap() {
+		return datedEventMap;
+	}
+
+	public void setDatedEventMap(Map<String, ArrayList<Event>> datedEventMap) {
+		this.datedEventMap = datedEventMap;
+	}
+
 	private String invitedFriendIds;
 	private String eventDateTemp;
 	private List<UserWallPost> wallPostsList;
@@ -60,12 +70,12 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 	public String showEventsList()	{
 
 		datewiseEventList =new ArrayList<ArrayList<Event>>();
-		
+		datedEventMap=new HashMap<String,ArrayList<Event>>();
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
 		EventImpl ei=new EventImpl();
-		datewiseEventList=ei.showEventsList(user.getProfile_id());	
-
+		//datewiseEventList=ei.showEventsList(user.getProfile_id());	
+		datedEventMap=ei.showEventsList(user.getProfile_id());
 		return SUCCESS;
 	}
 
@@ -140,6 +150,10 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 
 	public String showEventPage()	{
 		System.out.println(newEvent.getEventId());
+		//query database to get details of that event 
+		EventImpl ei=new EventImpl();
+		ei.showEventPage(newEvent);
+		
 		WallPostImpl wi = new WallPostImpl();
 		wallPostsList = wi.getEventWallPosts(newEvent.getEventId());
 		return SUCCESS;

@@ -1,6 +1,61 @@
 package iiitb.fb.models;
 
+import java.util.ArrayList;
+
 public class Profile {
+
+	
+	private ArrayList<WorkEducation>  workexlist= new ArrayList<WorkEducation>();
+	
+	
+	public ArrayList<WorkEducation> getWorkexlist() {
+		return workexlist;
+	}
+	public void setWorkexlist(ArrayList<WorkEducation> workexlist) {
+		this.workexlist = workexlist;
+	}
+	
+	
+	public String title;
+	public String description;
+	public String startDate;
+	public String endDate;
+	public String graduation;
+	
+	
+	
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getGraduation() {
+		return graduation;
+	}
+	public void setGraduation(String graduation) {
+		this.graduation = graduation;
+	}
+
 
 	public String firstName;
 	public String lastName;
@@ -19,11 +74,17 @@ public class Profile {
 	public String professionalSkill;
     public String profilePic;
     public String coverPic;
-	
+	public String email;
     
     
     
-    //getter and setter
+    public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	//getter and setter
     public String getFirstName() {
 		return firstName;
 	}

@@ -18,7 +18,7 @@ public class WallPostAction extends ActionSupport implements ModelDriven<WallPos
 	
 	WallPost wp = new WallPost();
 	private List<UserWallPost> wallPostsList;
-
+	private User user;
 
 	
 	public String deleteWallPost(){
@@ -35,7 +35,7 @@ public class WallPostAction extends ActionSupport implements ModelDriven<WallPos
 		
 		WallPostImpl wpi = new WallPostImpl();
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		User user = (User)session.get("user");
+		user = (User)session.get("user");
 		
 		//hardcoded replace with session
 		wallPostsList = wpi.getWallPosts(user.getProfile_id());
@@ -61,4 +61,13 @@ public class WallPostAction extends ActionSupport implements ModelDriven<WallPos
 	public void setWallPostsList(List<UserWallPost> wallPostsList) {
 		this.wallPostsList = wallPostsList;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 }

@@ -15,19 +15,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class EventImpl {
 
-	public ArrayList<ArrayList<Event>> showEventsList(int profile_id)	{
+	public Map<String,ArrayList<Event>> showEventsList(int profile_id)	{
 
 		ArrayList<Event> myEvents =new ArrayList<Event>();
 		//ArrayList<ArrayList<Event>> datewiseEventList = new ArrayList<ArrayList<Event>>();
 		ArrayList<Event> myallEvents =new ArrayList<Event>();
 		ArrayList<ArrayList<Event>> allEventList = new ArrayList<ArrayList<Event>>();
 		ArrayList<Event> onDate =null;
-		Date eventDtTm ;
+		Date eventDtTm; 
+		
+		Map<String,ArrayList<Event>> datedEventMap=new TreeMap<String,ArrayList<Event>>();
 		//String datematch="";
 
 
@@ -126,8 +131,7 @@ public class EventImpl {
 			}
 		}
 
-
-		String getBdayQuery = "select * from event where profile_id="+profile_id+" and isBirthday=1";
+		String getBdayQuery = "select * from event e ,friends f where e.isBirthday=1 and f.profile_id='"+profile_id+"' and e.profile_id=f.friend_id";
 		ArrayList< Event> bDayList=new ArrayList<Event>();
 		ResultSet bDayset = dc.getData(getBdayQuery);
 		try {
@@ -137,7 +141,7 @@ public class EventImpl {
 				eventDtTm=new Date();
 				eventDtTm=bDayset.getTimestamp("event_date");
 				ev.setEventId(bDayset.getInt("event_id"));
-				ev.setEventDateHdr(new SimpleDateFormat("MMMM dd").format(eventDtTm));
+				ev.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(eventDtTm));
 				ev.setEventTime(new SimpleDateFormat("HH:MM aa").format(eventDtTm));									
 				ev.setEventId(bDayset.getInt("event_id"));
 				ev.setEventTitle(bDayset.getString("event_title"));
@@ -164,6 +168,7 @@ public class EventImpl {
 
 		System.out.println("Birthdays");
 		for(int i=0;i<bDayList.size() ; i++)
+
 		{
 
 			System.out.println(bDayList.get(i).getEventTitle() +" at " + bDayList.get(i).getEventDateHdr());
@@ -237,6 +242,10 @@ public class EventImpl {
 				onDate.add(myallEvents.get(p));
 				p++;
 			}
+			
+		//	int len=onDate.get(0).getEventDate().length();
+				datedEventMap.put(new SimpleDateFormat("MM-dd , EEEE").format(onDate.get(0).getEventDate()), onDate);
+				
 			allEventList.add(onDate);
 
 		}
@@ -255,7 +264,8 @@ public class EventImpl {
 
 
 
-		return allEventList ;
+		//return allEventList ;
+		return datedEventMap;
 	}
 
 	public int addEvent(Event newEvent,String invited)	
@@ -370,7 +380,40 @@ public class EventImpl {
 
 
 	}
+	
 
+	public boolean showEventPage(Event newEvent)
+	{
+		DatabaseConnect dc=new DatabaseConnect();
+		String getEventDetailQuery = "select e.*,p.first_name,p.last_name from event e, profile p where event_id='"+newEvent.getEventId()+"' and e.profile_id=p.profile_id";
+		Date eventDtTm;
+		ResultSet eventset = dc.getData(getEventDetailQuery);
+		try {
+			while(eventset.next())
+			{eventDtTm=new Date();
+			newEvent.setEventTitle(eventset.getString("event_title"));
+			newEvent.setDescription(eventset.getString("description"));
+			newEvent.setEventOwnerId(eventset.getInt("profile_id"));
+			newEvent.setEventOwnerName(eventset.getString("first_name")+" " +eventset.getString("last_name"));
+			eventDtTm=eventset.getTimestamp("event_date");
+			newEvent.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(eventDtTm));
+			newEvent.setEventTime(new SimpleDateFormat("HH:MM aa").format(eventDtTm));
+			newEvent.setEvent_where(eventset.getString("event_where"));
+			newEvent.setEventPhoto(eventset.getString("event_photo"));
+
+			}
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		return true;
+	}
+
+	
+	
 
 }
 

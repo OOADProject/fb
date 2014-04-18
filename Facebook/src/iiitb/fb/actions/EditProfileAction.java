@@ -20,163 +20,284 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class EditProfileAction extends  ActionSupport implements ModelDriven<WorkEducation> {
+
+public class EditProfileAction extends  ActionSupport implements ModelDriven<Profile> {
 
 	
 	
 	/**
-	 * 
+	 *
 	 */
+
 	private static final long serialVersionUID = 1L;
-	
+	private ArrayList<WorkEducation>  workneducation= new ArrayList<WorkEducation>();
+
 	Profile pfobj= new Profile();
-	private List<WorkEducation> listofeducationdetails = new ArrayList<WorkEducation>();
-	private List<WorkEducation> listofplaceslived1 = new ArrayList<WorkEducation>();
-	private List<WorkEducation> listofbasicinformation = new ArrayList<WorkEducation>();
-    User user = new User();
-	
-	public String relationship;
-	public String aboutme;
-	public String favquote;
-	
-	WorkEducation weobj=new WorkEducation();
+	EditProfileImpl pfimpl= new EditProfileImpl();
+	 User user = new User();
 	
 
-	public String geteducationdetails() throws SQLException{
+	public String getProfiledetails() throws SQLException{
 		
-		EditProfileImpl pfimpl= new EditProfileImpl();
+		
 		
 		Map<String,Object> session = ActionContext.getContext().getSession();
 		int profile_id=(Integer)session.get("currentProfile");
+		System.out.println("currentProfile");
 		//int login_id= (Integer)session.get("login_id");
 		user = new LoadProfileImpl().getUser(profile_id);
-		listofeducationdetails=pfimpl.getWorkEducationData(profile_id);
-		relationship=pfimpl.getRelationshipStatus(profile_id);
-	    aboutme=pfimpl.getAboutMe(profile_id);
-		favquote=pfimpl.getFavQuote(profile_id);
-		listofplaceslived1=pfimpl.getPlacesLived(profile_id);
+	    pfobj=pfimpl.getEditProfileDetails(profile_id);
 		
-		listofbasicinformation=pfimpl.getBasicContactInfo(profile_id);
 		return SUCCESS;
 		
 	}
 		 
 	
+
+	public String updateWork()
+	{
+		
+		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int pid = user.getProfile_id();
+		
+		pfimpl.updateWorkDetails(pid, pfobj.getTitle(),pfobj.getDescription(),pfobj.getStartDate(),pfobj.getEndDate(),pfobj.getGraduation());
+		return  SUCCESS;
 	
+	}
 	 
 	
-	@Override
-	public WorkEducation getModel() {
-		// TODO Auto-generated method stub
-		return weobj;
+	
+	
+	
+	
+	public String updateRelationshipStatus()
+	
+	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int pid = user.getProfile_id();
+		System.out.println(pfobj.getRelationshipStatus());
+		pfimpl.updateRelationshipStatus(pid,pfobj.getRelationshipStatus() );
+	  	
+		return SUCCESS;
 	}
+	
+	
+
+	public String updateAboutMe()
+	
+	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int pid = user.getProfile_id();
+		System.out.println(pfobj.getAboutMe());
+		pfimpl.updateAboutMeImpl(pid, pfobj.getAboutMe());
+	  	
+		return SUCCESS;
+	}
+	
+	
+public String updateFavQuote()
+	
+	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int pid = user.getProfile_id();
+		System.out.println(pfobj.getFavQuote());
+		pfimpl.updateFavQuoteImpl(pid,pfobj.getFavQuote());
+	  	
+		return SUCCESS;
+	}
+	
+	
+	
+public String updateHomeTown()
+{
+	
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	System.out.println(pfobj.getHomeTown());
+	pfimpl.updateHomeTownImpl(pid,pfobj.getHomeTown());
+	return SUCCESS;
+}
 
 
+public String updateCurrentCity()
+{
+
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	System.out.println(pfobj.getHomeTown());
+	pfimpl.updateCurrentCityImpl(pid,pfobj.getCurrentCity());
+	
+	return SUCCESS;
+}
+
+
+public String updateGender()
+{
+
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	System.out.println(pfobj.getHomeTown());
+	pfimpl.updateGenderImpl(pid,pfobj.getGender());
+	
+	return SUCCESS;
+}
+
+
+
+public String updateLanguage()
+{
+    
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.updateLanguageImpl(pid,pfobj.getLanguageKnown());
+	
+	return SUCCESS;
+}
 
 	
 
 
 
-	public WorkEducation getWeobj() {
-		return weobj;
+
+public String updateInterestedIn()
+{
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.updateInterestedInImpl(pid,pfobj.getInterestedIn());
+	
+	return SUCCESS;
+	
+	
+	
+}
+
+
+public String updateReligiousView()
+{
+	
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.updateReligiousViewImpl(pid,pfobj.getReligiousView());
+	
+	return SUCCESS;
+	
+}
+
+public String updatePoliticalView()
+{
+
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.updatePoliticalViewImpl(pid,pfobj.getPoliticalView());
+	
+	return SUCCESS;
+	
+}
+
+
+public String updateEmailId()
+{
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.updateEmailIdImpl(pid,pfobj.getEmail());
+	
+	return SUCCESS;
+	
+}
+public String updatePhoneNo()
+{
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.updatePhoneNoImpl(pid,pfobj.getPhoneNo());
+	
+	return SUCCESS;
+	
+}
+
+
+public String deleteHomeTown()
+{
+	
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	User user = (User)session.get("user");
+	
+	int pid = user.getProfile_id();
+	
+	pfimpl.deleteHomeTownImpl(pid,pfobj.getHomeTown());
+	
+	return SUCCESS;
+	
+}
+
+@Override
+	public Profile getModel() {
+		// TODO Auto-generated method stub
+		return pfobj;
 	}
 
 
 
-	public void setWeobj(WorkEducation weobj) {
-		this.weobj = weobj;
-	}
 
 
-
-	public List<WorkEducation> getListofeducationdetails() {
-		return listofeducationdetails;
-	}
-
-    
-
-	public void setListofeducationdetails(List<WorkEducation> listofeducationdetails) {
-		this.listofeducationdetails = listofeducationdetails;
+	public Profile getPfobj() {
+		return pfobj;
 	}
 
 
 
 
 
-	public String getRelationship() {
-		return relationship;
+	public void setPfobj(Profile pfobj) {
+		this.pfobj = pfobj;
 	}
 
 
 
 
 
-	public void setRelationship(String relationship) {
-		this.relationship = relationship;
+	public EditProfileImpl getPfimpl() {
+		return pfimpl;
 	}
 
 
 
 
 
-	public String getAboutme() {
-		return aboutme;
-	}
-
-
-
-
-
-	public void setAboutme(String aboutme) {
-		this.aboutme = aboutme;
-	}
-
-
-
-
-
-	public String getFavquote() {
-		return favquote;
-	}
-
-
-
-
-
-	public void setFavquote(String favquote) {
-		this.favquote = favquote;
-	}
-
-
-
-
-
-	public List<WorkEducation> getListofplaceslived1() {
-		return listofplaceslived1;
-	}
-
-
-
-
-
-	public void setListofplaceslived1(List<WorkEducation> listofplaceslived1) {
-		this.listofplaceslived1 = listofplaceslived1;
-	}
-
-
-
-
-
-	public List<WorkEducation> getListofbasicinformation() {
-		return listofbasicinformation;
-	}
-
-
-
-
-
-	public void setListofbasicinformation(List<WorkEducation> listofbasicinformation) {
-		this.listofbasicinformation = listofbasicinformation;
+	public void setPfimpl(EditProfileImpl pfimpl) {
+		this.pfimpl = pfimpl;
 	}
 
 
@@ -195,6 +316,14 @@ public class EditProfileAction extends  ActionSupport implements ModelDriven<Wor
 		this.user = user;
 	}
 
-	
+	public ArrayList<WorkEducation> getWorkneducation() {
+		return workneducation;
+	}
+
+
+	public void setWorkneducation(ArrayList<WorkEducation> workneducation) {
+		this.workneducation = workneducation;
+	}
+
 	
 }

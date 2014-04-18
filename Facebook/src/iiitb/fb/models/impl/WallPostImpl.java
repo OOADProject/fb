@@ -17,6 +17,31 @@ import iiitb.fb.models.WallPost;
 public class WallPostImpl {
 
 	private int profile_id, isLiked;
+	public String getPostToName(int profileId){
+		DatabaseConnect dbc = new DatabaseConnect();
+		String fullName="";
+		
+		Connection connection = DatabaseConnect.getConnection();
+		String query="select first_name,last_name from profile where profile_id=?";
+		
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profileId);
+			
+			ResultSet rs = dbc.getData(ps);
+			
+			while(rs.next()){
+				fullName = rs.getString("first_name")+" "+rs.getString("last_name");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fullName;
+		
+	}
+	
 	public int addWallPost(WallPost wp){
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = DatabaseConnect.getConnection();
@@ -97,6 +122,7 @@ public class WallPostImpl {
 					uwp.setPostFromName(rs.getString("first_name")+" "+rs.getString("last_name"));
 					uwp.setPostFromPicture(rs.getString("profile_pic"));
 					uwp.setPostTo(rs.getInt("post_to"));
+					uwp.setPostToName(getPostToName(uwp.getPostTo()));
 					uwp.setTimestamp(rs.getString("timestamp"));
 					uwp.setVisibility(rs.getString("visibility"));
 					uwp.setWallPostText(rs.getString("wallpost_text"));

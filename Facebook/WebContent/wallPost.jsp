@@ -85,6 +85,8 @@
 					style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div>
 			</center>
 			<!-- event id not needed over here but we have to use the same js so event id is set to 0 -->
+						<input type="hidden" id="post_to_id" value='<s:property value="#session.currentProfile"/>'/>
+			
 			<input type="hidden" value="0" id="event_id_hidden"> <input
 				type="text" id="newWallPostText" size="84"
 				placeholder="Whats on your mind?" required="true"
@@ -142,9 +144,8 @@
 						<s:a href="%{profileLink}" id="full_name">
 							<s:property value="postFromName" />
 						</s:a>
-						<s:property value="postFrom"/>
-						<s:property value="postTo"/>
-						<s:if test="%{postFrom == user.getProfile_id()}">
+			
+						<s:if test="%{postFrom == user.getProfile_id() || postTo == user.getProfile_id()}">
 							<div style="float: right;margin-right: 2%">
 								<ul type="none">
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
