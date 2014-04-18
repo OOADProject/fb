@@ -16,6 +16,7 @@ import iiitb.fb.models.User;
 import iiitb.fb.models.impl.FriendsImpl;
 import iiitb.fb.models.impl.LoadProfileImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -29,7 +30,7 @@ public class FriendsAction extends ActionSupport{
 	int numberoffriends;
 	List<Friend> allfriends;
 	private int profileId;
-	Map<String, Object> session;
+	Map<String, Object> session=ActionContext.getContext().getSession();
 	
 	
 	public String getFriends()
@@ -45,8 +46,25 @@ public class FriendsAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	public String sendFriendRequest()
+	{
+		FriendsImpl friends=new FriendsImpl();
+		User user=(User) session.get("user");
+		int loggedinProfileId=user.getProfile_id();
+		int friendProfileId=(int)session.get("currentProfile");
+		friends.sendfriendRequest(loggedinProfileId,friendProfileId);
+		return SUCCESS;
+	}
 
-
+	public String cancleFriendRequest()
+	{
+		FriendsImpl friends=new FriendsImpl();
+		User user=(User) session.get("user");
+		int loggedinProfileId=user.getProfile_id();
+		int friendProfileId=(int)session.get("currentProfile");
+		friends.cancleRequest(loggedinProfileId,friendProfileId);
+		return SUCCESS;
+	}
 	
 	public List<Friend> getAllfriends() {
 		return allfriends;

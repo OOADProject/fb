@@ -4,7 +4,7 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="dipesh" namespace="/module02" extends="tiles-default">
+	<package name="dipesh" namespace="/module02" extends="tiles-default,json-default">
 		<!-- All action Mappings will go over here -->
 		<action name="redirectLogin" class="iiitb.fb.actions.Success" method="execute">
 			<result name="success" type="tiles">loginPage</result>
@@ -28,6 +28,12 @@
 		<action name="skipstep1" class="iiitb.fb.actions.Success" method="skipStep1">
 			<result name="success" type="tiles">step1</result>
 		</action>
+		
+		
+		<action name="forgotPassword" class="iiitb.fb.actions.Success" method="forgotPassword">
+			<result name="success" type="tiles">forgot</result>
+		</action>
+		
 		
 		<action name="backtostep1" class="iiitb.fb.actions.Success" method="backToStep1">
 			<result name="success" type="tiles">backstep1</result>
@@ -72,5 +78,22 @@
 		<action name="loadProfilePage" class="iiitb.fb.actions.LoadProfileAction" method="loadProfile">
 			<result name="success" type="tiles">profilepage</result>
 		</action>
+		
+		<action name="searchAction" class="iiitb.fb.actions.SearchAction" method="search">
+			<result name="success" type="json">wallPost</result>
+		</action>
+		
+		<action name="peopleYouMayKnow" class="iiitb.fb.actions.PeopleYouMayKnowAction" method="peopleYouMayKnow">
+			<result name="success" type="json">wallPost</result>
+		</action>
+		
+		<action name="friendRequest" class="iiitb.fb.actions.FriendsAction" method="sendFriendRequest">
+			<result name="success" type="json">wallPost</result>
+		</action>
+		
+		<action name="canclefriendRequest" class="iiitb.fb.actions.FriendsAction" method="cancleFriendRequest">
+			<result name="success" type="json">wallPost</result>
+		</action>
+		
 	</package>
 </struts>

@@ -2,7 +2,9 @@ package iiitb.fb.models.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
@@ -38,5 +40,20 @@ public class FriendsImpl {
 		return friendsid;
 	}
 	
+	public void sendfriendRequest(int loggedinProfileId,int friendProfileId)
+	{
+		DatabaseConnect db=new DatabaseConnect();
+		Date time=new Date();
+		SimpleDateFormat ft=new SimpleDateFormat("yyyy-MM-dd");
+		String query="insert into friendrequest values(default,"+friendProfileId+","+loggedinProfileId+",'"+ft.format(time)+"')";
+		db.updateData(query);
+	}
+
+	public void cancleRequest(int loggedinProfileId,int friendProfileId)
+	{
+		DatabaseConnect db=new DatabaseConnect();
+		String query="delete from friendrequest where (request_to="+friendProfileId+" and request_from="+loggedinProfileId+ ")";
+		db.updateData(query);
+	}
 	
 }

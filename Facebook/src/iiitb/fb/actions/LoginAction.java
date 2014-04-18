@@ -88,7 +88,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		{
 			pid=ui.addUser(user); // To add user in databse.
 			user.setProfile_id(pid);
-			session.put("usersession", user);
+			session.put("user", user);
 			return SUCCESS;
 		}
 		else
@@ -110,7 +110,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 	{
 		User tempuser=new User();
 		UserImpl ui = new UserImpl();
-		tempuser=(User)session.get("usersession");
+		tempuser=(User)session.get("user");
 		user.setBirthday(tempuser.getBirthday());
 		user.setEmail(tempuser.getEmail());
 		user.setFname(tempuser.getFname());
@@ -119,7 +119,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		user.setPassword(tempuser.getPassword());
 		user.setProfile_id(tempuser.getProfile_id());
 		ui.addProfileInfo(user);
-		session.put("usernewsession", user);
+		session.put("user", user);
 	 return SUCCESS;
 	}
 	
@@ -128,8 +128,8 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		System.out.println("PROFILE PIC");
 		try {
 			User tempuser=new User();
-			tempuser=(User)session.get("usernewsession");
-		String destpath="H:\\github\\fb\\Facebook\\WebContent\\asset\\images\\profilepics\\";
+			tempuser=(User)session.get("user");
+		String destpath="C:\\Users\\Dipesh\\git\\fb\\dip\\Facebook\\WebContent\\asset\\images\\profilepics\\";
 		int picnm=tempuser.getProfile_id();
 		String picname=Integer.toString(picnm);
 		user.setMyFileFileName(picname+".jpg");
@@ -192,7 +192,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		}
 		else
 		{
-		session.put("user", user);	
+		session.put("user", user);
 		return SUCCESS;
 		}
 	}

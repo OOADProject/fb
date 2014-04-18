@@ -12,14 +12,14 @@
 			Phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</p>
 		<form action="module02/userLogin">
-		<input type="text" name="userName" size="19" id="uname" required="required"/> <input
-			type="password" name="password" size="19" id="password" required="required"/> <input
-			type="submit" value="Log In" id="login_button" /><br>
+		<input type="text" name="userName" size="19" id="uname" required="required"/>
+		 <input	type="password" name="password" size="19" id="password" required="required"/> 
+		<input type="submit" value="Log In" id="login_button" /><br>
 		<div id="logged_in">
 			<input type="checkbox" id="remember_me" name="logged_in">Keep
 			me logged in
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="forgot_password" style="color: rgb(152, 161, 187);">Forgot your password?</a>
+			<a href="/Facebook/module02/forgotPassword" style="color: rgb(152, 161, 187);">Forgot your password?</a>
 		</div>	</form>
 
 	</div>

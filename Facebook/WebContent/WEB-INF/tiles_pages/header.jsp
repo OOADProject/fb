@@ -24,6 +24,13 @@
  	font-size: 11px;
  	margin-left: -10px;
  }
+ #searchlistid{
+ 	padding: .5%;
+ }
+ #searchlistid:HOVER{
+ 	cursor: pointer;
+ 	background-color: #E9EAED;
+ }
  </style>
 <script>
 $(document).ready(function(){
@@ -32,7 +39,7 @@ $(document).ready(function(){
 		type: 'POST',
 		success: function(data){
 			$.each(data.notificationsList, function(index,value){
-				var temp = '<a href="/Facebook/module06/loadSingleNotification?notificationType='+value.notificationType+'&uniqueId='+value.uniqueId+'"><li class="notification_items clickable">'+'<img src="'+value.picture+'" height="50px" width="50px">&nbsp;&nbsp;'+value.notificationText+'</li></a>';
+				var temp = '<a href="/Facebook/module06/loadSingleNotification?notificationType='+value.notificationType+'&uniqueId='+value.uniqueId+'"><li class="notification_items">'+'<img src="'+value.picture+'" height="50px" width="50px">&nbsp;&nbsp;'+value.notificationText+'</li></a>';
 				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
 				$("#notifications").append(temp);
 				$("#notifications_count").html(index+1);
@@ -43,6 +50,33 @@ $(document).ready(function(){
 	$("#notification_icon").click(function(event){
 		$("#notification_icon").attr('src','/Facebook/asset/images/noti_icon.png');
 		$("#notifications_count").hide();
+	});
+	
+// jquery for search friends.
+
+	$("#searchId").keyup(function(){
+		var nameToSearch=$("#searchId").val();
+		$.ajax({
+			
+			url: '/Facebook/module02/searchAction?name='+nameToSearch,
+			type:'POST',
+			success: function(data){
+				$("#search").empty();
+				$.each(data.searchResult,function(index,value){
+					var temp='<a href="/Facebook/module02/loadProfilePage?profileId='+value.profile_id+'&isFriend='+value.isFriend+'"><li id="searchlistid">'+'<img src='+value.friendprofilepic+' height="50px" width="50px" style="margin-left:1%;"> &nbsp;&nbsp;'+value.fname+' &nbsp;'+value.lname+'</li> </a>';
+					
+					$("#search").append(temp);
+				});
+				$("#searchForm").addClass("open");
+			}
+		});
+	});
+	
+	$("#container").click(function(){
+		$("#search").hide();
+	});
+	$("#searchId").click(function(){
+		$("#search").show();
 	});
 });
 </script>
@@ -60,48 +94,56 @@ $(document).ready(function(){
 				<li><a href="/Facebook/module02/loadWall" style="color: white; font-size:12px; font-weight: bold;">Home</a></li>
 			
 
-				<li class="dropdown"><a href="#" style="padding-right: 0px;"
-					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="/Facebook/asset/images/fr_icon.png" height="25px"
-						width="30px" style="padding-right: 0px;" />
-				</a>
+				<li class="dropdown">
+						<a href="#" style="padding-right: 0px;"class="dropdown-toggle" data-toggle="dropdown"> 
+						<img src="/Facebook/asset/images/fr_icon.png" height="25px"width="30px" style="padding-right: 0px;" />
+						</a>
 					<ul class="dropdown-menu">
 						<li>Test1</li>
-					</ul></li>
-				<li class="dropdown"><a href="module01/messageclick"
-					style="padding-left: 5px; padding-top: 35%;"
-					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="/Facebook/asset/images/msg_ico.png" height="25px"
-						width="27px" />
-				</a>
+					</ul>
+				</li>
+
+
+				<li class="dropdown">
+						<a href="module01/messageclick"style="padding-left: 5px; padding-top: 35%;"class="dropdown-toggle" data-toggle="dropdown"> 
+						<img src="/Facebook/asset/images/msg_ico.png" height="25px" width="27px" />
+						</a>
 					<ul class="dropdown-menu">
 						<li>Test1</li>
-					</ul></li>
-				<li class="dropdown"><a href="#" style="padding-left: 0px;"
-					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="/Facebook/asset/images/noti_icon.png" id="notification_icon" height="25px"
-						width="26px" /><sup><span class="badge alert-danger" id="notifications_count"></span></sup>
-				</a>
+					</ul>
+				</li>
+
+
+				<li class="dropdown">
+					<a href="#" style="padding-left: 0px;" class="dropdown-toggle" data-toggle="dropdown"> 
+						<img src="/Facebook/asset/images/noti_icon.png" id="notification_icon" height="25px" width="26px" />
+							<sup><span class="badge alert-danger" id="notifications_count"></span></sup>
+					</a>
 					<ul class="dropdown-menu" id="notifications">
-					</ul></li>
+					</ul>
+				</li>
 					
 				
 				
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <img
-						src="/Facebook/asset/images/wheel_icon.png" height="20px"
-						width="20px">
-				</a>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					 <img src="/Facebook/asset/images/wheel_icon.png" height="20px"width="20px">
+					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">Settings</a></li>
 						<li><a href="redirectLogin">Logout</a></li>
 					</ul>
-
+				</li>
 			</ul>
 
-			<form class="navbar-form navbar-left">
-				<input type="text" class="form-control"
-					placeholder="Search for people..">
+			<form class="navbar-form navbar-left dropdown" id="searchForm">
+				<input type="text" id="searchId" name="name" class="form-control"
+					placeholder="Search for people.....">
+					
+						<ul class="dropdown-menu" id="search" style="width:540px; margin-left:-5%; ">
+							
+						</ul>
+						
 			</form>
 		</div>
 	</div>
