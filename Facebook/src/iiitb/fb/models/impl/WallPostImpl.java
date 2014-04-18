@@ -19,7 +19,7 @@ public class WallPostImpl {
 	private int profile_id, isLiked;
 	public int addWallPost(WallPost wp){
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query;
 		if(wp.getEventId()!=0){
 			query = "insert into wallpost (wallpost_id,post_from, post_to, wallpost_text, timestamp, visibility, event_id)"
@@ -59,7 +59,7 @@ public class WallPostImpl {
 
 	public boolean deleteWallPost(WallPost wp){
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query = "delete from wallpost where wallpost_id = ?";
 
 		try {
@@ -77,7 +77,7 @@ public class WallPostImpl {
 	public List<UserWallPost> getWallPosts(int profileId){
 		this.profile_id = profileId;
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query = "select * from (select w.*,p.profile_id,p.first_name,p.last_name,p.profile_pic from wallpost w left join profile p on p.profile_id=w.post_from) as temp, friends f"
 				+ " where temp.post_from=? or f.profile_id=? and f.friend_id=temp.post_from group by temp.wallpost_id order by temp.timestamp desc";
 
@@ -159,11 +159,13 @@ public class WallPostImpl {
 		}
 
 	}
-
+	public List<UserWallPost> getProfileWallPosts(){
+		return null;
+	}
 	public List<UserWallPost> getEventWallPosts(int eventId){
 
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query =  "select w.*,p.profile_id,p.profile_pic,p.first_name,p.last_name from wallpost w,profile p where"
 				+ " w.event_id=? and p.profile_id=w.post_from order by timestamp desc";
 
@@ -205,7 +207,7 @@ public class WallPostImpl {
 	
 	public List<UserWallPost> getCategoryWallPosts(String categoryName, int profileId){
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query = "select * from (select p.profile_id,p.first_name,p.last_name,p.profile_pic from profile p,friendscat f"
 				+ " where f.cat_name=? and f.profile_id=? and f.friends_profile_id=p.profile_id)as temp,wallpost w"
 						+ " where temp.profile_id=w.post_from";
@@ -253,7 +255,7 @@ public class WallPostImpl {
 		boolean isCurrentUser = false;
 		List<UserLike> likesList = new ArrayList<UserLike>();
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query = "select * from likes l, profile p where l.wallpost_id = ? and l.profile_id = p.profile_id";
 
 		try {
@@ -297,7 +299,7 @@ public class WallPostImpl {
 		// TODO Auto-generated method stub
 		List<UserComment> commentsList = new ArrayList<UserComment>();
 		DatabaseConnect dbc = new DatabaseConnect();
-		Connection connection = dbc.getConnection();
+		Connection connection = DatabaseConnect.getConnection();
 		String query = "select * from comment c, profile p where c.wallpost_id=? and c.profile_id=p.profile_id";
 
 		try {

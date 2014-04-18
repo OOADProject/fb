@@ -21,6 +21,8 @@ public class NotificationsAction extends ActionSupport{
 	 */
 	private static final long serialVersionUID = -6524643316235426247L;
 	private List<Notification> notificationsList;
+	private List<Notification> friendRequestsList;
+	private List<Notification> messageNotificationList;
 	private String notificationType;
 	private int uniqueId;
 	
@@ -34,9 +36,14 @@ public class NotificationsAction extends ActionSupport{
 		User user = (User)session.get("user");
 		
 		notificationsList = new ArrayList<Notification>();
+		friendRequestsList = new ArrayList<Notification>();
+		messageNotificationList = new ArrayList<Notification>();
 		
 		NotificationImpl ni = new NotificationImpl();
 		notificationsList = ni.loadNotifications(user.getProfile_id());
+		friendRequestsList = ni.loadFriendRequestsNotifications(user.getProfile_id());
+		messageNotificationList = ni.loadMessageNotifications(user.getProfile_id());
+		
 		System.out.println("");
 		return SUCCESS;
 	}
@@ -110,6 +117,23 @@ public class NotificationsAction extends ActionSupport{
 
 	public void setWallPostsList(List<UserWallPost> wallPostsList) {
 		this.wallPostsList = wallPostsList;
+	}
+
+	public List<Notification> getFriendRequestsList() {
+		return friendRequestsList;
+	}
+
+	public void setFriendRequestsList(List<Notification> friendRequestsList) {
+		this.friendRequestsList = friendRequestsList;
+	}
+
+	public List<Notification> getMessageNotificationList() {
+		return messageNotificationList;
+	}
+
+	public void setMessageNotificationList(
+			List<Notification> messageNotificationList) {
+		this.messageNotificationList = messageNotificationList;
 	}
 	
 	

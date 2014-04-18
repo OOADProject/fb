@@ -38,6 +38,8 @@ $(document).ready(
 						temp += "<a href=\"#\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";
 						temp += "&nbsp;&nbsp;<a href=\"#\" id=\"full_name\">"
 							+ data.postFromName+ "</a> <br>";
+						temp += '<div style="float: right;margin-right: 2%"><ul><li class="dropdown"><a href="#" class="dropdown-toggle"';
+						temp +=	'data-toggle="dropdown"><img src="/Facebook/asset/images/caret.png" height="10px" width="10px"></img></a><ul class="dropdown-menu"><li><a href="#" id="delete_post">Delete</a></li></ul></li></ul></div>';
 						temp += "<br> <br> <font size=\"2.7\"><div class=\"text1\">"
 							+ data.wallPostText
 							+ "</font> <br><br>";

@@ -10,10 +10,12 @@
 	rel="stylesheet" type="text/css" />
 <script src="/Facebook/asset/js/jquery.cssemoticons.js"
 	type="text/javascript"></script>
-<link href="/Facebook/asset/css/wallPosts.css" rel="stylesheet" type="text/css"/>
+<link href="/Facebook/asset/css/wallPosts.css" rel="stylesheet"
+	type="text/css" />
 <script type="text/javascript" src="/Facebook/asset/js/newWallPost.js">
 </script>
-
+<script type="text/javascript" src="/Facebook/asset/js/deleteWallPost.js">
+</script>
 <script type="text/javascript"
 	src="/Facebook/asset/js/likeUnlikeComment.js">
 </script>
@@ -83,9 +85,8 @@
 					style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div>
 			</center>
 			<!-- event id not needed over here but we have to use the same js so event id is set to 0 -->
-			<input type="hidden" value="0" id="event_id_hidden">
-			
-			<input type="text" id="newWallPostText" size="84"
+			<input type="hidden" value="0" id="event_id_hidden"> <input
+				type="text" id="newWallPostText" size="84"
 				placeholder="Whats on your mind?" required="true"
 				style="border: 0px; height: 40px; margin-left: 2%; outline: none; overflow: visible;" /><br>
 			<div
@@ -141,6 +142,18 @@
 						<s:a href="%{profileLink}" id="full_name">
 							<s:property value="postFromName" />
 						</s:a>
+						<s:property value="postFrom"/>
+						<s:property value="postTo"/>
+						<s:if test="%{postFrom == user.getProfile_id()}">
+							<div style="float: right;margin-right: 2%">
+								<ul type="none">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"><img src="/Facebook/asset/images/caret.png" height="10px" width="10px"></img></a>
+									<ul class="dropdown-menu">
+										<li><a href="#" id="delete_post">Delete</a></li>
+									</ul></li></ul>
+							</div>
+						</s:if>
 						<br> <br> <br> <font size="2.7"><div
 								class="text1">
 								<s:property value="wallPostText" />
