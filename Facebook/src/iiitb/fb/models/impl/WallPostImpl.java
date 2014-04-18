@@ -202,6 +202,51 @@ public class WallPostImpl {
 			return null;
 		}
 	}
+	
+	public List<UserWallPost> getCategoryWallPosts(String categoryName, int profileId){
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = dbc.getConnection();
+		String query = "select * from (select p.profile_id,p.first_name,p.last_name,p.profile_pic from profile p,friendscat f"
+				+ " where f.cat_name=? and f.profile_id=? and f.friends_profile_id=p.profile_id)as temp,wallpost w"
+						+ " where temp.profile_id=w.post_from";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			//remove hardcoding from here
+			ps.setString(1, categoryName);
+			ps.setInt(2, profileId);
+
+			ResultSet rs = dbc.getData(ps);
+			List<UserWallPost> postsList = new ArrayList<UserWallPost>();
+			while(rs.next()){
+				if(rs.getInt("event_id") == 0){
+					UserWallPost uwp = new UserWallPost();
+					uwp.setWallPostId(rs.getInt("wallpost_id"));
+					uwp.setPostFrom(rs.getInt("post_from"));
+					uwp.setPostFromName(rs.getString("first_name")+" "+rs.getString("last_name"));
+					uwp.setPostFromPicture(rs.getString("profile_pic"));
+					uwp.setPostTo(rs.getInt("post_to"));
+					uwp.setTimestamp(rs.getString("timestamp"));
+					uwp.setVisibility(rs.getString("visibility"));
+					uwp.setWallPostText(rs.getString("wallpost_text"));
+					uwp.setCommentsList(getComments(uwp.getWallPostId()));
+					uwp.setLikesList(getLikes(uwp.getWallPostId()));
+					if(isLiked == 1){
+						uwp.setIsLiked(1);
+						isLiked = 0;
+					}
+					postsList.add(uwp);
+
+				}
+			}
+			return postsList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 	//helper function to get likes of a particular post
 	public List<UserLike> getLikes(int wallPostId) {
 		// TODO Auto-generated method stub
