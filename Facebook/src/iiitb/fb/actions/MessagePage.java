@@ -101,27 +101,13 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 		unreadMessages = mp.totalUnreadMessages(profile_id);
 		
 		friendslist = mp.getFriendsName(profile_id);
+		conversation_id = mp.getFirstChatId(profile_id);
 		conversation = new ArrayList<MessageNameList>();
-		
+		conversation = mp.getconversation(profile_id, conversation_id);
 		namelist= new ArrayList<MessageNameList>();
 		namelist = mp.getnames(profile_id);
 		size = namelist.size();
-		System.out.println("first conv name - "+firstMessageName);
-		System.out.println("total unread msg - "+unreadMessages);
-		System.out.println("In MessagePage friends name are : "+friendslist);
-
-		System.out.println("in MessagePage  names are - ");
-		while(i<size)
-		{			
-			System.out.println(namelist.get(i).getFirstname()+" "+ namelist.get(i).getLastname());
-			i++;
-		}
-
-		conversation_id = mp.getFirstChatId(profile_id);
-		System.out.println("conversation id = "+conversation_id);
-		conversation = mp.getconversation(profile_id, conversation_id);
-		//System.out.println("timing : "+conversation.get(0).getTime());
-
+		
 		return SUCCESS;
 	}
 
@@ -157,7 +143,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 		User user = (User)session.get("user");
 		
 		int profile_id = user.getProfile_id();
-
+		namelist= new ArrayList<MessageNameList>();
 		System.out.println("conversation id = "+conversation_id);
 	
 		mp.deleteConversation(profile_id, conversation_id);
@@ -168,7 +154,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 		unreadMessages = mp.totalUnreadMessages(profile_id);
 
 		conversation = new ArrayList<MessageNameList>();
-		namelist= new ArrayList<MessageNameList>();
+		
 		namelist = mp.getnames(profile_id);
 
 		conversation_id = mp.getFirstChatId(profile_id);

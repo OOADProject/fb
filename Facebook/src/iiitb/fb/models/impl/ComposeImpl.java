@@ -17,6 +17,8 @@ public class ComposeImpl {
 
 	public boolean sendMessage(Message m)
 	{
+		System.out.println("in composeimpl sendmessage()");
+
 		String firstname;
 		String lastname;
 		List<String> name = new ArrayList<String>();
@@ -39,9 +41,10 @@ public class ComposeImpl {
 			{
 				m.setReceiver_id(rs.getInt("profile_id"));
 				System.out.println(" receiver id = "+ m.getReceiver_id());
+				m.setVisible2(rs.getInt("profile_id"));
 
 			}
-			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"') ");
+			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp,visible1,visible2) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"',"+m.getVisible1()+","+m.getVisible2()+") ");
 		res=true;
 		}
 		catch(Exception e)
@@ -53,10 +56,12 @@ public class ComposeImpl {
 
 	public boolean sendReply(Message m)
 	{
+		System.out.println("in composeimpl sendreply()");
+
 		try
 		{
 			DatabaseConnect db = new DatabaseConnect();
-			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"') ");
+			db.updateData("INSERT into messages(sender_id,receiver_id,message_text,isread,timestamp,visible1,visible2) VALUES("+m.getSender_id()+","+m.getReceiver_id()+",'"+m.getMessage_body()+"',"+m.getIsRead()+",'"+m.getTimestamp()+"',"+m.getVisible1()+","+m.getVisible2()+") ");
 			res = true;
 		}
 		catch(Exception e)
@@ -68,6 +73,8 @@ public class ComposeImpl {
 
 	public Profile getProfileInfo(int profile_id)
 	{
+		System.out.println("in composeimpl getprofileinfo()");
+
 		DatabaseConnect db = new DatabaseConnect();
 		try{
 			ResultSet rs1 = db.getData("select first_name,last_name,profile_pic from profile where profile_id = "+profile_id+" ");

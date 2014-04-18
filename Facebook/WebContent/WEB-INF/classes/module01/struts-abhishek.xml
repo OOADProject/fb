@@ -17,10 +17,21 @@
 			<result name="success" type="json"></result>
 		</action>
 		
-		<action name="replyMsgListUpdate" class="iiitb.fb.actions.MessageReplyAjaxAction"
-			method="updateList">
+		<action name="delmsgbutton" class="iiitb.fb.actions.MessageDeleteAjaxAction"
+			method="deletemessagebutton">
 			<result name="success" type="json"></result>
 		</action>
+		
+		<action name="delmsg" class="iiitb.fb.actions.MessageDeleteAjaxAction"
+			method="deletemessages">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="canceldelmsg" class="iiitb.fb.actions.MessageDeleteAjaxAction"
+			method="canceldeletemessages">
+			<result name="success" type="json"></result>
+		</action>
+		
 		
 		
 		

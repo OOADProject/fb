@@ -6,6 +6,22 @@
 <html>
 <head>
 
+<script type="text/javascript">
+
+$(document).ready(
+		function() {
+			
+$("#reply").on("keypress",function(e) {
+	if(e.which==13){
+		
+		window.location = "/Facebook/module01/newMsgSend.action?message_body="+document.getElementById("message_text").value+"&receiver_fullname="+document.getElementsByName("receiver_fullname")[0].value; 
+	}
+});
+
+		});
+
+
+</script>
 <link href="/Facebook/asset/css/newMessage.css" rel="stylesheet">
 <sx:head />
 </head>
@@ -25,7 +41,7 @@
 					
 					<s:iterator value="namelist">
 					<li ><a href="conversation?conversation_id=<s:property value="profile_id"/>"><fieldset>
-					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
+					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
 							
 						
 					</fieldset></a></li>				
@@ -42,13 +58,13 @@
 			</div>
 			<div  id="detailmsg">
 			<div id="to">
-			To:&nbsp; <sx:autocompleter size="1" list="friendslist" name="receiver_fullname" showDownArrow="false" ></sx:autocompleter>
+			To:&nbsp; <sx:autocompleter size="1" list="friendslist" name="receiver_fullname"  showDownArrow="false" ></sx:autocompleter>
 			</div>
 			</div>
 			<div id="replyarea">
 				<div id="reply">
 					
-						<textarea name="message_body" rows="4" cols="82" placeholder="Write a message..."></textarea>
+						<textarea name="message_body" id="message_text" rows="4" cols="82" placeholder="Write a message..."></textarea>
 						<br><input type="hidden" name="conversation_id" id="conversation_id" value='<s:property value ="conversation_id"/>'/> 
 												<button type="submit" class="btn btn-xs btn-primary ">Send </button>
 					
