@@ -12,7 +12,6 @@
 			url:'/Facebook/module02/peopleYouMayKnow',
 			type: 'POST',
 			success:function(data){
-				alert("OK???");
 				$.each(data.mayKnownPeople,function(index,value){
 					var temp='<div id="people"; style="height:60px;width:96%; border: 1px solid; border-color: rgb(211, 214, 219); margin-top: 2%; margin-left: 2%;">'+'<a href="#"><img src="'+value.friendprofilepic+'" style="height: 60px; width: 60px; float: left;" /></a>';
 					temp+='<div style="margin-top: 5%;">&nbsp;<a href="#" style="color: rgb(59, 89, 152); font-size: 12px; font-weight: bold; float: left; margin-left:1%;">'+value.fname+'&nbsp;'+value.lname+'<a>';
