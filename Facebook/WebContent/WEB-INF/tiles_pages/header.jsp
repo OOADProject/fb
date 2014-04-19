@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
  <%@taglib prefix="s" uri="/struts-tags"%>
  <style>
- .dropdown-menu{
+ #friendrequest_notifications,#messages_notifications,#notifications{
  	width: 420px;
  	min-height: 100px;
  	max-height: 400px;
