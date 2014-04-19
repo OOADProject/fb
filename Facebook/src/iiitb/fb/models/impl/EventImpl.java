@@ -3,6 +3,7 @@ package iiitb.fb.models.impl;
 import iiitb.fb.database.DatabaseConnect;
 import iiitb.fb.models.Event;
 import iiitb.fb.models.Friend;
+import iiitb.fb.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.opensymphony.xwork2.ActionContext;
 
 public class EventImpl {
 
@@ -298,6 +301,10 @@ public class EventImpl {
 			}
 
 			addInvitedFriends(eventId,invited);
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			User user = (User)session.get("user");
+			newEvent.setEventOwnerName(user.getFname()+" " +user.getLname());
+			newEvent.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(newEvent.getEventDate()));
 			return eventId;
 
 		}catch (SQLException e) {
@@ -305,7 +312,8 @@ public class EventImpl {
 			e.printStackTrace();
 			return 0;
 
-		} 
+		}
+
 
 
 
@@ -331,6 +339,7 @@ public class EventImpl {
 				ps.setInt(1,eventId);
 				ps.setInt(2, inviteId);
 				ps.setString(3,"sent");
+				dc.updateData(ps);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

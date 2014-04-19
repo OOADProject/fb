@@ -13,7 +13,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 
 public class NotificationImpl {
@@ -22,7 +25,7 @@ public class NotificationImpl {
 
 		notificationsList.addAll(getLikesNotifications(profileId));
 		notificationsList.addAll(getCommentsNotification(profileId));
-		//notificationsList.addAll(getPokes(profileId));
+		notificationsList.addAll(getPokes(profileId));
 		notificationsList.addAll(getAcceptedFriendRequests(profileId));
 
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -188,8 +191,39 @@ public class NotificationImpl {
 	//helper functions to get pokes(have to define)
 	private List<Notification> getPokes(int profileId) {
 		// TODO Auto-generated method stub
+		List<Notification> pokesNotificationList = new ArrayList<Notification>();
 
-		return null;
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+
+		String query = "select po.*,p.profile_pic,p.first_name,p.last_name "
+				+ "from profile p, poke po where (p.profile_id = po.poke_from and po.poke_to=?)";
+
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profileId);
+
+			ResultSet rs = dbc.getData(ps);
+
+			while(rs.next()){
+				Notification n = new Notification();
+				if(rs.getInt("ispokeback") == 0){
+					n.setNotificationText(rs.getString("first_name")+" "+rs.getString("last_name")+" poked you");
+					n.setNotificationType("Poke");
+					n.setPicture("profile_pic");
+					//n.setTimestamp(timestamp);
+					n.setUniqueId(rs.getInt("profile_id"));
+					pokesNotificationList.add(n);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return pokesNotificationList;
 	}
 
 
@@ -199,19 +233,133 @@ public class NotificationImpl {
 		List<Notification> friendsRequestsList = new ArrayList<Notification>();
 		DatabaseConnect dbc = new DatabaseConnect();
 		//retrive the last read from notifications table 
-		String lastRead = "2014-03-28 00:00:00";
 		String query = "select p.profile_id,p.profile_pic,p.first_name,p.last_name,fr.timestamp from friendrequest fr, profile p"
 				+ " where (fr.request_to=? and fr.request_from=p.profile_id)";
-		
-		return null;
+		Connection connection = DatabaseConnect.getConnection();
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profile_id);
+
+			ResultSet rs = dbc.getData(ps);
+
+			while(rs.next()){
+				Notification n = new Notification();
+				n.setNotificationText(rs.getString("first_name")+" "+rs.getString("last_name")+" added you as a friend");
+				n.setNotificationType("FriendRequest");
+				n.setPicture(rs.getString("profile_pic"));
+				n.setTimestamp(rs.getString("timestamp"));
+				//unique id here is the person who sent the request
+				n.setUniqueId(rs.getInt("profile_id"));
+				friendsRequestsList.add(n);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return friendsRequestsList;
 	}
 
 
 
 	public List<Notification> loadMessageNotifications(int profile_id) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Notification> messageNotificationList = new ArrayList<Notification>();
+
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+
+		String query = "select p.profile_pic,p.first_name,p.last_name,p.profile_id,m.message_text,m.timestamp,m.message_id"
+				+ " from messages m, profile p where (m.sender_id=p.profile_id and m.receiver_id=?) order by m.timestamp desc";
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, profile_id);
+			ResultSet rs = dbc.getData(ps);
+			int cuurentUser = 0;
+			while(rs.next()){
+				if(cuurentUser != rs.getInt("profile_id")){
+					cuurentUser = rs.getInt("profile_id");
+					Notification n = new Notification();
+					n.setNotificationText(rs.getString("first_name")+" "+rs.getString("last_name")+"<br>&nbsp;&nbsp;"+rs.getString("message_text"));
+					n.setNotificationType("Message");
+					n.setPicture(rs.getString("profile_pic"));
+					n.setTimestamp(rs.getString("timestamp"));
+					n.setUniqueId(rs.getInt("message_id"));
+					messageNotificationList.add(n);
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return messageNotificationList;
 	}
 
+
+	//TO BE SHIFTED TO FRIEND IMPL
+	public boolean acceptFriendRequest(int uniqueId, int profile_id) {
+		// TODO Auto-generated method stub
+
+		DatabaseConnect dbc = new DatabaseConnect();
+
+		Connection connection = DatabaseConnect.getConnection();
+		String query="delete from friendrequest where (request_to=? and request_from=?)";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profile_id);
+			ps.setInt(2, uniqueId);
+			dbc.updateData(ps);
+
+			query = "insert into friends values(default, ?,?,?)";
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profile_id);
+			ps.setInt(2, uniqueId);
+			ps.setString(3, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			dbc.updateData(ps);
+
+			query = "insert into friends values(default, ?,?,?)";
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, uniqueId);
+			ps.setInt(2, profile_id);
+			ps.setString(3, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			dbc.updateData(ps);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
+
+	}
+
+
+
+	public boolean deleteFriendRequest(int uniqueId, int profile_id) {
+		// TODO Auto-generated method stub
+
+		DatabaseConnect dbc = new DatabaseConnect();
+
+		Connection connection = DatabaseConnect.getConnection();
+		String query="delete from friendrequest where (request_to=? and request_from=?)";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profile_id);
+			ps.setInt(2, uniqueId);
+			dbc.updateData(ps);
+
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

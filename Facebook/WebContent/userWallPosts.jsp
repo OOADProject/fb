@@ -29,7 +29,7 @@
 		$(".friendRequestId").click(function(e){
 		debugger;
 			$.ajax({
-				url: '/Facebook/module02/friendRequest',
+				url: '/Facebook/module02/frie ndRequest',
 				type: 'POST',
 				success: function(data){
 					var temp='&nbsp;&nbsp;&nbsp;&nbsp;Friend Request sent.';
@@ -57,7 +57,7 @@
 
 </head>
 <body>
-<div style="height: 100px; width: 100%; border: 1px solid; border-color:rgb(211, 214, 219); background-color: white; font-size:12px; " >
+<div style="height: 100px; width: 100%; border: 1px solid; border-color:rgb(211, 214, 219); background-color: white; font-size:12px; " id="friend_status_div">
 		<div style="height:35px;width:100%; border: 1px solid; border-color:rgb(211, 214, 219); background-color: rgb(246, 247, 248)">
 			<h5 style="font-weight: bold; color: rgb(106, 116, 128)">&nbsp;&nbsp;&nbsp;Do you Know <s:property value="user.fname" />?</h5>  
 		</div>
@@ -81,6 +81,14 @@
 		<input id="cancelRequestButton" type="button" value="Cancel Friend Request" style="background-color: rgb(106, 167, 79); font-weight:bold;color: white; float:right;margin-right: 2%;">
 	</s:if>
 	
+		
+	<s:if test="%{isFriend == 3}">
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#friend_status_div").hide();
+	});
+	</script>
+	</s:if>
 	</div>
 		
 	</div>

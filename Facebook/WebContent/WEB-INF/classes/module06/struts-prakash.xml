@@ -7,6 +7,13 @@
 	<package name="prakash" namespace="/module06" extends="tiles-default,json-default">
 		<!-- All action Mappings will go over here -->
 		<!-- Ajax Actions -->
+		<action name="acceptFriendRequest" class="iiitb.fb.actions.NotificationsAction" method="acceptFriendRequest">
+		    <result type="json" name="success"></result>
+		</action>
+		<action name="rejectFriendRequest" class="iiitb.fb.actions.NotificationsAction" method="rejectFriendRequest">
+		    <result type="json" name="success"></result>
+		</action>
+		
 		<action name="loadLikes" class="iiitb.fb.actions.LikeAjaxAction" method="loadLikes">
 		    <result type="json" name="success"></result> 
 		</action>

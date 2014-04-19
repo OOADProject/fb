@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.Session;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -30,6 +32,30 @@ public class NotificationsAction extends ActionSupport{
 	private UserWallPost uwp = new UserWallPost();
 	private User user = new User();
 	List<UserWallPost> wallPostsList;
+	//to be moved to friend impl
+	public String acceptFriendRequest(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User u = (User)session.get("user");
+		
+		NotificationImpl ni = new NotificationImpl();
+		if(ni.acceptFriendRequest(uniqueId, u.getProfile_id())){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	public String rejectFriendRequest(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User u = (User)session.get("user");
+		
+		NotificationImpl ni = new NotificationImpl();
+		if(ni.deleteFriendRequest(uniqueId, u.getProfile_id())){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	
 	
 	public String loadNotifications(){
 		Map<String, Object> session = ActionContext.getContext().getSession();

@@ -24,6 +24,16 @@
  	font-size: 11px;
  	margin-left: -10px;
  }
+ #friendrequest_count{
+  	padding: 3px 2px;
+ 	font-size: 11px;
+ 	margin-left: -10px;
+ }
+ #messages_count{
+  	padding: 3px 2px;
+ 	font-size: 11px;
+ 	margin-left: -10px;
+ }
  #searchlistid{
  	padding: .5%;
  }
@@ -43,8 +53,29 @@ $(document).ready(function(){
 				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
 				$("#notifications").append(temp);
 				$("#notifications_count").html(index+1);
+				$("#notification_icon").attr('src','/Facebook/asset/images/noti_icon_2.png');
+
 			});
-			$("#notification_icon").attr('src','/Facebook/asset/images/noti_icon_2.png');
+			$.each(data.friendRequestsList, function(index, value){
+				var temp = '<a><li class="notification_items">'+'<img src="'+value.picture+'" height="50px" width="50px" align="left">&nbsp;&nbsp;'+value.notificationText+
+							'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id="friend_buttons" style="float:right;margin-right:3%;">'+
+							'<input type="hidden" value="'+value.uniqueId+'" id="unique_id"><button type="button" class="btn btn-xs btn-primary" id="accept_button">Accept</button>'+
+							'&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs btn-default" id="reject_button">Reject</button></div></li></a>';
+				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
+				$("#friendrequest_notifications").append(temp);
+				$("#friendrequest_count").html(index+1);
+				$("#friendrequest_icon").attr('src','/Facebook/asset/images/friend_req_2.png');
+			});
+			
+			$.each(data.messageNotificationList, function(index, value){
+				var temp = '<a href="/Facebook/module01/messageclick"><li class="notification_items">'+'<img src="'+value.picture+'" height="50px" width="50px" align="left">&nbsp;&nbsp;'+value.notificationText+'</li></a>';
+				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
+				$("#messages_notifications").append(temp);
+				$("#messages_count").html(index+1);
+				$("#message_icon").attr('src','/Facebook/asset/images/msg_noti_icon.png');
+
+			});
+			
 		}
 	});
 	$("#notification_icon").click(function(event){
@@ -52,6 +83,40 @@ $(document).ready(function(){
 		$("#notifications_count").hide();
 	});
 	
+	$("#friendrequest_icon").click(function(e){
+		$("#friendrequest_icon").attr('src','/Facebook/asset/images/fr_icon.png');
+		$("#friendrequest_count").hide();
+	});
+	$("#message_icon").click(function(e){
+		$("#message_icon").attr('src','/Facebook/asset/images/msg_ico.png');
+		$("#messages_count").hide();
+	});
+	
+	$("#friendrequest_notifications").on("click","#accept_button",function(e){
+		var parent = $(this).parents("#friend_buttons");
+		var uniqueId = parent.find("#unique_id");
+		e.stopPropagation();
+		$.ajax({
+			type:'POST',
+			url:'/Facebook/module06/acceptFriendRequest?uniqueId='+$(uniqueId).val(),
+			success : function(data){
+				$(parent).html("friend request accepted");
+			}
+		});
+	});
+	
+	$("#friendrequest_notifications").on("click","#reject_button",function(e){
+		var parent = $(this).parents("#friend_buttons");
+		var uniqueId = parent.find("#unique_id");
+		e.stopPropagation();
+		$.ajax({
+			type:'POST',
+			url:'/Facebook/module06/rejectFriendRequest?uniqueId='+$(uniqueId).val(),
+			success : function(data){
+				$(parent).html("friend request rejected");
+			}
+		});
+	});
 // jquery for search friends.
 
 	$("#searchId").keyup(function(){
@@ -96,20 +161,21 @@ $(document).ready(function(){
 
 				<li class="dropdown">
 						<a href="#" style="padding-right: 0px;"class="dropdown-toggle" data-toggle="dropdown"> 
-						<img src="/Facebook/asset/images/fr_icon.png" height="25px"width="30px" style="padding-right: 0px;" />
+						<img src="/Facebook/asset/images/fr_icon.png" id="friendrequest_icon" height="25px"width="30px" style="padding-right: 0px;" />
+											<sup><span class="badge alert-danger" id="friendrequest_count"></span></sup>
+						
 						</a>
-					<ul class="dropdown-menu">
-						<li>Test1</li>
+					<ul class="dropdown-menu" id="friendrequest_notifications">
 					</ul>
 				</li>
 
 
 				<li class="dropdown">
 						<a href="module01/messageclick"style="padding-left: 5px; padding-top: 35%;"class="dropdown-toggle" data-toggle="dropdown"> 
-						<img src="/Facebook/asset/images/msg_ico.png" height="25px" width="27px" />
+						<img src="/Facebook/asset/images/msg_ico.png" id="message_icon" height="25px" width="27px" />
+							<sup><span class="badge alert-danger" id="messages_count"></span></sup>
 						</a>
-					<ul class="dropdown-menu">
-						<li>Test1</li>
+					<ul class="dropdown-menu" id="messages_notifications">
 					</ul>
 				</li>
 
@@ -128,6 +194,7 @@ $(document).ready(function(){
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					 <img src="/Facebook/asset/images/wheel_icon.png" height="20px"width="20px">
+					 
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">Settings</a></li>
