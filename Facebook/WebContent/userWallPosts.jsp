@@ -29,7 +29,7 @@
 		$(".friendRequestId").click(function(e){
 		debugger;
 			$.ajax({
-				url: '/Facebook/module02/frie ndRequest',
+				url: '/Facebook/module02/friendRequest',
 				type: 'POST',
 				success: function(data){
 					var temp='&nbsp;&nbsp;&nbsp;&nbsp;Friend Request sent.';
