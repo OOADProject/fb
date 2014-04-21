@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.catalina.Session;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -26,8 +27,11 @@ public class NotificationsAction extends ActionSupport{
 	private List<Notification> friendRequestsList;
 	private List<Notification> messageNotificationList;
 	private String notificationType;
-	private int uniqueId;
+	private int friendRequestCount;
+	private int messagesCount;
 	
+	private int uniqueId;
+
 	//to get to a notification
 	private UserWallPost uwp = new UserWallPost();
 	private User user = new User();
@@ -36,7 +40,7 @@ public class NotificationsAction extends ActionSupport{
 	public String acceptFriendRequest(){
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User u = (User)session.get("user");
-		
+
 		NotificationImpl ni = new NotificationImpl();
 		if(ni.acceptFriendRequest(uniqueId, u.getProfile_id())){
 			return SUCCESS;
@@ -47,7 +51,7 @@ public class NotificationsAction extends ActionSupport{
 	public String rejectFriendRequest(){
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User u = (User)session.get("user");
-		
+
 		NotificationImpl ni = new NotificationImpl();
 		if(ni.deleteFriendRequest(uniqueId, u.getProfile_id())){
 			return SUCCESS;
@@ -55,25 +59,64 @@ public class NotificationsAction extends ActionSupport{
 			return ERROR;
 		}
 	}
+
+	public String updateFriendClickedTimestamp(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User u = (User) session.get("user");
+		NotificationImpl ni = new NotificationImpl();
+		
+		if(ni.updateFriendClickedTimestamp(u.getProfile_id())){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
 	
+	public String updateMessageClickedTimestamp(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User u = (User) session.get("user");
+		NotificationImpl ni = new NotificationImpl();
+		
+		if(ni.updateMessageClickedTimestamp(u.getProfile_id())){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
 	
+	public String updateNotificationClicked(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User u = (User) session.get("user");
+		NotificationImpl ni = new NotificationImpl();
+		
+		if(ni.updateNotificationClicked(u.getProfile_id())){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
 	public String loadNotifications(){
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
-		
+
 		notificationsList = new ArrayList<Notification>();
 		friendRequestsList = new ArrayList<Notification>();
 		messageNotificationList = new ArrayList<Notification>();
-		
+
 		NotificationImpl ni = new NotificationImpl();
 		notificationsList = ni.loadNotifications(user.getProfile_id());
-		friendRequestsList = ni.loadFriendRequestsNotifications(user.getProfile_id());
-		messageNotificationList = ni.loadMessageNotifications(user.getProfile_id());
-		
+		friendRequestCount = ni.friendRequestCount(user.getProfile_id());
+		//if(friendRequestCount != 0){
+			friendRequestsList = ni.loadFriendRequestsNotifications(user.getProfile_id());
+		//}
+		messagesCount = ni.messagesCount(user.getProfile_id());
+	//	if(messagesCount != 0){
+			messageNotificationList = ni.loadMessageNotifications(user.getProfile_id());
+	//	}
 		System.out.println("");
 		return SUCCESS;
 	}
-	
+
 	public String loadSingleNotification(){
 		if(notificationType.equalsIgnoreCase("Likes") || notificationType.equalsIgnoreCase("Comment")){
 			WallPostImpl wpi = new WallPostImpl();
@@ -161,6 +204,18 @@ public class NotificationsAction extends ActionSupport{
 			List<Notification> messageNotificationList) {
 		this.messageNotificationList = messageNotificationList;
 	}
+	public int getFriendRequestCount() {
+		return friendRequestCount;
+	}
+	public void setFriendRequestCount(int friendRequestCount) {
+		this.friendRequestCount = friendRequestCount;
+	}
+	public int getMessagesCount() {
+		return messagesCount;
+	}
+	public void setMessagesCount(int messagesCount) {
+		this.messagesCount = messagesCount;
+	}
 	
-	
+
 }

@@ -30,7 +30,6 @@ public class WallPostAjaxAction extends ActionSupport implements ModelDriven<Use
 		wp.setPostTo(postToId);
 		wp.setTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		wp.setWallPostText(uwp.getWallPostText());
-		wp.setVisibility("Public");
 		wp.setEventId(uwp.getEventId());
 		System.out.println(uwp.getWallPostText());
 		

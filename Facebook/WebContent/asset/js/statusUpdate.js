@@ -33,15 +33,15 @@ $(document).ready(
 				debugger;
 				$.ajax({
 					type : 'POST',
-					url : '/Facebook/module06/addWallPost.action?wallPostText='+ $("#newWallPostText").val()+'&eventId='+$("#event_id_hidden").val()+'&postToId='+$("#post_to_id").val(),
+					url : '/Facebook/module06/addWallPost.action?wallPostText='+ $("#newWallPostText").val()+'&postToId='+$("#post_to_id").val(),
 					success : function(data) {
 						var temp = "<div class=\"single_wallpost\"><div id=\"wallpost_body\">";
 						temp += "<a href=\"/Facebook/module02/loadProfilePage?profileId="+data.postFrom+"\" id=\"full_name\"><img height=\"40px\" width=\"40px\" align=\"left\" src="+data.postFromPicture+" /></a>";
 						temp += "&nbsp;&nbsp;<a href=\"/Facebook/module02/loadProfilePage?profileId="+data.postFrom+"\" id=\"full_name\">"
 							+ data.postFromName+ "</a> ";
-						//if(data.postFrom != data.postTo){
-						//	temp+="&nbsp;<img src=\"/Facebook/asset/images/right-normal.png\" width=\"5px\" height=\"7px\">&nbsp;<a href=\"/Facebook/module02/loadProfilePage?profileId="+data.postTo+"\" id=\"full_name\">"+data.postToName+"</a>";
-						//}
+						if(data.postFrom != data.postTo){
+							temp+="&nbsp;<img src=\"/Facebook/asset/images/right-normal.png\" width=\"5px\" height=\"7px\">&nbsp;<a href=\"/Facebook/module02/loadProfilePage?profileId="+data.postTo+"\" id=\"full_name\">"+data.postToName+"</a>";
+						}
 						temp += '<br><div style="float: right;margin-right: 2%"><ul type="none"><li class="dropdown"><a href="#" class="dropdown-toggle"';
 						temp +=	'data-toggle="dropdown"><img src="/Facebook/asset/images/caret.png" height="10px" width="10px"></img></a><ul class="dropdown-menu"><li><a href="#" id="delete_post">Delete</a></li></ul></li></ul></div>';
 						temp += "<br> <br> <font size=\"2.7\"><div class=\"text1\">"

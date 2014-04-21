@@ -199,7 +199,7 @@
 										
 										 <select id="frndsetting">
 													<option><a href="#">Everyone</a></option>
-													<option><a href="#">Friends</a></option>
+													<option><a href="#">Friends of Friends</a></option>
 													
 												</select>
 												
@@ -222,7 +222,7 @@
 					
 					
 					
-					<tr class="table-hover">
+				<%-- 	<tr class="table-hover">
 
 						<td>Who can send you messages?
 						<br><br>
@@ -251,7 +251,7 @@
 						</td>
 						<td><span class="msgsetting"><s:property value="s.getMessagesetting()" /></span></td>
 						<td><a href="#" class="msgsetting1" onclick="msgsetting()">Edit</a></td>
-					</tr>
+					</tr> --%>
 
 				</tbody>
 			</table>

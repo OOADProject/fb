@@ -14,9 +14,19 @@
 		    <result type="json" name="success"></result>
 		</action>
 		
+		<action name="updateNotificationClicked" class="iiitb.fb.actions.NotificationsAction" method="updateNotificationClicked">
+		    <result type="json" name="success"></result>
+		</action>
+		<action name="updateFriendClickedTimestamp" class="iiitb.fb.actions.NotificationsAction" method="updateFriendClickedTimestamp">
+		    <result type="json" name="success"></result>
+		</action>
+		<action name="updateMessageClickedTimestamp" class="iiitb.fb.actions.NotificationsAction" method="updateMessageClickedTimestamp">
+		    <result type="json" name="success"></result>
+		</action>
 		<action name="loadLikes" class="iiitb.fb.actions.LikeAjaxAction" method="loadLikes">
 		    <result type="json" name="success"></result> 
 		</action>
+	
 		<action name="addWallPost" class="iiitb.fb.actions.WallPostAjaxAction"
 			method="addWallPost">
 			<result name="success" type="json"></result>

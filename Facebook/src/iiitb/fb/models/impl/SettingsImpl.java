@@ -70,15 +70,15 @@ public class SettingsImpl {
 				s.setFriendreqsetting(rs3.getString("friendreqsetting"));
 				s.setMessagesetting(rs3.getString("messagesetting"));
 			}
-			ResultSet rs = db.getData("select cat_name from facebook.friendscat where profile_id ="+profile_id+"");
+			//ResultSet rs = db.getData("select cat_name from facebook.friendscat where profile_id ="+profile_id+"");
 			frndcat.add("Public");
 			frndcat.add("Friends");
-			frndcat.add("Only Me");
+			//frndcat.add("Only Me");
 			
-			while(rs.next())
+/*			while(rs.next())
 			{	System.out.println("categry:"+rs.getString("cat_name"));
 				frndcat.add(rs.getString("cat_name"));
-			}
+			}*/
 			
 			catg.setCatList(frndcat);
 			s.setCatgname(catg);
@@ -97,7 +97,7 @@ public class SettingsImpl {
 	{
 		try{
 			db.updateData(" update facebook.settings set viewsetting ='"+viewsetting+"'");
-
+			db.updateData("update wallpost set visibility ='"+viewsetting+"' where post_to="+profile_id);
 		}
 		catch(Exception e)
 		{

@@ -20,9 +20,56 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 
 public class NotificationImpl {
-	public List<Notification> loadNotifications(int profileId){
-		List<Notification> notificationsList = new ArrayList<Notification>();
+	String lastRead = "2014-03-29 00:00:00";
+	
+	public int friendRequestCount(int profileId){
+		
+		int cnt = 0;
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		
+		String query = "select count(f.friendrequest_id) as cnt from friendrequest f,notifications_clicked nc where (f.request_to=? and nc.profile_id=? and f.timestamp>=nc.friendrequest)";
 
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, profileId);
+			ps.setInt(2, profileId);
+			ResultSet rs = dbc.getData(ps);
+			while(rs.next()){
+				cnt = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	public int messagesCount(int profileId){
+		int cnt = 0;
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		String query="select count(m.message_id) as cnt from messages m,notifications_clicked nc where (m.receiver_id=? and nc.profile_id=? and m.timestamp>nc.messages)";
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, profileId);
+			ps.setInt(2, profileId);
+			ResultSet rs = dbc.getData(ps);
+			while(rs.next()){
+				cnt = rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public List<Notification> loadNotifications(int profileId){
+		
+		setLastRead(profileId);
+		List<Notification> notificationsList = new ArrayList<Notification>();
+		
 		notificationsList.addAll(getLikesNotifications(profileId));
 		notificationsList.addAll(getCommentsNotification(profileId));
 		notificationsList.addAll(getPokes(profileId));
@@ -50,23 +97,42 @@ public class NotificationImpl {
 		return notificationsList;
 	}
 
-
+	private void setLastRead(int profileId){
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		
+		String query = "select notification from notifications_clicked where profile_id=?";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, profileId);
+			ResultSet rs = dbc.getData(ps);
+			while(rs.next()){
+				lastRead = rs.getString("notification");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
 
 	//helper function to get likes
 	private List<Notification> getLikesNotifications(int profileId){
 		List<Notification> likesNotificationsList = new ArrayList<Notification>();
 		DatabaseConnect dbc = new DatabaseConnect();
 		//retrive the last read from notifications table 
-		String lastRead = "2014-04-12 01:09:17";
 		Connection connection = DatabaseConnect.getConnection();
 		String query = "select p.first_name,p.last_name,p.profile_id,p.profile_pic,temp.wallpost_id,temp.timestamp from"
-				+ " (select w.wallpost_id,l.profile_id,l.timestamp from wallpost w, likes l where w.post_from=? and w.wallpost_id=l.wallpost_id and l.profile_id!=? and l.timestamp>? order by l.timestamp desc) as temp, profile p"
+				+ " (select w.wallpost_id,l.profile_id,l.timestamp from wallpost w, likes l where (w.post_from=? or w.post_to=?) and w.wallpost_id=l.wallpost_id and l.profile_id!=? and l.timestamp>? order by l.timestamp desc) as temp, profile p"
 				+ " where temp.profile_id=p.profile_id order by wallpost_id,timestamp desc;";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, profileId);
 			ps.setInt(2, profileId);
-			ps.setString(3, lastRead);
+			ps.setInt(3, profileId);
+
+			ps.setString(4, lastRead);
 
 			ResultSet rs = dbc.getData(ps);
 			if(rs.isBeforeFirst()){
@@ -106,16 +172,17 @@ public class NotificationImpl {
 		List<Notification> commentsNotificationsList = new ArrayList<Notification>();
 		DatabaseConnect dbc = new DatabaseConnect();
 		//retrive the last read from notifications table 
-		String lastRead = "2014-04-12 01:09:17";
 		Connection connection = DatabaseConnect.getConnection();
 		String query = "select p.first_name,p.last_name,p.profile_id,p.profile_pic,temp.wallpost_id,temp.timestamp from"
-				+ " (select w.wallpost_id,c.profile_id,c.timestamp from wallpost w, comment c where w.post_from=? and w.wallpost_id=c.wallpost_id and c.profile_id!=? and c.timestamp>? order by c.timestamp desc) as temp, profile p"
+				+ " (select w.wallpost_id,c.profile_id,c.timestamp from wallpost w, comment c where (w.post_from=? or w.post_to=?) and w.wallpost_id=c.wallpost_id and c.profile_id!=? and c.timestamp>? order by c.timestamp desc) as temp, profile p"
 				+ " where temp.profile_id=p.profile_id order by wallpost_id,timestamp desc;";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, profileId);
 			ps.setInt(2, profileId);
-			ps.setString(3, lastRead);
+			ps.setInt(3, profileId);
+
+			ps.setString(4, lastRead);
 
 			ResultSet rs = dbc.getData(ps);
 			if(rs.isBeforeFirst()){
@@ -161,7 +228,6 @@ public class NotificationImpl {
 		List<Notification> friendsNotificationsList = new ArrayList<Notification>();
 		DatabaseConnect dbc = new DatabaseConnect();
 		//retrive the last read from notifications table 
-		String lastRead = "2014-03-28 00:00:00";
 		Connection connection = DatabaseConnect.getConnection();
 		String query = "select p.profile_id,p.first_name,p.last_name,p.profile_pic,f.timestamp from friends f, profile p where"
 				+ " f.profile_id=? and f.friend_id=p.profile_id and f.timestamp>? order by f.timestamp desc";
@@ -187,7 +253,7 @@ public class NotificationImpl {
 		}
 		return friendsNotificationsList;
 	}
-
+	
 	//helper functions to get pokes(have to define)
 	private List<Notification> getPokes(int profileId) {
 		// TODO Auto-generated method stub
@@ -197,13 +263,13 @@ public class NotificationImpl {
 		Connection connection = DatabaseConnect.getConnection();
 
 		String query = "select po.*,p.profile_pic,p.first_name,p.last_name "
-				+ "from profile p, poke po where (p.profile_id = po.poke_from and po.poke_to=?)";
+				+ "from profile p, poke po where (p.profile_id = po.poke_from and po.poke_to=? and po.timestamp>?)";
 
 		PreparedStatement ps;
 		try {
 			ps = connection.prepareStatement(query);
 			ps.setInt(1, profileId);
-
+			ps.setString(2, lastRead);
 			ResultSet rs = dbc.getData(ps);
 
 			while(rs.next()){
@@ -361,5 +427,67 @@ public class NotificationImpl {
 			return false;
 		}
 	}
+	public boolean updateFriendClickedTimestamp(int profileId) {
+		// TODO Auto-generated method stub
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		
+		
+		String query = "update notifications_clicked set friendrequest=? where profile_id=?";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			ps.setInt(2, profileId);
+			
+			dbc.updateData(ps);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean updateMessageClickedTimestamp(int profileId) {
+		// TODO Auto-generated method stub
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		
+		
+		String query = "update notifications_clicked set messages=? where profile_id=?";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			ps.setInt(2, profileId);
+			
+			dbc.updateData(ps);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean updateNotificationClicked(int profileId) {
+		// TODO Auto-generated method stub
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
+		
+		
+		String query = "update notifications_clicked set notification=? where profile_id=?";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			ps.setInt(2, profileId);
+			
+			dbc.updateData(ps);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}	}
 
 }

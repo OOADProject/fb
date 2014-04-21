@@ -8,13 +8,17 @@
 <title>Facebook</title>
 <link href="/Facebook/asset/css/wallPosts.css" rel="stylesheet" type="text/css"/>
 
-
+<link href="/Facebook/asset/css/jquery.cssemoticons.css" media="screen"
+	rel="stylesheet" type="text/css" />
+<script src="/Facebook/asset/js/jquery.cssemoticons.js"
+	type="text/javascript"></script>
 <script type="text/javascript"
 	src="/Facebook/asset/js/likeUnlikeComment.js">
 </script>
 
 <script type="text/javascript" src="/Facebook/asset/js/likesOthers.js">
 </script>
+<script type="text/javascript" src="/Facebook/asset/js/statusUpdate.js"></script>
 
 </head>
 <body>
@@ -192,7 +196,7 @@
 							<img
 								src='<s:property value="#session.user.getProfilePic()"/>'
 								width="32px" height="32px" align="left" />&nbsp;&nbsp; <input
-								type="hidden" value='<s:property value="wallPostId"/>'
+								type="hidden" value='<s:property value="uwp.getWallPostId()"/>'
 								id="comment_wp_id" /> <input style="height: 27px;" type="text"
 								id="comment_wp_text" name="commentText"
 								placeholder="Write a comment.." size="79" />

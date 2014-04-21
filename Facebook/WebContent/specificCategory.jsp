@@ -11,7 +11,7 @@
 <script src="/Facebook/asset/js/jquery.cssemoticons.js"
 	type="text/javascript"></script>
 <link href="/Facebook/asset/css/wallPosts.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="/Facebook/asset/js/newWallPost.js">
+<script type="text/javascript" src="/Facebook/asset/js/statusUpdate.js">
 </script>
 
 <script type="text/javascript"
@@ -208,16 +208,16 @@ var ajaxvar="nisha";
 			<img alt="error" style="margin-left: 2%;"
 				src="/Facebook/asset/images/update_status.png" align="left"
 				width="16px" height="16px">
-			<p style="font-weight: bold; font-size: 13px;">&nbsp;Post</p>
+			<p style="font-weight: bold; font-size: 13px;">&nbsp;Update Status</p>
 			<center>
 				<div
 					style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div>
 			</center>
+						<input type="hidden" id="post_to_id" value='<s:property value="#session.user.getProfile_id()"/>'/>
 
 			<input type="text" id="newWallPostText" size="84"
 				placeholder="Whats on your mind?" required="true"
 				style="border: 0px; height: 40px; margin-left: 2%; outline: none; overflow: visible;" /><br>
-			<input type="hidden" value='<s:property value="eventId"/>' id="event_id_hidden">
 			<div
 				style="padding-left: 86%; padding-top: 6px; padding-bottom: 6px; background-color: #F6F7F8; border-top: 1px solid #e3e3e3;">
 				<button type="button" id="newButton" class="btn btn-xs btn-primary"
@@ -271,6 +271,26 @@ var ajaxvar="nisha";
 						<s:a href="%{profileLink}" id="full_name">
 							<s:property value="postFromName" />
 						</s:a>
+						<s:if test="%{postFrom != postTo}">
+									&nbsp;<img src="/Facebook/asset/images/right-normal.png" width="5px" height="7px">&nbsp;
+										<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
+											<s:param name="profileId">
+												<s:property value="postTo"/>
+											</s:param>
+										</s:url>
+									<s:a href="%{profileLink}" id="full_name"><s:property
+									value="postToName" /></s:a>
+								</s:if>
+						<s:if test="%{postFrom == #session.user.getProfile_id() || postTo == #session.user.getProfile_id()}">
+							<div style="float: right;margin-right: 2%">
+								<ul type="none">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"><img src="/Facebook/asset/images/caret.png" height="10px" width="10px"></img></a>
+									<ul class="dropdown-menu">
+										<li><a href="#" id="delete_post">Delete</a></li>
+									</ul></li></ul>
+							</div>
+						</s:if>
 						<br> <br> <br> <font size="2.7"><div
 								class="text1">
 								<s:property value="wallPostText" />

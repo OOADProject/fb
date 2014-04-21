@@ -65,8 +65,8 @@ public class SettingsAction  extends ActionSupport implements ModelDriven<Settin
 		
 		int profile_id = user.getProfile_id();
 		s = si.getPrivacySettings(profile_id);
-		for(int i=0;i<s.getCatgname().getCatList().size();i++)
-			System.out.println("catg name in action:"+s.getCatgname().getCatList().get(i));
+		/*for(int i=0;i<s.getCatgname().getCatList().size();i++)
+			System.out.println("catg name in action:"+s.getCatgname().getCatList().get(i));*/
 		return SUCCESS;
 	}
 		

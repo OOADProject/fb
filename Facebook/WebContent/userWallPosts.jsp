@@ -12,7 +12,7 @@
 	type="text/javascript"></script>
 <link href="/Facebook/asset/css/wallPosts.css" rel="stylesheet"
 	type="text/css" />
-<script type="text/javascript" src="/Facebook/asset/js/newWallPost.js">
+<script type="text/javascript" src="/Facebook/asset/js/statusUpdate.js">
 </script>
 <script type="text/javascript" src="/Facebook/asset/js/deleteWallPost.js">
 </script>
@@ -147,7 +147,6 @@
 				<div
 					style="height: 1px; width: 96%; background-color: #e3e3e3; margin-bottom: 5px; margin-top: 5px;"></div>
 			</center>
-			<input type="hidden" value="0" id="event_id_hidden">
 			<input type="hidden" id="post_to_id" value='<s:property value="#session.currentProfile"/>'/>
 			<input type="text" id="newWallPostText" size="84"
 				placeholder="Whats on your mind?" required="true"
@@ -204,6 +203,16 @@
 									<s:a href="%{profileLink}" id="full_name"><s:property
 									value="postToName" /></s:a>
 								</s:if>
+								<s:if test="%{postFrom == #session.user.getProfile_id() || postTo == #session.user.getProfile_id()}">
+							<div style="float: right;margin-right: 2%">
+								<ul type="none">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"><img src="/Facebook/asset/images/caret.png" height="10px" width="10px"></img></a>
+									<ul class="dropdown-menu">
+										<li><a href="#" id="delete_post">Delete</a></li>
+									</ul></li></ul>
+							</div>
+						</s:if>
 								 <br> <br> <br> <font
 							size="2.7"><div class="text1">
 								<s:property value="wallPostText" />

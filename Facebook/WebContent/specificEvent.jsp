@@ -196,6 +196,8 @@
 				style="border: 0px; height: 40px; margin-left: 2%; outline: none; overflow: visible;" /><br>
 			<input type="hidden" value='<s:property value="eventId"/>'
 				id="event_id_hidden">
+			<input type="hidden" id="post_to_id" value='<s:property value="#session.user.getProfile_id()"/>'/>
+				
 			<div
 				style="padding-left: 86%; padding-top: 6px; padding-bottom: 6px; background-color: #F6F7F8; border-top: 1px solid #e3e3e3;">
 				<button type="button" id="newButton" class="btn btn-xs btn-primary"

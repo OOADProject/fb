@@ -51,7 +51,7 @@ public class WallPostImpl {
 					+ "values (default, ?,?,?,?,?,?)";
 		}else{
 			query = "insert into wallpost (wallpost_id,post_from, post_to, wallpost_text, timestamp, visibility)"
-					+ "values (default, ?,?,?,?,?)";
+					+ "values (default, ?,?,?,?,(select viewsetting from settings where profile_id=?))";
 		}
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
@@ -60,8 +60,9 @@ public class WallPostImpl {
 			ps.setInt(2, wp.getPostTo());
 			ps.setString(3, wp.getWallPostText());
 			ps.setString(4, wp.getTimestamp());
-			ps.setString(5, wp.getVisibility());
+			ps.setInt(5, wp.getPostTo());
 			if(wp.getEventId()!=0){
+				ps.setString(5, "Public");
 				ps.setInt(6, wp.getEventId());
 			}
 			dbc.updateData(ps);
@@ -144,7 +145,83 @@ public class WallPostImpl {
 		}
 
 	}
+	public List<UserWallPost> getUserWallPosts(int loggedInProfileId, int currentProfileId){
+		
+		String visibility = "";
+		DatabaseConnect dbc = new DatabaseConnect();
+		Connection connection = DatabaseConnect.getConnection();
 
+		String currentSetting = "select * from settings where profile_id=?";
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(currentSetting);
+			ps.setInt(1	, currentProfileId);
+	
+			ResultSet rs = dbc.getData(ps);
+			while(rs.next()){//if this is true then the logged in user is a friend of the current user so visibility to fire on wallpost should be set to Friends
+				visibility = rs.getString("viewsetting");
+			}
+			
+			String checkIsFriend = "select * from friends where (profile_id=? and friend_id=?)";
+			ps = connection.prepareStatement(checkIsFriend);
+			ps.setInt(1, currentProfileId);
+			ps.setInt(2, loggedInProfileId);
+			rs = dbc.getData(ps);
+			if(rs.next()){
+
+			}else{
+				visibility = "Public";
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		String query = "select temp.*,p.profile_id,p.first_name,p.last_name,p.profile_pic from"
+				+ " (select * from wallpost where ((post_from=? and post_to=?) or (post_from!=? and post_to=?)) and visibility = ?) as temp, profile p"
+				+ " where (temp.post_from = p.profile_id) order by temp.timestamp desc";
+
+		try {
+			ps = connection.prepareStatement(query);
+			//remove hardcoding from here
+			ps.setInt(1, currentProfileId);
+			ps.setInt(2, currentProfileId);
+			ps.setInt(3, currentProfileId);
+			ps.setInt(4, currentProfileId);
+			ps.setString(5, visibility);
+
+			ResultSet rs = dbc.getData(ps);
+			List<UserWallPost> postsList = new ArrayList<UserWallPost>();
+			while(rs.next()){
+				if(rs.getInt("event_id") == 0){
+					UserWallPost uwp = new UserWallPost();
+					uwp.setWallPostId(rs.getInt("wallpost_id"));
+					uwp.setPostFrom(rs.getInt("post_from"));
+					uwp.setPostFromName(rs.getString("first_name")+" "+rs.getString("last_name"));
+					uwp.setPostFromPicture(rs.getString("profile_pic"));
+					uwp.setPostTo(rs.getInt("post_to"));
+					uwp.setPostToName(getPostToName(uwp.getPostTo()));
+					uwp.setTimestamp(rs.getString("timestamp"));
+					uwp.setVisibility(rs.getString("visibility"));
+					uwp.setWallPostText(rs.getString("wallpost_text"));
+					uwp.setCommentsList(getComments(uwp.getWallPostId()));
+					uwp.setLikesList(getLikes(uwp.getWallPostId()));
+					if(isLiked == 1){
+						uwp.setIsLiked(1);
+						isLiked = 0;
+					}
+					postsList.add(uwp);
+
+				}
+			}
+			return postsList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public UserWallPost getSingleWallPost(int wallPostId){
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = DatabaseConnect.getConnection();
@@ -326,7 +403,7 @@ public class WallPostImpl {
 		List<UserComment> commentsList = new ArrayList<UserComment>();
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = DatabaseConnect.getConnection();
-		String query = "select * from comment c, profile p where c.wallpost_id=? and c.profile_id=p.profile_id";
+		String query = "select * from comment c, profile p where (c.wallpost_id=? and c.profile_id=p.profile_id) order by timestamp asc";
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);

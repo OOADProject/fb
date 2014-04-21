@@ -30,7 +30,7 @@ public class LoadProfileAction extends ActionSupport {
 		session.put("currentProfile", profileId);
 		wallPostsList = new ArrayList<UserWallPost>();
 		WallPostImpl wpi = new WallPostImpl();
-		wallPostsList = wpi.getWallPosts(profileId);
+		wallPostsList = wpi.getUserWallPosts(((User)session.get("user")).getProfile_id(), profileId);
 		user=pimpl.getUser(profileId);
 		isFriend = pimpl.isFriend(profileId,((User)session.get("user")).getProfile_id());
 		if(user!=null)		

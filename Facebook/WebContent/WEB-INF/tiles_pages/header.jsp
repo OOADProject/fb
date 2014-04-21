@@ -63,33 +63,58 @@ $(document).ready(function(){
 							'&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs btn-default" id="reject_button">Reject</button></div></li></a>';
 				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
 				$("#friendrequest_notifications").append(temp);
-				$("#friendrequest_count").html(index+1);
-				$("#friendrequest_icon").attr('src','/Facebook/asset/images/friend_req_2.png');
 			});
-			
+			if(data.friendRequestCount > 0){
+				$("#friendrequest_count").html(data.friendRequestCount);
+				$("#friendrequest_icon").attr('src','/Facebook/asset/images/friend_req_2.png');
+
+			}
 			$.each(data.messageNotificationList, function(index, value){
 				var temp = '<a href="/Facebook/module01/messageclick"><li class="notification_items">'+'<img src="'+value.picture+'" height="50px" width="50px" align="left">&nbsp;&nbsp;'+value.notificationText+'</li></a>';
 				temp += '<div style="height: 1px; width: 96%; background-color: #e3e3e3;"></div>';
 				$("#messages_notifications").append(temp);
-				$("#messages_count").html(index+1);
-				$("#message_icon").attr('src','/Facebook/asset/images/msg_noti_icon.png');
 
 			});
-			
+			if(data.messagesCount > 0){
+				$("#messages_count").html(data.messagesCount);
+				$("#message_icon").attr('src','/Facebook/asset/images/msg_noti_icon.png');
+
+			}
 		}
 	});
 	$("#notification_icon").click(function(event){
 		$("#notification_icon").attr('src','/Facebook/asset/images/noti_icon.png');
 		$("#notifications_count").hide();
+		$.ajax({
+			type:'POST',
+			url:'/Facebook/module06/updateNotificationClicked',
+			success : function(data){
+				
+			}
+		});
 	});
 	
 	$("#friendrequest_icon").click(function(e){
 		$("#friendrequest_icon").attr('src','/Facebook/asset/images/fr_icon.png');
 		$("#friendrequest_count").hide();
+		$.ajax({
+			type:'POST',
+			url:'/Facebook/module06/updateFriendClickedTimestamp',
+			success: function(data){
+				
+			}
+		});
 	});
 	$("#message_icon").click(function(e){
 		$("#message_icon").attr('src','/Facebook/asset/images/msg_ico.png');
 		$("#messages_count").hide();
+		$.ajax({
+			type:'POST',
+			url:'/Facebook/module06/updateMessageClickedTimestamp',
+			success: function(data){
+				
+			}
+		});
 	});
 	
 	$("#friendrequest_notifications").on("click","#accept_button",function(e){
@@ -197,7 +222,7 @@ $(document).ready(function(){
 					 
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Settings</a></li>
+						<li><a href="/Facebook/module04/settings">Settings</a></li>
 						<li><a href="redirectLogin">Logout</a></li>
 					</ul>
 				</li>
