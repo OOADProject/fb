@@ -35,7 +35,7 @@ public class LoadProfileImpl {
 			user.setLname(rs.getString("last_name"));
 			user.setProfile_id(rs.getInt("profile_id"));
 			user.setProfilePic(rs.getString("profile_pic"));
-			
+			user.setCoverpicFileName(rs.getString("cover_pic"));
 			}
 	
 		String query1="select * from login where login_id=(select login_id from profile where profile_id="+pid+" )";

@@ -7,6 +7,34 @@
 	<constant name="struts.devMode" value="true" />
 
 	<package name="default" namespace="/" extends="tiles-default">
+	    <action name="updateProfilePicture" class="iiitb.fb.actions.UpdateProfilePicAction" method="execute">
+		    <interceptor-ref name="fileUpload">
+		        <param name="maximumSize">2097152</param>
+		        <param name="allowedTypes">
+		             image/png,image/gif,image/jpeg,image/pjpeg	
+		        </param>
+		        
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		    <result name="success" type="chain">
+		        <param name="namespace">/module02</param>
+		        <param name="actionName">gotoprofilepage</param>
+		    </result>
+		</action>
+		<action name="updateCoverPicture" class="iiitb.fb.actions.UpdateProfilePicAction" method="updateCoverPicture">
+		    <interceptor-ref name="fileUpload">
+		        <param name="maximumSize">2097152</param>
+		        <param name="allowedTypes">
+		             image/png,image/gif,image/jpeg,image/pjpeg	
+		        </param>
+		        
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		    <result name="success" type="chain">
+		        <param name="namespace">/module02</param>
+		        <param name="actionName">gotoprofilepage</param>
+		    </result>
+		</action>
 	</package>
 
 	<include file="module01/struts-abhishek.xml"></include>
