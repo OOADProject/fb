@@ -48,6 +48,8 @@ public class FriendsAction extends ActionSupport{
 	
 	public String sendFriendRequest()
 	{
+		System.out.println("SEND FRIEND REQUEST.");
+		System.out.println(profileId);
 		FriendsImpl friends=new FriendsImpl();
 		User user=(User) session.get("user");
 		int loggedinProfileId=user.getProfile_id();
@@ -56,6 +58,15 @@ public class FriendsAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	public String peopleYouMayKnowSendRequest()
+	{
+		FriendsImpl friends=new FriendsImpl();
+		User user=(User) session.get("user");
+		int loggedinProfileId=user.getProfile_id();
+		friends.sendfriendRequest(loggedinProfileId,profileId);
+		return SUCCESS;
+	}
+	
 	public String cancleFriendRequest()
 	{
 		FriendsImpl friends=new FriendsImpl();

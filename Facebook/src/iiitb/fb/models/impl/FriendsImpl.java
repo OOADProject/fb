@@ -44,7 +44,7 @@ public class FriendsImpl {
 	{
 		DatabaseConnect db=new DatabaseConnect();
 		Date time=new Date();
-		SimpleDateFormat ft=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat ft=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		String query="insert into friendrequest values(default,"+friendProfileId+","+loggedinProfileId+",'"+ft.format(time)+"')";
 		db.updateData(query);
 	}

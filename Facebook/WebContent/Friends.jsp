@@ -14,7 +14,6 @@ $(document).ready(function(){
 	
 		$.ajax(function(){
 			
-			
 		});
 	});
 	
@@ -86,8 +85,6 @@ $(document).ready(function(){
 						Friend <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Add To Another List....</a></li>
-						<li class="divider"></li>
 						<li><a href="#">Report/Block....</a></li>
 						<li><a href="#">Unfriend</a></li>
 					</ul>
@@ -126,8 +123,7 @@ $(document).ready(function(){
 						Friend <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Add To Another List....</a></li>
-						<li class="divider"></li>
+
 						<li><a href="#">Report/Block....</a></li>
 						<li><a href="#">Unfriend</a></li>
 					</ul>

@@ -41,7 +41,7 @@ body{
 #sidebar {
 	margin-top: 1%;
 	float: left;
-	width: 20%;
+	width: 22%;
 	height: 200px;
 	min-height: 20px;
 	padding: 8px 0px 0px 0px;

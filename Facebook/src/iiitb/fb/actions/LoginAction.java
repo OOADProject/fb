@@ -3,6 +3,8 @@ package iiitb.fb.actions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -34,11 +36,6 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 	String dbpathofimage;
 	
 	
-	
-
-
-
-
 
 
 	public LoginAction() {
@@ -76,7 +73,6 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 	public String registration() // For Registering new user.
 	{
 		UserImpl ui = new UserImpl();
-		int pid;
 		if(!(user.getEmail().equals(reemail)))
 		{
 			errorstatus="Entered email doesn't matches.";
@@ -86,8 +82,13 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		flag=ui.isValidUser(user);
 		if(flag)
 		{
-			pid=ui.addUser(user); // To add user in databse.
-			user.setProfile_id(pid);
+			user=ui.addUser(user); // To add user in database.
+			User temp=ui.assignUserNameAndId(user);
+			user.setUserName(temp.getUserName());
+			user.setFbemail(temp.getFbemail());
+			ui.addBirthDayEvent(user);
+			ui.addSettings(user);
+			ui.addNotificationClicked(user);
 			session.put("user", user);
 			return SUCCESS;
 		}
@@ -100,7 +101,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 	
 	public void getBirthDay()
 	{
-		user.setBirthday(year+"/"+month+"/"+day);
+		user.setBirthday(year+"-"+month+"-"+day);
 	}
 	
 	
@@ -129,7 +130,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		try {
 			User tempuser=new User();
 			tempuser=(User)session.get("user");
-		String destpath="C:\\Users\\Dipesh\\git\\fb\\dip\\Facebook\\WebContent\\asset\\images\\profilepics\\";
+		String destpath="C:\\Users\\Dipesh\\git\\fb\\latest\\Facebook\\WebContent\\asset\\images\\profilepics\\";
 		int picnm=tempuser.getProfile_id();
 		String picname=Integer.toString(picnm);
 		user.setMyFileFileName(picname+".jpg");
@@ -152,9 +153,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		user.setHometown(tempuser.getHometown());
 		UserImpl ui = new UserImpl();
 		ui.addProfilepic(user,user.getProfilePic());
-		User temp=ui.assignUserNameAndId(user);
-		user.setUserName(temp.getUserName());
-		user.setFbemail(temp.getFbemail());
+		
 		session.put("user", user);
 		
 		return SUCCESS;
@@ -191,16 +190,34 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		return ERROR;	
 		}
 		else
-		{
+		{	
 		session.put("user", user);
 		return SUCCESS;
 		}
 	}
 
 
+	
 
-
-
+	
+	public String skipStep1()
+	{
+		return SUCCESS;
+	}
+	
+	public String backToStep1()
+	{
+		return SUCCESS;
+	}
+	public String skipStep2()
+	{
+		UserImpl uimpl=new UserImpl();
+		user=(User)session.get("user");
+		user.setProfilePic("/Facebook/asset/images/profilepics/default.jpg");
+		uimpl.addProfilepic(user, user.getProfilePic());
+		return SUCCESS;
+	}
+	
 
 
 	@Override
@@ -294,8 +311,6 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 	public String getDbpathofimage() {
 		return dbpathofimage;
 	}
-
-
 
 
 

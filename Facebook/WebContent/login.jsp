@@ -32,8 +32,8 @@
 			<p id="punch_line">It's free and always will be.</p>
 			<input type="text" placeholder="First Name" required="true" name="fname" id="fname" class="details" />
 			<input type="text" placeholder="Last Name"  required="true" name="lname" id="lname" class="details" /><br> 
-			<input type="text" placeholder="Your Email" required="true" name="email" id="email" class="details" /><br> 
-			<input type="text" placeholder="Re-enter Email" required="true" name="reemail" id="reemail" class="details" /><br> 
+			<input type="email" placeholder="Your Email" required="true" name="email" id="email" class="details" /><br> 
+			<input type="email" placeholder="Re-enter Email" required="true" name="reemail" id="reemail" class="details" /><br> 
 			<input type="password" placeholder="New Password" required="true" name="password" id="pwd" class="details" /><br>
 
 			<p id="birthday" style="font-weight: bold;">Birthday</p>

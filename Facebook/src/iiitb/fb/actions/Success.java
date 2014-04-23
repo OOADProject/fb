@@ -46,19 +46,6 @@ public class Success extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	public String skipStep1()
-	{
-		return SUCCESS;
-	}
-	
-	public String backToStep1()
-	{
-		return SUCCESS;
-	}
-	public String skipStep2()
-	{
-		return SUCCESS;
-	}
 	public String forgotPassword()
 	{
 		return SUCCESS;

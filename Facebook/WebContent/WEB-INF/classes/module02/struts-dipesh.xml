@@ -20,12 +20,13 @@
 			<result name="success" type="tiles">wallPost</result>
 			<result name="error">error</result>
 		</action>
+		
 		<action name="signup" class="iiitb.fb.actions.LoginAction" method="registration">
 			<result name="success" type="tiles">fillOutInfo</result>
 			<result name="error" type="tiles">loginPage</result>
 		</action>
 		
-		<action name="skipstep1" class="iiitb.fb.actions.Success" method="skipStep1">
+		<action name="skipstep1" class="iiitb.fb.actions.LoginAction" method="skipStep1">
 			<result name="success" type="tiles">step1</result>
 		</action>
 		
@@ -34,8 +35,12 @@
 			<result name="success" type="tiles">forgot</result>
 		</action>
 		
+		<action name="sendEmail" class="iiitb.fb.actions.Emailer">
+		     <result name="success" type="tiles">forgot</result>
+		     <result name="error" type="tiles">forgot</result>
+		</action>     
 		
-		<action name="backtostep1" class="iiitb.fb.actions.Success" method="backToStep1">
+		<action name="backtostep1" class="iiitb.fb.actions.LoginAction" method="backToStep1">
 			<result name="success" type="tiles">backstep1</result>
 		</action>
 		
@@ -47,7 +52,7 @@
 			<result name="success" type="tiles">addprofilepic</result>
 		</action>
 		
-		<action name="skipstep2" class="iiitb.fb.actions.Success" method="skipStep2">
+		<action name="skipstep2" class="iiitb.fb.actions.LoginAction" method="skipStep2">
 			<result name="success" type="redirect">loadWall</result>
 		</action>
 		
@@ -91,9 +96,20 @@
 			<result name="success" type="json">wallPost</result>
 		</action>
 		
+		<action name="peopleYouMayKnowFriendRequest" class="iiitb.fb.actions.FriendsAction" method="peopleYouMayKnowSendRequest">
+			<result name="success" type="json">wallPost</result>
+		</action>
+		
+		
 		<action name="canclefriendRequest" class="iiitb.fb.actions.FriendsAction" method="cancleFriendRequest">
 			<result name="success" type="json">wallPost</result>
 		</action>
+		
+		
+		<action name="getTodaysBirthDay" class="iiitb.fb.actions.BirthdayNotAction" method="getTodaysBirthday">
+			<result name="success" type="json">wallPost</result>
+		</action>
+		
 		
 	</package>
 </struts>
