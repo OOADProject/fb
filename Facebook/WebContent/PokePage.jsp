@@ -16,33 +16,37 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-$("#pokebackbutton").click(function(){ 
-	alert($("#fromid").val());
+$(".pokes").on("click","#pokebackbutton",function(e){ 
+	var parent = $(this).parents(".pokediv");
+	var pokeFromId = parent.find("#fromid");
 	$.ajax({
 		type: 'POST',
-		url:'/Facebook/module08/PokeBack?pokefromid='+$("#fromid").val(),
+		url:'/Facebook/module08/PokeBack?pokefromid='+$(pokeFromId).val(),
 		success:function(data){
 			alert("Success");
-			$(".pokediv").html("You have successfully poked back ");
+			$(parent).html("You have successfully poked back ");
 		}
-});
-	
+	});
+	e.preventDefault();
 });
 		
-});
 
-function deletepoke(){
-	alert($("#fromid").val());
+
+$(".pokes").on("click","#delete_button", function(e){
+	var parent = $(this).parents(".pokediv");
+	var pokeFromId = parent.find("#fromid");
+
 	$.ajax({
 		type: 'POST',
-		url:'/Facebook/module08/DeletePoke?pokefromid='+$("#fromid").val(),
+		url:'/Facebook/module08/DeletePoke?pokefromid='+$(pokeFromId).val(),
 		success:function(data){
 			alert("Success");
-			$(".pokes").html(" ");
+			$(parent).html(" ");
 		}
+		});
+		e.preventDefault();
+	});
 });
-	
-}
 </script>
 </head>
 
@@ -54,10 +58,11 @@ function deletepoke(){
 	</div>
 
 	<br>
+<div class="pokes">
 
 <s:iterator value="pokelist" >
-<div class="pokes">
-	<table  >
+<div class="single_poke">
+	<table>
 		<tr>
 			<td>
 				<div >
@@ -75,7 +80,7 @@ function deletepoke(){
 			&nbsp;&nbsp;&nbsp; <button class="btn btn-primary ladda-button" data-style="expand-left" id ="pokebackbutton">
 				<span class="ladda-label">Poke Back</span>
 			</button>
-			<a href="#" onclick="deletepoke()"><img src="/Facebook/asset/images/blackbutton.jpg"  style=" width:10px; height:10px;"></a>
+			<a href="#" id="delete_button"><img src="/Facebook/asset/images/blackbutton.jpg"  style=" width:10px; height:10px;"></a>
 			<input type="hidden" value='<s:property value="pokeFrom"/>' id="fromid">
 		</div>
 		
@@ -88,8 +93,10 @@ function deletepoke(){
 		</td>
 		</tr>
 	</table>
-	</div>
 	<br>
+</div>
 </s:iterator>
+	</div>
+
 </body>
 </html>

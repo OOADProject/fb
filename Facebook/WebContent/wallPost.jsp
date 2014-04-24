@@ -69,6 +69,10 @@
 			<a href="#" id="menu_items"><img
 				src="/Facebook/asset/images/photos.png" height="15px">&nbsp;&nbsp;Photos</a><br>
 		</p>
+		<p id="menu_items">
+			<a href="/Facebook/module08/callPoke" id="menu_items"><img
+				src="/Facebook/asset/images/poke_ico.png" height="15px">&nbsp;&nbsp;Pokes</a><br>
+		</p>
 		<a href="/Facebook/module07/display_frnd_cat_list"><h6
 				style="font-weight: bold; color: gray;">FRIENDS</h6></a>
 	</div>

@@ -8,4 +8,8 @@
 	<definition name="success" extends="baseLayout">
 		<put-attribute name="body" value="/success.jsp" />
 	</definition>
+	
+	<definition name="pokePage" extends="baseLayout">
+	    <put-attribute name="body" value="/PokePage.jsp"/>
+	</definition>
 </tiles-definitions>

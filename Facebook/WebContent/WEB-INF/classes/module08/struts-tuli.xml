@@ -11,5 +11,9 @@
 			<result name="success" type="tiles">loginPage</result>
 			<result name="error" type="tiles">error</result>
 		</action>
+		<action name="callPoke" class="iiitb.fb.actions.PokeAction" method="getPokeList">
+		    <result name="success" type="tiles">pokePage</result>
+		    <result name="error" type="tiles">error</result>
+		</action>
 	</package>
 </struts>
