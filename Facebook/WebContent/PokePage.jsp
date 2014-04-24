@@ -16,7 +16,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-$(".pokes").on("click","#pokebackbutton",function(){ 
+$(".pokes").on("click","#pokebackbutton",function(e){ 
 	var parent = $(this).parents(".pokediv");
 	var pokeFromId = parent.find("#fromid");
 	$.ajax({
