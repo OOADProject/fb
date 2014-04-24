@@ -125,16 +125,12 @@
             	</s:param>
             </s:url>
             <s:a href="%{loadFriends}" style="color: rgb(82, 110, 166);">Friends</s:a></li>
-            
-            <li class="dropdown" style="font-weight: bold; ">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: rgb(82, 110, 166);">More <b class="caret"></b></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Sports</a></li>
-                <li><a href="#">Events</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Manage section</a></li>
-              </ul>
+            <s:if test="%{#session.currentProfile != #session.user.getProfile_id()}">
+            <li style="font-weight: bold; ">
+              <a href="#" style="color: rgb(82, 110, 166);margin-left: 10%;">Poke</b></a>
+  
             </li>
+            </s:if>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
