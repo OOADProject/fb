@@ -41,7 +41,7 @@ $("#reply").on("keypress",function(e) {
 					
 					<s:iterator value="namelist">
 					<li ><a href="conversation?conversation_id=<s:property value="profile_id"/>"><fieldset>
-					<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
+					<img src="<s:property value="profile_pic"/>" width="35px" height="33px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="firstname"/>&nbsp;<s:property value="lastname"/>
 							
 						
 					</fieldset></a></li>				
