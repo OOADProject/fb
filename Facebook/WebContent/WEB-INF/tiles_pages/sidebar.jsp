@@ -36,7 +36,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	var temp="";
+	var temp='<img src="/Facebook/asset/images/birthday_icon.png" height="20px" width="20px" align="left"/>';
 	$.ajax({
 		url:'/Facebook/module02/getTodaysBirthDay',
 		type:'POST',
@@ -77,8 +77,8 @@ $(document).ready(function(){
 			type: 'POST',
 			success:function(data){
 				$.each(data.mayKnownPeople,function(index,value){
-					temp+='<div id="people"; class="friendRequestId" style="height:60px;width:96%; border: 1px solid; border-color: rgb(211, 214, 219); margin-top: 2%; margin-left: 2%;">'+'<a href="#"><img src="'+value.friendprofilepic+'" style="height: 60px; width: 60px; float: left;" /></a>';
-					temp+='<div style="margin-top: 5%;">&nbsp;<a href="#" style="color: rgb(59, 89, 152); font-size: 12px; font-weight: bold; float: left; margin-left:1%;">'+value.fname+'&nbsp;'+value.lname+'<a>';
+					temp+='<div id="people"; class="friendRequestId" style="height:60px;width:96%; border: 1px solid; border-color: rgb(211, 214, 219); margin-top: 2%; margin-left: 2%;">'+'<a href="/Facebook/module02/loadProfilePage?profileId='+value.profile_id+'"><img src="'+value.friendprofilepic+'" style="height: 60px; width: 60px; float: left;" /></a>';
+					temp+='<div style="margin-top: 5%;">&nbsp;<a href="/Facebook/module02/loadProfilePage?profileId='+value.profile_id+'" style="color: rgb(59, 89, 152); font-size: 12px; font-weight: bold; float: left; margin-left:1%;">'+value.fname+'&nbsp;'+value.lname+'<a>';
 					temp+='<input type="hidden" value='+value.profile_id+' class="hiddenpid">';
 					temp+='<div id="buttondivid" style="margin-bottom:-10%;" ><input type="button" class="addFriendClass" value="Add Friend" style="height:20px; width:25%; font-size:10px; float: right; margin-right:13%;" /></div>';
 					temp+='</div></div>';
@@ -116,7 +116,7 @@ $(document).ready(function(){
 	});	
 </script>
 <br>
-&nbsp;&nbsp;<img src="/Facebook/asset/images/birthday_icon.png" height="20px" width="20px" align="left"/><div class="clickable" style="cursor: pointer;float:left;margin-left: 3%" id="birthday"></div>
+&nbsp;&nbsp;<div class="clickable" style="cursor: pointer;float:left;margin-left: 3%" id="birthday"></div>
 <hr>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Advertisment
 <div style="height: 460px; background-color:white;  margin-top: 51%; overflow-y:auto ">

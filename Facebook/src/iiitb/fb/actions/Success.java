@@ -35,62 +35,56 @@ public class Success extends ActionSupport implements CookiesAware{
 			UserImpl ui = new UserImpl();
 			User temp = new User();
 			if(!details.equalsIgnoreCase("")){
-			System.out.println((cookie.get("details").split(","))[0]+"   &   "+(cookie.get("details").split(","))[1]);
-			temp.setUserName(cookie.get("details").split(",")[0]);
-			temp.setPassword(cookie.get("details").split(",")[1]);
-			User user=ui.loginCheck(temp);
-			if(user==null)
-			{
-				System.out.println();
-				yearList = new ArrayList<String>();
-				monthList = new ArrayList<String>();
-				dayList = new ArrayList<String>();
-				yearList.add("Year");
-				for(int i = 2014; i>= 1905; i--){
-					String tmp=Integer.toString(i);
-					yearList.add(tmp);
-				}
-
-				dayList.add("Day");
-				for(int i=1;i<=31;i++)
+				System.out.println((cookie.get("details").split(","))[0]+"   &   "+(cookie.get("details").split(","))[1]);
+				temp.setUserName(cookie.get("details").split(",")[0]);
+				temp.setPassword(cookie.get("details").split(",")[1]);
+				User user=ui.loginCheck(temp);
+				if(user==null)
 				{
-					String tmp=Integer.toString(i);
-					dayList.add(tmp);
-				}
+					System.out.println();
+					yearList = new ArrayList<String>();
+					monthList = new ArrayList<String>();
+					dayList = new ArrayList<String>();
+					for(int i = 2014; i>= 1905; i--){
+						String tmp=Integer.toString(i);
+						yearList.add(tmp);
+					}
 
-				monthList.add("Month");
-				for(int i=1;i<=12;i++)
-				{
-					String tmp=String.valueOf(i);
-					monthList.add(tmp);
-				}
+					for(int i=1;i<=31;i++)
+					{
+						String tmp=Integer.toString(i);
+						dayList.add(tmp);
+					}
 
-				return "homePage";
+					for(int i=1;i<=12;i++)
+					{
+						String tmp=String.valueOf(i);
+						monthList.add(tmp);
+					}
+
+					return "homePage";
+				}
+				else
+				{	
+					session.put("user", user);
+					return SUCCESS;
+				}
 			}
-			else
-			{	
-				session.put("user", user);
-				return SUCCESS;
-			}
-		}
 		}
 		yearList = new ArrayList<String>();
 		monthList = new ArrayList<String>();
 		dayList = new ArrayList<String>();
-		yearList.add("Year");
 		for(int i = 2014; i>= 1905; i--){
 			String tmp=Integer.toString(i);
 			yearList.add(tmp);
 		}
 
-		dayList.add("Day");
 		for(int i=1;i<=31;i++)
 		{
 			String tmp=Integer.toString(i);
 			dayList.add(tmp);
 		}
 
-		monthList.add("Month");
 		for(int i=1;i<=12;i++)
 		{
 			String tmp=String.valueOf(i);

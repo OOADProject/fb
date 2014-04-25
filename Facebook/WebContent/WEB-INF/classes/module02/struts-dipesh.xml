@@ -56,6 +56,7 @@
 		
 		<action name="addprofilepic" class="iiitb.fb.actions.LoginAction" method="addProfilePic">
 			<result name="success" type="tiles">addprofilepic</result>
+			<result name="error" type="tiles">gotostep2</result>
 		</action>
 		
 		<action name="skipstep2" class="iiitb.fb.actions.LoginAction" method="skipStep2">

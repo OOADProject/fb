@@ -31,19 +31,19 @@ $(document).ready(function(){
 	<img src="/Facebook/asset/images/fr_icon.png"  style="height:25px;width:3.5%; margin-left:1%; margin-top: 1%; float: left; " />
 	 <a href="/Facebook/module02/displayfriends"><div style="float:left; margin-top: 1%; margin-left: 1%; font-weight: bold; font-size: 20px; color: rgb(55, 64, 78);">Friends</div></a>
 	
-	<div class="btn-group" style="float: right; margin-right: 2%;margin-top: 1.5%;" > 
+<!-- 	<div class="btn-group" style="float: right; margin-right: 2%;margin-top: 1.5%;" > 
 	<button type="button" class="btn btn-default" style=" font-size: 12px; font-weight: bold;">Friend Requests<div></div></button>
 	 <button type="button" class="btn btn-default" style=" font-size: 12px; font-weight: bold;">+ Find Friends</button>
 	</div>
-	
+ -->	
 
-	<a href="#"><div style="width:25%; height: 40px; margin-top:7%;margin-left:-13%; float: left; font-weight: bold; color: rgb(55, 64, 78);">All Friends &nbsp;<s:property value="numberoffriends" /> </div></a>
+	<div style="width:25%; height: 40px; margin-top:7%;margin-left:-13%; float: left; font-weight: bold; color: rgb(55, 64, 78);">All Friends &nbsp;<s:property value="numberoffriends" /> </div>
 	
 	
-	<div >
+	<!-- <div >
 	<input type="text" id="searchfriend" name="searchfriend" style="float:left; margin-top:-5.5%; margin-left: 67%; height: 22px; width:28%; font-size: 12px;" placeholder = "Search Your Friends" >
 	<a href="searchfriend"><div style="height: 22px;width: 22px; border: 1px solid; float: right; border-color: rgb(173, 179, 188); margin-top:-45px; margin-right:18px;"><img src="/Facebook/asset/images/search.jpg" /></div></a>
-	</div>
+	</div> -->
  	</div>
 	
 	
@@ -67,7 +67,7 @@ $(document).ready(function(){
 		<div
 			style="height: 110px; width: 47%; border: 1px solid; border-color: rgb(211, 214, 219); margin-top: 2%; margin-left: 2%; float: left;">
 			<div style="height: 110px; width: 100px; float: left;">
-				<a href="#"><img src="<s:property value="friendprofilepic" />"
+				<a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="profile_id" />'><img src="<s:property value="friendprofilepic" />"
 					style="height: 108px; width: 100px;" /></a>
 			</div>
 			<div style="margin-top: 10%;">
@@ -79,15 +79,15 @@ $(document).ready(function(){
 					style="color: rgb(59, 89, 152); font-size: 12px; font-weight: bold; margin-left: 5%;"><s:property value="fname" /> <s:property value="lname" /></s:a>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle"
+					<button disabled="disabled" type="button" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"
 						style="height: 27px; font-size: 12px; font-weight: bold">
-						Friend <span class="caret"></span>
+						Friend 
 					</button>
-					<ul class="dropdown-menu" role="menu">
+					<!-- <ul class="dropdown-menu" role="menu">
 						<li><a href="#">Report/Block....</a></li>
 						<li><a href="#">Unfriend</a></li>
-					</ul>
+					</ul> -->
 				</div>
 				
 			</div>
@@ -117,16 +117,16 @@ $(document).ready(function(){
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;
 				<div class="btn-group" align="left">
-					<button type="button" class="btn btn-default dropdown-toggle"
+					<button disabled="disabled" type="button" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"
 						style="height: 27px; font-size: 12px; font-weight: bold">
-						Friend <span class="caret"></span>
+						Friend 
 					</button>
-					<ul class="dropdown-menu" role="menu">
+	<!-- 				<ul class="dropdown-menu" role="menu">
 
 						<li><a href="#">Report/Block....</a></li>
 						<li><a href="#">Unfriend</a></li>
-					</ul>
+					</ul> -->
 				</div>
 
 			</div>

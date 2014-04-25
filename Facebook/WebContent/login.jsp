@@ -37,11 +37,11 @@
 			<input type="password" placeholder="New Password" required="true" name="password" id="pwd" class="details" /><br>
 
 			<p id="birthday" style="font-weight: bold;">Birthday</p>
-			<s:select theme="simple" list="monthList" id="month" name="month" required="true">
+			<s:select theme="simple" list="monthList" id="month" name="month" required="true" headerKey="0" headerValue="Month">
 			</s:select> 
-			<s:select theme="simple" list="dayList" id="day" name="day" required="true">
+			<s:select theme="simple" list="dayList" id="day" name="day" required="true" headerKey="0" headerValue="Day">
 			</s:select>
-			 <s:select theme="simple" list="yearList" id="year" name="year" required="true">
+			 <s:select theme="simple" list="yearList" id="year" name="year" required="true" headerKey="0" headerValue="Year">
 				
 			</s:select><br>
 			<h4>

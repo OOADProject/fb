@@ -78,7 +78,7 @@
 			       	style="font-size: 15px; font-weight: bold; height: 5%; color: rgb(68, 96, 156); margin-top: 17%;">
 				    <br> 
 				
-					<input type="file" name="myFile" class="filestyle" data-input="false" id="filestyle-0" tabindex="-1" style="position: absolute; left: -9999px;" />
+					<input type="file" name="myFile" required="true" class="filestyle" data-input="false" id="filestyle-0" tabindex="-1" style="position: absolute; left: -9999px;" />
 					<div class="bootstrap-filestyle" style="display: inline;" tabindex="0">
 						<label for="filestyle-0" class="btn" ><i class="icon-folder-open"></i> Upload a Photo
 						
@@ -89,13 +89,12 @@
 			<div style="margin-top: 0%; font-size: 12px">&nbsp;&nbsp;&nbsp;From your computer</div>
 		</div>
 
+		<s:property value="errorstatus" />
 		<br>
 		<div style="margin-top: 180px;">
 			<a href="/Facebook/module02/backtostep1" style="color: rgb(68, 96, 156); position: fixed;">Back</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="skipstep2" style="color: rgb(68, 96, 156);">skip</a> &nbsp;
+		
+			<a href="skipstep2" style="color: rgb(68, 96, 156); margin-left: 75%;" >skip</a> &nbsp;
 			&nbsp;
 			<button type="submit" class="btn btn-primary btn-xs">Save & Continue</button>
 		</div>

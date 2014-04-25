@@ -2,6 +2,9 @@ package iiitb.fb.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,20 +55,17 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		yearList = new ArrayList<String>();
 		monthList = new ArrayList<String>();
 		dayList = new ArrayList<String>();
-		yearList.add("Year");
 		for(int i=2014 ; i>= 1905; i--){
 			String temp=Integer.toString(i);
 			yearList.add(temp);
 		}
 
-		dayList.add("Day");
 		for(int i=1;i<=31;i++)
 		{
 			String temp=Integer.toString(i);
 			dayList.add(temp);
 		}
 
-		monthList.add("Month");
 		for(int i=1;i<=12;i++)
 		{
 			String temp=String.valueOf(i);
@@ -81,13 +81,38 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 
 	public String registration() // For Registering new user.
 	{
+		
+		
+		SimpleDateFormat ft=new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dft=new SimpleDateFormat("yyyy-MM-dd");
+		
 		UserImpl ui = new UserImpl();
+		if(month == 0 || day == 0 || year == 0){
+			errorstatus="Either Month, Day or Year is not selected";
+			return ERROR;
+		}
+		
 		if(!(user.getEmail().equals(reemail)))
 		{
 			errorstatus="Entered email doesn't matches.";
 			return ERROR;
 		}
+		
+	
 		getBirthDay();
+		try {
+			Date date=new Date();
+			Date birthDay=ft.parse(user.getBirthday());
+			if(birthDay.after(date))
+			{
+				errorstatus="Invalid birth date";
+				return ERROR;
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		flag=ui.isValidUser(user);
 		if(flag)
 		{
@@ -166,11 +191,11 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 			session.put("user", user);
 
 			return SUCCESS;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return ERROR;
 	}
 

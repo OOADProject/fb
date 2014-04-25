@@ -35,12 +35,12 @@
 		<form action="/Facebook/module02/userLogin">
 		<div>
 		<p style="font-weight: bold; font-size: 11px; float: left; margin-left:27%; ">Username : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-		<input type="text" name="userName" style="height:20px; ">
+		<input type="text" name="userName" style="height:20px; " required="true">
 		</div>
 		
 		<div style="margin-top: 3%; ">
 		<p style="font-weight: bold; font-size: 11px; float: left; margin-left: 27%;">Password :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-		<div><input type="password" name="password" style="height:20px; "></div>
+		<div><input type="password" name="password" style="height:20px; " required="true"></div>
 		</div>	
 		
 		<div style="margin-top:3%; margin-left: 35%;">
