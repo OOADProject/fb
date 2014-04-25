@@ -16,6 +16,8 @@
 	<definition name="addEvent" extends="baseLayout">
 		<put-attribute name="body" value="/specificEvent.jsp" />
 	</definition>
+	
+	
 
 
 </tiles-definitions>
