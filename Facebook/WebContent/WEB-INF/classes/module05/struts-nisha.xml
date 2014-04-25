@@ -21,6 +21,14 @@
 			<result name="success" type="json"></result>
 
 		</action>
+		
+		<action name="loaduninvitedFriends" class="iiitb.fb.actions.inviteFriendsAction"
+			method="uninvitedFriends">
+			<result name="success" type="json"></result>
+
+		</action>
+		
+		
 
 		<action name="createEventAction" class="iiitb.fb.actions.EventAction"
 			method="addEvent">
@@ -28,12 +36,25 @@
 			<result name="error" type="tiles">error</result>
 		</action>
 
+		<action name="cancelEventAction" class="iiitb.fb.actions.EventAction"
+			method="cancelEvent">
+			<result name="success" type="tiles">event</result>
+			<result name="error" type="tiles">error</result>
+		</action>
+		
+		
 
 		<action name="invitedFriends" class="iiitb.fb.actions.EventAction"
 			method="inviteFriends">
 			<result name="success" type="json"></result>
 
 		</action>
+		<action name="changeJoinStatus" class="iiitb.fb.actions.inviteFriendsAction"
+			method="updateJoinStatus">
+			<result name="success" type="json"></result>
+
+		</action>
+		
 
 
 	</package>

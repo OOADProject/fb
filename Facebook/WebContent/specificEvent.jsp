@@ -21,6 +21,85 @@
 
 <script type="text/javascript" src="/Facebook/asset/js/likesOthers.js">
 </script>
+<script>
+
+$(document).ready(function() {
+	$("#inviteSelect").click(function(event) {
+		debugger;
+		var temp = '<form>';
+		$.ajax({
+					url : "/Facebook/module05/loadFriendstoInvite",
+					type : 'POST',
+					success : function(data) {
+						var i = 1;
+						
+					
+					
+						$.each(data.friendlist,function(index,value) {
+							              
+											if (i % 2 != 0) {
+												temp += '<input id="selectFriend" type="checkbox" value="'+value.profile_id+'" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'
+														+ value.fname
+														+ ' '
+														+ value.lname
+														+ '</h5>';
+												i++;
+											} else {
+												temp += '<input id="selectFriend" type="checkbox" value="'+value.profile_id+'" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'
+														+ value.fname
+														+ ' '
+														+ value.lname
+														+ '</h5>';
+												i++;
+
+											}
+							            		  
+							            	  
+										});
+
+						temp += '<button type="button" class="btn btn-primary" id="inviteSaveBtns" onclick="saveInvited()">Save</button></form>';
+						$("#invitemodal-body").html(temp);
+
+					}
+				});
+	});
+	
+	
+	
+
+
+	});
+
+	function saveInvited() {
+		debugger;
+		alert("hi");
+		var idString = "";
+		var count = 0;
+		var eventid=$('#event_id_hidden').val();
+		$('#selectFriend:checked').each(function() {
+			if (count != 0) {
+				idString += "," + $(this).val();
+
+			} else
+				idString += $(this).val();
+
+			count++;
+			$.ajax({
+				url : '/Facebook/module05/invitedFriends?eventId='+eventid+'&invitedFriendIds='+idString , 
+				type : 'POST',
+				success : function(data) {	
+					$("#invitemodal").hide();
+				
+				}
+			
+			});
+			
+		});
+
+	}
+
+</script>
+
 <style type="text/css">
 #sidebar {
 	margin-top: 29%;
@@ -138,6 +217,7 @@
 						style="color: rgb(82, 110, 166); padding-top:10px; "><s:property
 							value="eventOwnerName" /></a> is Hosting
 				</div>
+				<s:if test="%{ eventOwnerId == #session.user.getProfile_id()}">
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1"
@@ -147,19 +227,23 @@
 
 						<li style="font-weight: bold;"></li>
 
-						<li style="font-weight: bold;"><a
-							href="/Facebook/module03/Call_To_geteductaiondata"
-							style="color: rgb(82, 110, 166);">Invite</a></li>
+							<li id ="inviteSelect" style="font-weight: bold;" 
+							style="color: rgb(82, 110, 166);" data-toggle="modal"
+							data-target="#invitemodal" aria-hidden="true">Invite</li>
+							
 						<li class="dropdown" style="font-weight: bold;"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"
 							style="color: rgb(82, 110, 166);">More <b class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="#">Edit</a></li>
-								<li><a href="#">Cancel</a></li>
+								
+								<li id="cancelEventBtn" data-toggle="modal"
+							data-target="#canceleventmodal" aria-hidden="true">Cancel</li>
 								<li class="divider"></li>
 							</ul></li>
 					</ul>
 				</div>
+				</s:if>
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
@@ -178,6 +262,115 @@
 			<img src="" />
 			<s:property value="event_where" />
 		</div>
+		
+		<div
+			style="height: 50px; width =: 50px; background-color: white; margin-bottom: 2%;">
+			<img src="" />
+			<!-- friends invited -->
+			<a href="#" data-toggle="modal"
+							data-target="#invited_friends" aria-hidden="true">Invited(<s:property value="invitedList.size()"/>)</a>
+			<div class="modal fade" id="invited_friends" tabindex="-1" role="dialog"
+			aria-labelledby="inviteModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #6d84b4;">
+						
+						<h4 class="modal-title">Invited Friends</h4>
+					</div>
+					<div class="modal-body">
+							<ul>
+
+							<s:iterator value="invitedList">
+								<li><a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="profile_id"/>'><img src='<s:property value="profilePic"/>' align="left" height="50px" width="50px"><s:property value="fname"/>&nbsp;<s:property value="lname"/></a></li>
+							</s:iterator>
+							<br>
+							</ul>
+
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	
+			
+		</div>
+	
+	
+			<div
+			style="height: 50px; width =: 50px; background-color: white; margin-bottom: 2%;">
+			<img src="" />
+			<!-- friends invited -->
+			<a href="#" data-toggle="modal"
+							data-target="#going_friends" aria-hidden="true">Going(<s:property value="goingList.size()"/>)</a>
+			<div class="modal fade" id="going_friends" tabindex="-1" role="dialog"
+			aria-labelledby="goingModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #6d84b4;">
+						
+						<h4 class="modal-title">Going Friends</h4>
+					</div>
+					<div class="modal-body">
+							<ul>
+
+							<s:iterator value="goingList">
+								<li><a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="profile_id"/>'><img src='<s:property value="profilePic"/>' align="left" height="50px" width="50px"><s:property value="fname"/>&nbsp;<s:property value="lname"/></a></li>
+							</s:iterator>
+							<br>
+							</ul>
+
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+		</div>
+		
+				<div
+			style="height: 50px; width =: 50px; background-color: white; margin-bottom: 2%;">
+			<img src="" />
+			<!-- friends invited -->
+			<a href="#" data-toggle="modal"
+							data-target="#maybe_friends" aria-hidden="true">May Be(<s:property value="maybeList.size()"/>)</a>
+			<div class="modal fade" id="maybe_friends" tabindex="-1" role="dialog"
+			aria-labelledby="inviteModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #6d84b4;">
+						
+						<h4 class="modal-title">May Be Going Friends</h4>
+					</div>
+					<div class="modal-body">
+							<ul>
+
+							<s:iterator value="maybeList">
+								<li><a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="profile_id"/>'><img src='<s:property value="profilePic"/>' align="left" height="50px" width="50px"><s:property value="fname"/>&nbsp;<s:property value="lname"/></a></li>
+							</s:iterator>
+							<br>
+							</ul>
+
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	
+			
+		</div>
+	
+		
 
 
 		<!-- wall posts of event -->
@@ -361,6 +554,71 @@
 		</div>
 
 	</div>
+	
+	<div class="modal fade" id="invitemodal" tabindex="-1" role="dialog"
+			aria-labelledby="inviteModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #6d84b4;">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="inviteModalLabel">Invite Friends</h4>
+					</div>
+					<div id="invitemodal-body" class="modal-body">
+
+
+						<!-- friends list with checkbox -->
+
+
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	
+
+<!-- Cancel event modal pop up for confirmation of event cancellation -->
+
+
+<div class="modal fade" id="canceleventmodal" tabindex="-1" role="dialog"
+			aria-labelledby="cancelModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #6d84b4;">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="cancelModalLabel">Cancel Event?</h4>
+					</div>
+					<div id="cancelmodal-body" class="modal-body">
+
+					 Are you sure you want to cancel this event?
+					 
+					 <form action="/Facebook/module05/cancelEventAction">
+					 <input type="hidden" name="eventId" value='<s:property value="eventId"/>'
+			        	id="event_id_hidden">
+					<button type="submit" class="btn btn-primary">Yes</button>
+					</form>
+					
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					
+
+					</div>
+					
+				
+					
+
+				</div>
+
+
+			</div>
+		</div>
+
+	
+	
 
 </body>
 </html>

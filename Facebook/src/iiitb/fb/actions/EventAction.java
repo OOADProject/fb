@@ -1,5 +1,7 @@
 package iiitb.fb.actions;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import iiitb.fb.database.DatabaseConnect;
 import iiitb.fb.models.Event;
 import iiitb.fb.models.User;
 import iiitb.fb.models.UserWallPost;
@@ -41,6 +44,35 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 	private List<UserWallPost> wallPostsList;
 	private int eventId;
 	
+	private List<User> invitedList;
+	private List<User> goingList;
+	private List<User> maybeList;
+	
+	
+	public List<User> getInvitedList() {
+		return invitedList;
+	}
+
+	public void setInvitedList(List<User> invitedList) {
+		this.invitedList = invitedList;
+	}
+
+	public List<User> getGoingList() {
+		return goingList;
+	}
+
+	public void setGoingList(List<User> goingList) {
+		this.goingList = goingList;
+	}
+
+	public List<User> getMaybeList() {
+		return maybeList;
+	}
+
+	public void setMaybeList(List<User> maybeList) {
+		this.maybeList = maybeList;
+	}
+
 	public String getInvitedfriendIds() {
 		return invitedFriendIds;
 	}
@@ -136,9 +168,11 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 	}
 
 	public String  inviteFriends()	{
-
+       eventId=newEvent.getEventId();
 		System.out.println("m inside invite friensds");
 
+		EventImpl ei=new EventImpl();
+		ei.addInvitedFriends(eventId, invitedFriendIds);
 
 
 
@@ -148,11 +182,34 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 		return SUCCESS;
 	}
 
+	
+	public String  cancelEvent(){
+		
+		System.out.println("m inside cancelevent");
+		 eventId=newEvent.getEventId();
+			
+			EventImpl ei=new EventImpl();
+			ei.cancelEvent(eventId);
+			
+			
+
+		
+		return SUCCESS;
+		
+	}
+	
+	
 	public String showEventPage()	{
 		System.out.println(newEvent.getEventId());
 		//query database to get details of that event 
 		EventImpl ei=new EventImpl();
 		ei.showEventPage(newEvent);
+		invitedList=new ArrayList<User>();
+		goingList=new ArrayList<User>();
+		maybeList=new ArrayList<User>();
+		
+		ei.setguestsList(newEvent.getEventId(),invitedList,goingList,maybeList);
+		
 		
 		WallPostImpl wi = new WallPostImpl();
 		wallPostsList = wi.getEventWallPosts(newEvent.getEventId());

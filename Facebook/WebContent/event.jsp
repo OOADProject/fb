@@ -68,6 +68,26 @@
 														}
 													});
 										});
+						
+	$("#inviteStatus").click(function(event){
+							
+							alert($("#inviteStatus").val());
+							var temp =$("#inviteStatus").val();
+							$.ajax({
+								url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp,
+								type : 'POST',
+								success : function(data) {
+									
+									temp= data.joinStatus;
+									alert(temp);
+									$("#joinstat").append(temp);
+								
+								}
+							
+								});
+						});
+						
+						
 
 					});
 
@@ -165,16 +185,44 @@
 
 												<td><s:property value="event_where" /></td>
 											</tr>
-											<tr>
+											
+											<s:if test="%{ eventOwnerId == #session.user.getProfile_id()}">
+														
+											</s:if>
+											<s:else>
+											<tr><td  id="joinstat"></td></tr>
+												<tr>
+													<td>
+														<button id="inviteStatus" class="btn btn-default btn-sm"
+															value="Going">
+															<b> Going</b>
+														</button>
+													</td>
 
-												<td><s:property value="eventOwnerId" /></td>
-											</tr>
+
+													<td>
+														<button id="inviteStatus" class="btn btn-default btn-sm"
+															value="NotGoing">
+															<b>Not Going</b>
+														</button>
+													</td>
+
+
+													<td>
+														<button id="inviteStatus" class="btn btn-default btn-sm"
+															value="Maybe">
+															<b>May Be</b>
+														</button>
+													</td>
+												</tr>
+											</s:else>
+											
 
 										</table>
 									</li>
 								</s:if>
 								<!-- else for birthday events -->
-								<s:else>
+								<s:if test="isBirthday==1">
 									<table>
 										<tr>
 											<td>Birthday</td>
@@ -185,7 +233,7 @@
 											</a></td>
 										</tr>
 									</table>
-								</s:else>
+								</s:if>
 
 							</s:iterator>
 						</ul>
@@ -209,19 +257,19 @@
 						<div class="modal-body" id="createEventBody">
 
 							Name: &nbsp; &nbsp;<input type="text"
-								placeholder="Ex. Birthday Party" name="eventTitle" /><br>
+								placeholder="Ex. Birthday Party" name="eventTitle" required="true" /><br>
 							<br> Details:<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 							&nbsp; &nbsp; &nbsp;
 							<textarea rows="3" cols="50" placeholder="Add more info."
-								name="description"></textarea>
+								name="description" required="true"></textarea>
 							<br>
 							<br> Where: &nbsp; &nbsp; <input type="text" value=""
-								placeholder="Add a place." name="event_where" /><br>
+								placeholder="Add a place." name="event_where" required="true" /><br>
 							<br> When: &nbsp; &nbsp;<input type="text"
 								placeholder="click to show datepicker" id="example1"
 								name="eventDateTemp"> &nbsp; &nbsp;<input type="text"
-								placeholder="Add a time." name="eventTime" /><br> <input
-								type="hidden" id="hiddenField" name="invitedFriendIds" /> <br>
+								placeholder="Add a time." name="eventTime" required="true"/><br> <input
+								type="hidden" id="hiddenField" name="invitedFriendIds" required="true" /> <br>
 							<p id="invitedCount"></p>
 
 

@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import oracle.jrockit.jfr.tools.ConCatRepository;
+
 import com.opensymphony.xwork2.ActionContext;
 
 public class EventImpl {
@@ -44,7 +46,7 @@ public class EventImpl {
 
 
 		DatabaseConnect dc=new DatabaseConnect();
-		String getEventsQuery = "select e.* from event e,eventinvite ei where (e.profile_id="+profile_id+" or (ei.invite_id="+profile_id+" and ei.event_id=e.event_id)) and e.isBirthday=0 and e.event_date>='"+now+"'order by e.event_date";
+		String getEventsQuery = "select e.* from event e,eventinvite ei where (e.profile_id="+profile_id+" or (ei.invite_id="+profile_id+" and ei.event_id=e.event_id)) and e.isBirthday=0 and e.event_date>='"+now+"' group by e.event_id order by e.event_date ";
 
 
 		ResultSet eventset = dc.getData(getEventsQuery);
@@ -76,52 +78,7 @@ public class EventImpl {
 			e.printStackTrace();
 		}
 
-		/* Datewise arraylist of events for a given profile id */		
-
-		/*	Iterator itr =myEvents.iterator();
-		ArrayList<Event> datedEvents =new ArrayList<Event>();
-		int count=1;
-		while(itr.hasNext())
-		{   Event tempObj = (Event)itr.next();
-		if(count==1)
-		{datematch=tempObj.getEventDateHdr();
-		datedEvents.add(tempObj);
-		//  System.out.println(tempObj.getEventTitle());
-		count++; 
-
-		}
-		else if(datematch.equals(tempObj.getEventDateHdr()))
-		{
-			datedEvents.add(tempObj);
-			//System.out.println(tempObj.getEventTitle());
-		}
-		else
-		{
-			datewiseEventList.add(datedEvents);
-			datedEvents=new ArrayList<Event>();
-			datematch=tempObj.getEventDateHdr();
-			datedEvents.add(tempObj);
-
-			//  System.out.println(tempObj.getEventTitle());
-
-		}
-
-
-		}
-		if(datedEvents.size()!=0)
-		{
-			datewiseEventList.add(datedEvents);
-		}
-
-
-		for(int i=0;i<datewiseEventList.size() ; i++)
-		{
-			for(int j=0;j<datewiseEventList.get(i).size() ; j++)
-				System.out.println(datewiseEventList.get(i).get(j).getEventTitle());
-		}
-
-		 */
-
+		
 		/*Sorted B'day list for a given profile id */
 
 		class CustomComparator implements Comparator<Event> {
@@ -328,6 +285,8 @@ public class EventImpl {
 
 	public boolean addInvitedFriends(int eventId,String invited)
 	{
+		System.out.println(eventId);
+		System.out.println(invited);
 		DatabaseConnect dc=new DatabaseConnect();
 		Connection  connection = dc.getConnection();
 		for (String token : invited.split(","))
@@ -421,8 +380,118 @@ public class EventImpl {
 		return true;
 	}
 
+	/*change the jin status of invited person */
+public void updateJoinStat(int profile_id, String joinStatus)
 	
+	{
+		DatabaseConnect dc=new DatabaseConnect();
+		String query ="update eventinvite set status='"+joinStatus+"' where invite_id ='"+profile_id+"' ";
+		dc.updateData(query);
+		
+	
+	}
+
+
+public void cancelEvent(int eventid)
+
+{
+	DatabaseConnect dc=new DatabaseConnect();
+	String query ="delete from event where event_id ='"+eventid+"' ";
+	dc.updateData(query);
 	
 
 }
+
+
+
+public void setguestsList(int eventId,List<User> invitedList,List<User> goingList,List<User> maybeList)
+{/*set who all friends are invited */
+	
+	
+	System.out.println("setguestlist" +eventId);
+	
+	
+	DatabaseConnect dc=new DatabaseConnect();
+	
+		
+	    String query="select p.first_name,p.last_name,p.profile_id,p.profile_pic from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='sent' and p.profile_id=ei.invite_id" ;
+	    ResultSet invitedset = dc.getData(query);
+		try {
+			while(invitedset.next())
+			{
+				User u = new User();
+				u.setFname(invitedset.getString("first_name"));
+				u.setLname(invitedset.getString("last_name"));
+				u.setProfile_id(invitedset.getInt("profile_id"));
+				u.setProfilePic(invitedset.getString("profile_pic"));
+				invitedList.add(u);
+				
+			}
+			
+			String query1="select p.first_name,p.last_name from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='Going' and p.profile_id=ei.invite_id" ;
+			ResultSet goingset = dc.getData(query1);
+			
+				while(goingset.next())
+				{
+					User u = new User();
+					u.setFname(goingset.getString("first_name"));
+					u.setLname(goingset.getString("last_name"));
+					u.setProfile_id(goingset.getInt("profile_id"));
+					u.setProfilePic(goingset.getString("profile_pic"));
+					goingList.add(u);
+				}
+				
+				String query2="select p.first_name,p.last_name from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='MayBe' and p.profile_id=ei.invite_id" ;
+				ResultSet maybeset = dc.getData(query2);
+				
+					while(maybeset.next())
+					{
+						User u = new User();
+						u.setFname(maybeset.getString("first_name"));
+						u.setLname(maybeset.getString("last_name"));
+						u.setProfile_id(maybeset.getInt("profile_id"));
+						u.setProfilePic(maybeset.getString("profile_pic"));
+						maybeList.add(u);
+					}
+					
+			
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+					
+	}
+
+public void  invitedFriends(int eventId,ArrayList<Integer> invitedFriends)
+{
+	
+	DatabaseConnect dc=new DatabaseConnect();
+	
+	
+    String query="select invite_id from eventinvite where event_id='"+eventId+"'";
+    ResultSet rs = dc.getData(query);
+	try {
+		while(rs.next())
+		{
+			invitedFriends.add(rs.getInt("invite_id"));
+		}
+		
+		
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+}
+
+
+}
+
+	
+
+
 
