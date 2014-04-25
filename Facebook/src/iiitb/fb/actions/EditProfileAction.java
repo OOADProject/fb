@@ -63,7 +63,37 @@ public class EditProfileAction extends  ActionSupport implements ModelDriven<Pro
 		
 		int pid = user.getProfile_id();
 		
-		pfimpl.updateWorkDetails(pid, pfobj.getTitle(),pfobj.getDescription(),pfobj.getStartDate(),pfobj.getEndDate(),pfobj.getGraduation());
+	pfimpl.updateWorkDetails(pid, pfobj.getTitle(), pfobj.getDescription());
+		return  SUCCESS;
+	
+	}
+	 
+	
+	public String updateAgainWork()
+	{
+		
+		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int pid = user.getProfile_id();
+		
+	pfimpl.updateAgainWorkDetails(pid, pfobj.getTitle(), pfobj.getDescription());
+		return  SUCCESS;
+	
+	}
+	 
+	
+	public String deletework()
+	{
+		
+		
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		User user = (User)session.get("user");
+		
+		int pid = user.getProfile_id();
+		
+	pfimpl.deletework(pid, pfobj.getWorkeducation_id());
 		return  SUCCESS;
 	
 	}

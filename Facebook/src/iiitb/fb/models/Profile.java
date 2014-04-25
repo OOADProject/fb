@@ -21,10 +21,19 @@ public class Profile {
 	public String startDate;
 	public String endDate;
 	public String graduation;
+	public int workeducation_id;
 	
 	
 	
 	
+	
+	
+	public int getWorkeducation_id() {
+		return workeducation_id;
+	}
+	public void setWorkeducation_id(int workeducation_id) {
+		this.workeducation_id = workeducation_id;
+	}
 	public String getTitle() {
 		return title;
 	}

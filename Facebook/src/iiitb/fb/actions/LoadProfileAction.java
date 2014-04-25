@@ -22,6 +22,7 @@ public class LoadProfileAction extends ActionSupport {
 	int profileId;
 	List<UserWallPost> wallPostsList;
 	private int isFriend;
+	private int canSendFriendRequest;
 	
 	public String loadProfile()
 	{
@@ -33,6 +34,7 @@ public class LoadProfileAction extends ActionSupport {
 		wallPostsList = wpi.getUserWallPosts(((User)session.get("user")).getProfile_id(), profileId);
 		user=pimpl.getUser(profileId);
 		isFriend = pimpl.isFriend(profileId,((User)session.get("user")).getProfile_id());
+		canSendFriendRequest = pimpl.canSendFriendRequest((int) session.get("currentProfile"), ((User)session.get("user")).getProfile_id());
 		if(user!=null)		
 		return SUCCESS;
 		else
@@ -88,6 +90,16 @@ public class LoadProfileAction extends ActionSupport {
 		this.isFriend = isFriend;
 	}
 
+	public int getCanSendFriendRequest() {
+		return canSendFriendRequest;
+	}
+
+	public void setCanSendFriendRequest(int canSendFriendRequest) {
+		this.canSendFriendRequest = canSendFriendRequest;
+	}
+
+
+	
 	
 
 }

@@ -11,7 +11,6 @@
 			<result name="success" type="tiles">loginPage</result>
 			<result name="error" type="tiles">error</result>
 		</action>
-	
 	<action name="Call_To_geteductaiondata" class="iiitb.fb.actions.EditProfileAction" method=" getProfiledetails">
 			<result name="success" type="tiles">EditProfileDisplay</result>
 			<result name="error" type="tiles">error</result>
@@ -21,6 +20,15 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<action name="updateAgainwork" class="iiitb.fb.actions.EditProfileAction" method="updateAgainWork">
+			<result name="success" type="json"></result>
+		</action>
+		
+		
+		
+		<action name="deletework" class="iiitb.fb.actions.EditProfileAction" method="deletework">
+			<result name="success" type="json"></result>
+		</action>
 		<action name="updateRelationship" class="iiitb.fb.actions.EditProfileAction" method="updateRelationshipStatus">
 			<result name="success" type="json"></result>
 		</action>

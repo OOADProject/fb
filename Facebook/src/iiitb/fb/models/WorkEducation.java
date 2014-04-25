@@ -3,7 +3,13 @@ package iiitb.fb.models;
 public class WorkEducation {
 
    public String workeducation_title;
-	
+   public int workeducation_id;
+	public int getWorkeducation_id() {
+	return workeducation_id;
+}
+public void setWorkeducation_id(int workeducation_id) {
+	this.workeducation_id = workeducation_id;
+}
 	//Modify data type if necessary
 	public String start_date;
     public String end_date;

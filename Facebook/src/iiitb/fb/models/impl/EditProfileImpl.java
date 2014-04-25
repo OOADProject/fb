@@ -37,7 +37,7 @@ public class EditProfileImpl {
 		con=obj.getConnection();   // establish the database connection 
 		
 		
-		String edudata="  select distinct  workeducation_title,description,start_date,end_date from  workeducation  WHERE profile_id='"+pid+"'";
+		String edudata="  select  workeducation_id,workeducation_title,description,start_date,end_date from  workeducation  WHERE profile_id='"+pid+"'";
 		
 		ResultSet result1=obj.getData(edudata);   // get data
 		
@@ -51,7 +51,7 @@ public class EditProfileImpl {
                 weobj.setStart_date(result1.getString("start_date"));
 				
 				weobj.setEnd_date(result1.getString("end_date"));
-			
+				weobj.setWorkeducation_id(result1.getInt("workeducation_id"));
 		        listofeducationdetails.add(weobj);
 		}
 		
@@ -105,7 +105,7 @@ public class EditProfileImpl {
 		this.pfobj = pfobj;
 	}
 
-	public boolean updateWorkDetails(int pid, String title, String desc, String start_date, String end_date, String graduation) {
+	public boolean updateWorkDetails(int pid, String title, String desc) {
 		// TODO Auto-generated method stub
 		
 
@@ -115,7 +115,7 @@ public class EditProfileImpl {
 		con=obj.getConnection();   // establish the database connection 
 		
 		try{
-		String edudata="Insert into workeducation ( profile_id,workeducation_title, description, start_date, end_date,graduated) values ('"+pid+"','"+title+"','"+desc+"','"+start_date+"','"+end_date+"','"+  graduation+"') ";
+		String edudata="Insert into workeducation ( profile_id,workeducation_title, description) values ('"+pid+"','"+title+"','"+desc+"') ";
 	
 		
 		
@@ -411,6 +411,59 @@ DatabaseConnect obj= new DatabaseConnect();   // object of database_connect
 	
 		
 		return true;
+	}
+
+	public boolean updateAgainWorkDetails(int pid, String title, String description) {
+		
+DatabaseConnect obj= new DatabaseConnect();   // object of database_connect
+		
+		
+		con=obj.getConnection();   // establish the database connection 
+		
+		try{
+		String edudata="update  workeducation set  description = '"+description+"' where profile_id ='"+pid+"' and workeducation_title ='"+title+"' ";
+		
+	
+		
+		
+		obj.updateData(edudata);   // get data
+		}
+	
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return true; 
+		
+		// TODO Auto-generated method stub
+	
+	}
+
+	public boolean deletework(int pid, int id) {
+		
+       DatabaseConnect obj= new DatabaseConnect();   // object of database_connect
+		
+		
+		con=obj.getConnection();   // establish the database connection 
+		
+		try{
+		String edudata="delete from  workeducation where  profile_id ='"+pid+"' and workeducation_id ='"+id+"' ";
+		
+	
+		
+		
+		obj.updateData(edudata);   // get data
+		}
+	
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return true;
+		// TODO Auto-generated method stub
+		
 	}
 
 	
