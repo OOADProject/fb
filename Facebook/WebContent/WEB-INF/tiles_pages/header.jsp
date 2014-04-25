@@ -223,7 +223,7 @@ $(document).ready(function(){
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="/Facebook/module04/settings">Settings</a></li>
-						<li><a href="redirectLogin">Logout</a></li>
+						<li><a href="/Facebook/module02/logout">Logout</a></li>
 					</ul>
 				</li>
 			</ul>

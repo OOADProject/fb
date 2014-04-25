@@ -16,7 +16,7 @@
 		 <input	type="password" name="password" size="19" id="password" required="required"/> 
 		<input type="submit" value="Log In" id="login_button" /><br>
 		<div id="logged_in">
-			<input type="checkbox" id="remember_me" name="logged_in">Keep
+			<input type="checkbox" id="remember_me" name="logged_in" value="true">Keep
 			me logged in
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="/Facebook/module02/forgotPassword" style="color: rgb(152, 161, 187);">Forgot your password?</a>
