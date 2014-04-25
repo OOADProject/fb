@@ -1426,6 +1426,19 @@ function AddLanguage() {
 	<!--about me-->
 	
 	$(document).ready(function(){
+		$('#addtitle').keyup(function(){
+			var content = $(this).val();
+			if(content.length != 0)
+			  { 
+				$('#button_addjob').removeAttr('disabled'); 
+			}else{ 
+				$('#button_addjob').attr('disabled', 'disabled'); 
+				} }); 
+			  
+		});
+	
+	
+	$(document).ready(function(){
 		$('#aboutme_id').keyup(function(){
 			var content = $(this).val();
 			if(content.length != 0)
@@ -1720,7 +1733,7 @@ function AddLanguage() {
 
 
 						<input type="button" class="addbutton" value="Add job"
-							onclick="AddWork()" />
+							onclick="AddWork()"  id="button_addjob" disabled="disabled"/>
 						<input type="button" class="cancelbutton" value="Cancel"
 							onclick="AddWorkEducationForm();" />
 					</s:form>
