@@ -49,7 +49,7 @@ $(document).ready(
 							tmp += 
 								'<ul class="nav nav-tabs nav-stacked affix-top" data-offset-top="125">'+
 							'<li ><a onclick="namelistshow('+data.namelist[i].profile_id+')"><fieldset>'+
-							'<img src="'+data.namelist[i].profile_pic+'" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.namelist[i].firstname+'&nbsp;'+data.namelist[i].lastname+''+
+							'<img src="'+data.namelist[i].profile_pic+'" width="35px" height="33px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.namelist[i].firstname+'&nbsp;'+data.namelist[i].lastname+''+
 							'</fieldset></a></li>'+
 							'</ul>';
 										
@@ -263,7 +263,7 @@ function canceldelete() {
 
 					<s:iterator value="namelist">
 						<li><a onclick="namelistshow(<s:property value="profile_id"/>)"><fieldset>
-									<img src="<s:property value="profile_pic"/>" />&nbsp;&nbsp;&nbsp;&nbsp;
+									<img src="<s:property value="profile_pic"/>" width="35px" height="33px"/>&nbsp;&nbsp;&nbsp;&nbsp;
 									<s:property value="firstname" />
 								
 									<s:property value="lastname" />

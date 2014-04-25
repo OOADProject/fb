@@ -84,7 +84,7 @@ ul.nav-tabs li:hover{
 	background: #F0F0F0;
 	border-bottom-color: transparent;
 }
-ul.nav-tabs li:active{
+ul.nav-tabs li a:active{
 	color: #fff;
 	background: #3b5998;
 	border-bottom-color: transparent;
