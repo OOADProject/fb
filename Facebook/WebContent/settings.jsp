@@ -18,6 +18,7 @@ function nameshow() {
 			$(".editnameform").toggle();
 			 document.getElementById("firstname").value="";
 			 document.getElementById("lastname").value="";
+			 $('#error').text("");	
 			
 	}
 	
@@ -35,6 +36,7 @@ function emailshow() {
 	$(".editemail1").toggle();
 	$(".editemailform").toggle();
 	document.getElementById("sec_email").value="";
+	 $('#errormail').text("");
 	
 }
 function passwordshow() {
@@ -58,6 +60,11 @@ function languageshow() {
 
 function updatename() {
 	//alert(document.getElementById("firstname").value);
+	if(document.getElementById("firstname").value=="" )
+		{
+		$('#error').text("Fields cannot be left empty!!");
+	return ;
+		}
 	$.ajax({
 		type:'POST', 
 		url:'/Facebook/module04/nameupdate.action?first_name='+document.getElementById("firstname").value+"&last_name="+document.getElementById("lastname").value,
@@ -78,11 +85,18 @@ function updatename() {
 function updateusername() {
     //   String name=document.getElementById("username").value;
        
+    if(document.getElementById("username").value=="" )
+		{
+		$('#test').text("Fields cannot be left empty!!");
+	return ;
+		}
+    
+    
 	$.ajax({
 		type:'POST', 
 		url:'/Facebook/module04/usernameupdate.action?uname='+document.getElementById("username").value,
 		success: function(data){
-							alert(data.error);
+							//alert(data.error);
 										
 						 if(data.error==""){
 							 
@@ -103,6 +117,15 @@ function updateusername() {
 	}
 
 function updateemail() {
+	//alert("sfd");
+	
+	if(document.getElementById("sec_email").value=="" )
+	{
+	$('#errormail').text("Fields cannot be left empty!!");
+return ;
+	}
+	
+	
 	
 	$.ajax({
 		type:'POST', 
@@ -126,8 +149,8 @@ function removeemail() {
 		url:'/Facebook/module04/emailremove.action',
 		success: function(data){
 							$('#secEmail').text(" ");
-						// $('.editemail').text(data.email);
-								
+					
+							$('#remove').text(" ");	
 		}
 	});
 	
@@ -136,6 +159,13 @@ function removeemail() {
 	
 	
 function updatepass() {
+	
+	if(document.getElementById("new").value=="" ||document.getElementById("renew").value=="")
+	{
+	$('#passerror').text("Fields cannot be left empty!!");
+return ;
+	}
+	
 	
 	if(document.getElementById("new").value==document.getElementById("renew").value){
 		
@@ -240,6 +270,8 @@ function updatelang() {
 								Last: <input type="text" name="last_name" id="lastname"
 									value="<s:property value="s.getLast_name()"/>" />
 
+							<br>	<span id="error" style="color: red;"></span>
+								
 								<div style="padding-top: 10px;">
 									<button type="button" class="btn btn-xs btn-primary"
 										onclick="updatename()">Save changes</button>
@@ -294,14 +326,14 @@ function updatelang() {
 									checked="checked" />
 								<s:property value="s.getEmail()" />
 								<br> <b>Secondary Email: </b>
-								<s:if test="%{ !(s.getSec_email().equals(''))}">
+						
 								
 									<span id="secEmail"><s:property value="s.getSec_email()" /></span>
-									 &nbsp; <span id="remove"><a	href="#" id="remove" onclick="removeemail()">Remove</a></span>
-								</s:if>
+									 &nbsp;<a	href="#" id="remove" onclick="removeemail()">Remove</a>
+								
 								<hr>
 								New Email: <input type="text" id="sec_email" />
-
+   										<br>	<span id="errormail" style="color: red;"></span>
 								<hr>
 								Facebook email:&nbsp;
 								<s:property value="s.getUname()" />

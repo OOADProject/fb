@@ -17,7 +17,7 @@ public class SettingsImpl {
 	DatabaseConnect db = new DatabaseConnect();
 	FriendsCat catg=new FriendsCat();
 	ArrayList<String> frndcat= new ArrayList();
-	String error="";
+	
 	
 
 
@@ -155,6 +155,7 @@ public class SettingsImpl {
 	{
 		int flag=0;
 		String uname="";
+		String error="";
 		try{
 			ResultSet rs3 = db.getData("select uname,uname_changed from facebook.login where login_id= "+profile_id+" ");
 			while(rs3.next()){
@@ -170,8 +171,10 @@ public class SettingsImpl {
 			ResultSet rs = db.getData("select uname from facebook.login");
 			while(rs.next()){
 				String name=rs.getString("uname");
-				if(name.equalsIgnoreCase(uname))
+				System.out.println("name:"+name+"uname:"+uname);
+				if(newuname.equalsIgnoreCase(uname))
 				{
+					
 					error="Username already exist!!!";
 					return error;
 				}
