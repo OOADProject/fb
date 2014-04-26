@@ -20,6 +20,28 @@ public class CategoryWallAction extends ActionSupport{
 	private String category;
 	private List<UserWallPost> wallPostsList;
 	private String newName;
+	private int check;
+	private int pid;
+	public int getPid() {
+		return pid;
+	}
+
+
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+
+
+	public int getCheck() {
+		return check;
+	}
+
+
+	public void setCheck(int check) {
+		this.check = check;
+	}
+
+
 	public String execute(){
 		Map<String,Object> session = ActionContext.getContext().getSession();
 		User user =(User)session.get("user");
@@ -47,6 +69,15 @@ public class CategoryWallAction extends ActionSupport{
 		if(ufc.renameCategory(user.getProfile_id(), newName ,category))
 			return SUCCESS;
 		else return ERROR;
+		
+	}
+	
+	public String isPresentInCategory(){
+		check=0;
+		UpdateFriendsCat ufc=new UpdateFriendsCat();
+		if(ufc.checkInCategory(pid, category))
+			check=1;
+			return SUCCESS;
 		
 	}
 	

@@ -10,10 +10,6 @@ public class Friend {
 	private int isFriend; // only used in search 
 
 
-
-
-
-
 	public String getFriendprofilepic() {
 		return friendprofilepic;
 	}

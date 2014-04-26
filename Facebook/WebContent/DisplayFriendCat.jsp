@@ -12,7 +12,7 @@ debugger;
 var ajaxvar="nisha";
 	$(document).ready(function(){
 		$("#loadAjax").click(function(event){
-			var temp = '<form action="update-cat-list" id="myForm"><input type="text" name="catName" id="txtbox"/><br><br>';
+			var temp = '<form action="update-cat-list" id="myForm"><input type="text" name="catName" id="txtbox"/><input type="hidden" id="hidden" type="text" name="cat" value=""><br><br>';
 				$.ajax({
 				url : "/Facebook/module05/loadFriendstoInvite",
 				type: 'POST',
@@ -31,7 +31,7 @@ var ajaxvar="nisha";
 						}
 						});
 					
-					temp +='<button type="submit" class="btn btn-primary" id="inviteSaveBtns">Save</button></form>';
+					temp +='<button type="submit" class="btn btn-primary" id="inviteSaveBtns" onclick="check()" disabled="disabled">Save</button></form>';
 					$("#makelist").html(temp);
 					
 				}
@@ -39,31 +39,44 @@ var ajaxvar="nisha";
 		});
 	});
 	
-	 
-	function check() {
-	        //alert("Hi");
-	        document.getElementById('myform').submit();
-	 }
+
 	
 </script>
 
  <script>
- $("#loadAjax").click(function() {
-    $('#txtbox').keyup(function() {
+ $(document).ready(function(){
+ $("#makelist").on("keyup","#txtbox", function(e){
+	var flag=false;
+	var content = $(this).val();
+	var parent = $(this).parents("#makelist");
+	var button = parent.find("#inviteSaveBtns");
+	//var hidden = parent.find("#hidden"); 
+ 	var select="${catList}";
+ 	//hidden.value=select;
+	if(content.length != 0){
+ 		flag=true;
+ 		var str=select.slice(1,select.length-1);
+ 		str=str.toString().split(", ");
+ 		//alert(str);
+ 		for(var i=0;i<str.length;i++){
+ 			if(content==str[i]){
+ 				//alert(str[i]);
+ 				flag=false;
+ 				}
+ 		}
+ 	}else{
+ 		flag=false;
+ 	}
+ 	
+ 	if(flag){
+ 		$(button).removeAttr('disabled');
+ 	}else{
+ 		 $(button).attr('disabled', 'disabled');
 
-        var empty = false;
-         
-            if ($("#txtbox").val().length == 0) {
-                empty = true;
-            }   
-
-        if (empty) {
-            $("#inviteSaveBtns").attr('disabled', 'disabled');
-        } else {
-            $("#inviteSaveBtns").removeAttr('disabled');
-        }
-    });
-});
+ 	}
+ 	
+ });
+ });
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -118,7 +131,7 @@ var ajaxvar="nisha";
 	</div>
       <div id="news_feeds_div">
       <div style="background-color: white;padding: 3%;">
-     <s:iterator value="catList"><p><a href="/Facebook/module07/loadCategoryWall?category=<s:property/>"><img src="/Facebook/asset/images/newsfeed.png" height="15px">&nbsp;&nbsp;
+     <s:iterator value="catList" id="cat"><p><a href="/Facebook/module07/loadCategoryWall?category=<s:property/>"  ><img src="/Facebook/asset/images/newsfeed.png" height="15px">&nbsp;&nbsp;
      	<s:property/></a><br></p> 
       </s:iterator>  
       <button class="btn btn-primary btn-lg" id="loadAjax" data-toggle="modal" data-target="#myModal">

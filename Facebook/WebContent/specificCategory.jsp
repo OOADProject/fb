@@ -40,6 +40,9 @@ var ajaxvar="nisha";
 				success: function(data){
 					var i=1;	
 					$.each(data.friendlist, function(index, value){
+						$.ajax({
+							url : "/Facebook/module05/loadFriendst",
+							type: 'POST',
 						if(i%2!=0)						
 						{temp += '<input type="checkbox" value="'+value.profile_id+'" name="selected" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5>';
 						 i++;
@@ -48,7 +51,6 @@ var ajaxvar="nisha";
 						{   temp += '<input type="checkbox" value="'+value.profile_id+'" name="selected" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5></td>';
 							i++;
 						 				
-							
 						}
 						});
 					
@@ -65,7 +67,6 @@ var ajaxvar="nisha";
 
 </head>
 <body>
-
 	<div id="side_menu">
 		<div
 			style="height: 60px; width: 300px; margin-left: 0px; margin-top: 15%;">
@@ -111,6 +112,7 @@ var ajaxvar="nisha";
 		</p>
 		<a href="/Facebook/module07/display_frnd_cat_list"><h6
 				style="font-weight: bold; color: gray;">FRIENDS</h6></a>
+				  
 	</div>
 	
 	<div id="news_feeds_div">
@@ -133,10 +135,10 @@ var ajaxvar="nisha";
 	</div>
 	
 	
-	<div style="position:absolute; top:0; ; z-index:2 ;  height:150px; width:150px; border:1px solid; margin-top:24%; margin-left:2%; border:1px solid; border-color: rgb(211, 214, 219);">
+	<!--   <div style="position:absolute; top:0; ; z-index:2 ;  height:150px; width:150px; border:1px solid; margin-top:24%; margin-left:2%; border:1px solid; border-color: rgb(211, 214, 219);">
 		<a href="#"><img src='<s:property value="user.getProfilePic()" />' style="height:148px; width: 148px;"></a>
 		
-	</div>
+	</div>-->
 	
 </div>
 
@@ -162,11 +164,9 @@ var ajaxvar="nisha";
           
           <ul class="nav navbar-nav navbar-left">
        
-       		<li>.</li>
-       		<li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li>
-       		<li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li><li>.</li>
+       	
        		
-       		<li style="font-weight: bold; "><a href="/Facebook/module03/Call_To_geteductaiondata" style="color: rgb(82, 110, 166);">About</a></li>
+       		<!--<li style="font-weight: bold; "><a href="/Facebook/module03/Call_To_geteductaiondata" style="color: rgb(82, 110, 166);">About</a></li>
        		<li style="font-weight: bold; "><a href="#" style="color: rgb(82, 110, 166);">Photo</a></li>
             <li style="font-weight: bold; ">
             <s:url namespace="/module02" action="/Facebook/module02/friends" var="loadFriends">
@@ -184,10 +184,10 @@ var ajaxvar="nisha";
                 <li class="divider"></li>
                 <li><a href="#">Manage section</a></li>
               </ul>
-            </li>
+            </li>-->
             
             <li class="dropdown" style="font-weight: bold; ">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: rgb(82, 110, 166);">Category Settings <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: rgb(82, 110, 166);">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCategory Settings <b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#" id="rename" data-toggle="modal" data-target="#renameModal">Rename</a></li>
                 <li><a href="#abc" id="loadAjax" data-toggle="modal" data-target="#listModal">Edit</a></li>
@@ -409,7 +409,7 @@ var ajaxvar="nisha";
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Edit List</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Name</h4>
       </div>
       <div class="modal-body" id="makelist">
     
@@ -433,10 +433,10 @@ var ajaxvar="nisha";
       <div class="modal-body" id="renameList">
          
        <form action="rename-category">
-         <input type="text" id="txtbox" value="New Name" name="newName" align="right"><br>
+         <input type="text" id="txtbox" value="New Name" name="newName" align="right"><br><br>
          <input type="hidden" type="text" name="category" value="<s:property value='category'/>">
          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-         <button type="submit" id="submitbtn" >Save</button>
+         <button type="submit" class="btn btn-default" id="submitbtn" >Save</button>
       </form>
       <script>
       $(document).ready(function() {

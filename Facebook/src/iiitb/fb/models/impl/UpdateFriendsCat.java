@@ -2,6 +2,7 @@ package iiitb.fb.models.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import iiitb.fb.database.DatabaseConnect;
 import iiitb.fb.models.*;
 
@@ -97,6 +98,19 @@ public class UpdateFriendsCat {
 		if (val<=0) 
 		flag=false;	
 		return flag;
+	}
+
+	public boolean checkInCategory(int profile_id, String category) {
+		ResultSet rs=dbconnect.getData("SELECT * FROM friendscat WHERE PROFILE_ID='"+profile_id+"'"+"AND CAT_NAME='"+category+"'");
+		try {
+			if(rs.next()){
+				 return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }
