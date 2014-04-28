@@ -16,6 +16,18 @@ public class PokeAction extends ActionSupport implements ModelDriven<Poke> {
 	List<Poke> pokelist;
 
 	private int pokefromid;
+	
+	Poke p = new Poke();
+	
+	public Poke getP() {
+		return p;
+	}
+
+
+	public void setP(Poke p) {
+		this.p = p;
+	}
+
 
 	public int getPokefromid() {
 		return pokefromid;
@@ -37,14 +49,14 @@ public class PokeAction extends ActionSupport implements ModelDriven<Poke> {
 	}
 
 
-	public String getPokeList()
+	public String getUserPokeList()
 	{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
 
 
 		PokeImpl poke = new PokeImpl();
-		pokelist=poke.getPokelist(user);
+		pokelist=poke.getPokelist(user.getProfile_id());
 
 		System.out.println("Poke list");
 		for(int i=0; i<pokelist.size();i++)
@@ -70,26 +82,11 @@ public class PokeAction extends ActionSupport implements ModelDriven<Poke> {
 		PokeImpl poke = new PokeImpl();
 		System.out.println("Calling poke impl in poke back");
 
-		int status=	poke.updatePokeBack(user.getProfile_id(), pokefromid);
+		int status=	poke.insertpoke( pokefromid,user.getProfile_id());
 		if(status==1)
 			return ERROR;
 
 		return SUCCESS;
-
-	}
-
-	public String insertPoke()
-	{
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		User user = (User)session.get("user");
-		PokeImpl poke = new PokeImpl();
-
-		System.out.println("Calling poke impl in insert poke");
-		if(poke.insertpoke(user.getProfile_id(),pokefromid ))
-			return SUCCESS;
-		else 
-			return ERROR;
-
 
 	}
 
@@ -111,24 +108,38 @@ public class PokeAction extends ActionSupport implements ModelDriven<Poke> {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
 		PokeImpl poke = new PokeImpl();
-		System.out.println("Calling poke impl in poke");
-		if(!poke.checkAlreadyPoked(user.getProfile_id(),pokefromid ))
+		
+		int poketo=(int)session.get("currentProfile");
+		
+		
+				
+		if(!poke.checkAlreadyPoked(poketo,user.getProfile_id() ))
 		{
-			if(poke.insertpoke(user.getProfile_id(),pokefromid ))
+			System.out.println("Calling poke impl in poke");
+			int status=poke.insertpoke(poketo,user.getProfile_id());
+			System.out.println("status: "+status);
+			if(status==1)
+			{
+				p.setPoketext("You have successfully Poked");
 				return SUCCESS;
+			}
 			else
 				return ERROR;	
 				
 		}
 		else 
-			return ERROR;	
+		{
+			p.setPoketext("User have not responded to your last poke");
+			return SUCCESS;	
+		}
+		
 		
 	}
 
 	@Override
 	public Poke getModel() {
 		// TODO Auto-generated method stub
-		return null;
+		return p;
 	}
 
 }

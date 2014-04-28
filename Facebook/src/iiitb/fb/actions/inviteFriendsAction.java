@@ -17,8 +17,16 @@ Friend friendObj =new Friend();
 private ArrayList<Friend> friendlist ;
 String joinStatus;
 int eventId;
-private ArrayList<Integer> invitedFriends;
+private ArrayList<User> uninvitedFriends;
 
+
+public ArrayList<User> getUninvitedFriends() {
+	return uninvitedFriends;
+}
+
+public void setUninvitedFriends(ArrayList<User> uninvitedFriends) {
+	this.uninvitedFriends = uninvitedFriends;
+}
 
 public int getEventId() {
 	return eventId;
@@ -75,8 +83,8 @@ public String execute()
 public String uninvitedFriends()
 {
 	EventImpl ei=new EventImpl();
-	invitedFriends=new ArrayList<Integer>();
-	ei.invitedFriends(eventId,invitedFriends);
+	uninvitedFriends=new ArrayList<User>();
+	ei.uninvitedFriends(eventId,uninvitedFriends);
 
 	
 	return SUCCESS;

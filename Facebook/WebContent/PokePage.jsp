@@ -35,13 +35,13 @@ $(".pokes").on("click","#pokebackbutton",function(e){
 $(".pokes").on("click","#delete_button", function(e){
 	var parent = $(this).parents(".pokediv");
 	var pokeFromId = parent.find("#fromid");
-
+	var grandparent = $(parent).parents(".single_poke");
 	$.ajax({
 		type: 'POST',
 		url:'/Facebook/module08/DeletePoke?pokefromid='+$(pokeFromId).val(),
 		success:function(data){
 			alert("Success");
-			$(parent).html(" ");
+			$(grandparent).html(" ");
 		}
 		});
 		e.preventDefault();

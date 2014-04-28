@@ -164,7 +164,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 		try {
 			User tempuser=new User();
 			tempuser=(User)session.get("user");
-			String destpath="C:\\Users\\Dipesh\\git\\fb\\latest\\Facebook\\WebContent\\asset\\images\\profilepics\\";
+			String destpath="F:\\github_new\\fb\\Facebook\\WebContent\\asset\\images\\profilepics\\";
 			int picnm=tempuser.getProfile_id();
 			String picname=Integer.toString(picnm);
 			user.setMyFileFileName(picname+".jpg");

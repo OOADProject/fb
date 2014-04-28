@@ -268,7 +268,7 @@
 								type="hidden" value='<s:property value="wallPostId"/>'
 								id="comment_wp_id" /> <input style="height: 27px;" type="text"
 								id="comment_wp_text" name="commentText"
-								placeholder="Write a comment.." size="79" />
+								placeholder="Write a comment.." size="79" required="true"/>
 						</div>
 					</div>
 				</div>

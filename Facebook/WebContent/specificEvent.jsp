@@ -281,7 +281,7 @@ $(document).ready(function() {
 							<ul>
 
 							<s:iterator value="invitedList">
-								<li><a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="profile_id"/>'><img src='<s:property value="profilePic"/>' align="left" height="50px" width="50px"><s:property value="fname"/>&nbsp;<s:property value="lname"/></a></li>
+								<li><a href='/Facebook/module02/loadProfilePage?profileId=<s:property value="profile_id"/>'><img src='<s:property value="profilePic"/>' align="left" height="50px" width="50px"><s:property value="fname"/>&nbsp;<s:property value="lname"/></a></li><li></li>
 							</s:iterator>
 							<br>
 							</ul>

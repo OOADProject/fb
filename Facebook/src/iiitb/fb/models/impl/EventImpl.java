@@ -413,11 +413,27 @@ public void setguestsList(int eventId,List<User> invitedList,List<User> goingLis
 	
 	DatabaseConnect dc=new DatabaseConnect();
 	
-		
+		try
+		{
+			
+			String query2="select p.first_name,p.last_name,p.profile_id,p.profile_pic from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='Maybe' and p.profile_id=ei.invite_id" ;
+			ResultSet maybeset = dc.getData(query2);
+			
+				while(maybeset.next())
+				{
+					User u = new User();
+					u.setFname(maybeset.getString("first_name"));
+					u.setLname(maybeset.getString("last_name"));
+					u.setProfile_id(maybeset.getInt("profile_id"));
+					u.setProfilePic(maybeset.getString("profile_pic"));
+					maybeList.add(u);
+				}
+				System.out.println("maybe list" +maybeList);
 	    String query="select p.first_name,p.last_name,p.profile_id,p.profile_pic from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='sent' and p.profile_id=ei.invite_id" ;
 	    ResultSet invitedset = dc.getData(query);
-		try {
-			while(invitedset.next())
+		
+	    
+	    	while(invitedset.next())
 			{
 				User u = new User();
 				u.setFname(invitedset.getString("first_name"));
@@ -428,7 +444,7 @@ public void setguestsList(int eventId,List<User> invitedList,List<User> goingLis
 				
 			}
 			
-			String query1="select p.first_name,p.last_name from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='Going' and p.profile_id=ei.invite_id" ;
+			String query1="select p.first_name,p.last_name,p.profile_id,p.profile_pic from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='Going' and p.profile_id=ei.invite_id" ;
 			ResultSet goingset = dc.getData(query1);
 			
 				while(goingset.next())
@@ -441,19 +457,7 @@ public void setguestsList(int eventId,List<User> invitedList,List<User> goingLis
 					goingList.add(u);
 				}
 				
-				String query2="select p.first_name,p.last_name from profile p,eventinvite ei where ei.event_id='"+eventId+"' and ei.status='MayBe' and p.profile_id=ei.invite_id" ;
-				ResultSet maybeset = dc.getData(query2);
 				
-					while(maybeset.next())
-					{
-						User u = new User();
-						u.setFname(maybeset.getString("first_name"));
-						u.setLname(maybeset.getString("last_name"));
-						u.setProfile_id(maybeset.getInt("profile_id"));
-						u.setProfilePic(maybeset.getString("profile_pic"));
-						maybeList.add(u);
-					}
-					
 			
 			
 		}catch (SQLException e) {
@@ -465,18 +469,30 @@ public void setguestsList(int eventId,List<User> invitedList,List<User> goingLis
 					
 	}
 
-public void  invitedFriends(int eventId,ArrayList<Integer> invitedFriends)
+public void  uninvitedFriends(int eventId,ArrayList<User> uninvitedFriends)
 {
 	
 	DatabaseConnect dc=new DatabaseConnect();
 	
 	
-    String query="select invite_id from eventinvite where event_id='"+eventId+"'";
+    String query="select profile_id from event where event_id='"+eventId+"'";
     ResultSet rs = dc.getData(query);
 	try {
 		while(rs.next())
 		{
-			invitedFriends.add(rs.getInt("invite_id"));
+			 String query1="select profile_id,first_name,last_name from profile where profile_id in(select friend_id from friends f,eventinvite ei where "
+			 		+ "ei.event_id='"+eventId+"' and f.profile_id='"+rs.getInt("profile_id")+"' and f.friend_id not in(select invite_id from eventinvite where event_id='"+eventId+"'))";
+			    ResultSet rs1 = dc.getData(query1);
+			    while(rs1.next())
+			    {
+			    	User u =new User();
+			    	u.setProfile_id(rs1.getInt("profile_id"));
+			    	u.setFname(rs1.getString("first_name"));
+			    	u.setLname(rs1.getString("last_name"));
+			    	uninvitedFriends.add(u);
+			    }
+			    
+			
 		}
 		
 		

@@ -9,7 +9,17 @@ public class Poke {
 	private int isPokeBack;
 	private String fromUserName;
 	private String profilePic;
-	
+	private String poketext;
+	public String getPoketext() {
+		return poketext;
+	}
+
+
+	public void setPoketext(String poketext) {
+		this.poketext = poketext;
+	}
+
+
 	
 	public String getProfilePic() {
 		return profilePic;

@@ -26,7 +26,7 @@ public class UpdateProfilePicAction extends ActionSupport implements ServletRequ
 	private String userImageFileName;
 	private HttpServletRequest serveletRequest;
 	public String execute(){
-		String filePath = "C:\\Users\\Dipesh\\git\\fb\\latest\\Facebook\\WebContent\\asset\\images\\profilepics\\";
+		String filePath = "F:\\github_new\\fb\\Facebook\\WebContent\\asset\\images\\profilepics\\";
 		System.out.println(filePath);
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
@@ -58,7 +58,7 @@ public class UpdateProfilePicAction extends ActionSupport implements ServletRequ
 	}
 
 	public String updateCoverPicture(){
-		String filePath = "C:\\Users\\Dipesh\\git\\fb\\latest\\Facebook\\WebContent\\asset\\images\\profilepics\\";
+		String filePath = "F:\\github_new\\fb\\Facebook\\WebContent\\asset\\images\\profilepics\\";
 		System.out.println(filePath);
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");

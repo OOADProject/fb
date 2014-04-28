@@ -67,9 +67,9 @@
 	
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;To see,what shares with friends,<a class="friendRequestId" href="#" style="color: rgb(59, 89, 152);">Send a friend request.</a>
-		
+		<s:if test="%{canSendFriendRequest == 1}">
 		<input class="friendRequestId" type="button" value="+1 Add Friend" style="background-color: rgb(106, 167, 79); font-weight:bold;color: white; float:right;margin-right: 2%;">	
-		
+		</s:if>
 	</s:if>
 	
 	<s:if test="%{isFriend == 1}">
@@ -308,7 +308,7 @@
 								type="hidden" value='<s:property value="wallPostId"/>'
 								id="comment_wp_id" /> <input style="height: 27px;" type="text"
 								id="comment_wp_text" name="commentText"
-								placeholder="Write a comment.." size="70" />
+								placeholder="Write a comment.." size="70" required="true"/>
 						</div>
 					</div>
 				</div>
