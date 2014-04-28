@@ -14,7 +14,7 @@ $(document).ready(
 						url : '/Facebook/module06/commentWallPost.action?wallPostId='+$(y).val()+ "&commentText="+ $(x).val(),
 						success : function(data) {
 							var temp = '<div id="comment"><img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />'
-								+ '<a href="#" id="full_name_comment">&nbsp;&nbsp;'
+								+ '<a href="/Facebook/module02/loadProfilePage?profileId='+data.profileId+'" id="full_name_comment">&nbsp;&nbsp;'
 								+ data.fullName
 								+ '</a>&nbsp;'
 								+ '<font size="2.5">'
@@ -60,7 +60,7 @@ $(document).ready(
 						temp += '<div id="comments_collection"></div><div class="comment_form">'
 							+ '<img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />&nbsp;&nbsp;'
 							+ '<input type="hidden" value='+data.wallPostId+' id="comment_wp_id"/>'
-							+ '<input style="height: 27px;" type="text" name="commentText" id="comment_wp_text" placeholder="Write a comment.." size="79" /></div>';
+							+ '<input style="height: 27px;" type="text" name="commentText" id="comment_wp_text" placeholder="Write a comment.." size="79" required="true"/></div>';
 						temp += '</div>';
 						$("#wallposts_collection").prepend(temp).children(':first').hide().fadeIn(1000);
 						$("#newWallPostText").val("");

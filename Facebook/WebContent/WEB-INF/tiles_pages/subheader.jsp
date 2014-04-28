@@ -13,6 +13,21 @@
 			$("#changecoverid").hide();	
 		});
 });
+ 
+
+ function pokeCall(){
+	 alert("In poke");
+ 	$.ajax({
+ 		type: 'POST',
+ 		url:'/Facebook/module08/InsertPoke',
+ 		success:function(data){
+ 			var temp=data.poketext;
+ 			$("#modal-text").text(temp);
+ 		}
+ 		});
+ 		e.preventDefault();
+ 	};
+
 
 </script>  
 		<div id="profile_pic_update" class="modal fade" tabindex="-1" role="dialog"
@@ -127,11 +142,38 @@
             <s:a href="%{loadFriends}" style="color: rgb(82, 110, 166);">Friends</s:a></li>
             <s:if test="%{#session.currentProfile != #session.user.getProfile_id()}">
             <li style="font-weight: bold; ">
-              <a href="#" style="color: rgb(82, 110, 166);margin-left: 10%;">Poke</b></a>
-  
-            </li>
+           
+              <a href="#" onclick="pokeCall()" data-toggle="modal"
+					data-target="#mymodal" aria-hidden="true" style="color: rgb(82, 110, 166);margin-left: 10%;">Poke</b></a>
+            
+             </li>
             </s:if>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+    
+    	<div class="modal fade" id="mymodal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<form action="/Facebook/module05/createEventAction">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header" style="background-color: #6d84b4;">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Poke</h4>
+						</div>
+						
+						<div id="modal-text">
+						<br>
+						<br>
+						</div>
+						
+
+					</div>
+
+				</div>
+			
+			</form>
+
+		</div>

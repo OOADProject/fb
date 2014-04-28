@@ -72,7 +72,7 @@
 	$("#inviteStatus").click(function(event){
 							
 							alert($("#inviteStatus").val());
-							var temp =$("#inviteStatus").val();
+							var temp =$(this).val();
 							$.ajax({
 								url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp,
 								type : 'POST',
@@ -88,6 +88,45 @@
 						});
 						
 						
+	$("#inviteStatus1").click(function(event){
+		
+		alert($("#inviteStatus1").val());
+		var temp1 =$("#inviteStatus1").val();
+		$.ajax({
+			url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp1,
+			type : 'POST',
+			success : function(data) {
+				
+				temp1= data.joinStatus;
+				alert(temp1);
+				$("#joinstat").append(temp1);
+			
+			}
+		
+			});
+	});
+	
+$("#inviteStatus2").click(function(event){
+		
+		alert($("#inviteStatus2").val());
+		var temp2 =$(this).val();
+		$.ajax({
+			url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp2,
+			type : 'POST',
+			success : function(data) {
+				
+				temp2= data.joinStatus;
+				alert(temp2);
+				$("#joinstat").append(temp2);
+			
+			}
+		
+			});
+	});
+	
+	
+	
+	
 
 					});
 
@@ -201,7 +240,7 @@
 
 
 													<td>
-														<button id="inviteStatus" class="btn btn-default btn-sm"
+														<button id="inviteStatus1" class="btn btn-default btn-sm"
 															value="NotGoing">
 															<b>Not Going</b>
 														</button>
@@ -209,7 +248,7 @@
 
 
 													<td>
-														<button id="inviteStatus" class="btn btn-default btn-sm"
+														<button id="inviteStatus2" class="btn btn-default btn-sm"
 															value="Maybe">
 															<b>May Be</b>
 														</button>
@@ -267,14 +306,12 @@
 								placeholder="Add a place." name="event_where" required="true" /><br>
 							<br> When: &nbsp; &nbsp;<input type="text"
 								placeholder="click to show datepicker" id="example1"
-								name="eventDateTemp"> &nbsp; &nbsp;<input type="text"
-								placeholder="Add a time." name="eventTime" required="true"/><br> <input
+								name="eventDateTemp" required="true">(yyyy-mm-dd)  &nbsp; &nbsp;<input type="text"
+								placeholder="Add a time." name="eventTime" required="true"/> <br> <input
 								type="hidden" id="hiddenField" name="invitedFriendIds" required="true" /> <br>
 							<p id="invitedCount"></p>
 
-
 						</div>
-
 					</div>
 
 				</div>

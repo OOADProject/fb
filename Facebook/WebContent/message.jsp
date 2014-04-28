@@ -31,7 +31,7 @@ $(document).ready(
 						type:'POST', 
 						url:'/Facebook/module01/replyMsg1.action?conversation_id='+document.getElementById("conversation_id").value+"&conversation_body="+document.getElementById("replytext").value,
 						success: function(data){
-							var temp =  ' <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<img src="'+data.profile_pic+'" align="left" />'+
+							var temp =  ' <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<img src="'+data.profile_pic+'" align="left" width="35px" height="33px"/>'+
 										'&nbsp;<b>'+data.firstname+'&nbsp;'+data.lastname+'</b></a><span class="label label-info">'+data.time+
 										'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation_body+'&nbsp;&nbsp;<br><br>';
 										
@@ -94,7 +94,7 @@ function namelistshow(id) {
 			   
 			
 			    tmp +=
-				'<a href="#"><img src="'+data.conversation[i].profile_pic+'"  /></a>'+
+				'<a href="#"><img src="'+data.conversation[i].profile_pic+'" width="35px" height="33px" /></a>'+
 				'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><b>'+data.conversation[i].firstname+'&nbsp;'+data.conversation[i].lastname+'</b></a><span class="label label-info">'+data.conversation[i].time+
 				'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation[i].conversation_body+'&nbsp;&nbsp;<br><br>';
 			
@@ -148,7 +148,7 @@ function deletemessages() {
 				   
 				
 				    tmp +=
-					'<a href="#"><img src="'+data.conversation[i].profile_pic+'"  /></a>'+
+					'<a href="#"><img src="'+data.conversation[i].profile_pic+'" width="35px" height="33px" /></a>'+
 					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><b>'+data.conversation[i].firstname+'&nbsp;'+data.conversation[i].lastname+'</b></a><span class="label label-info">'+data.conversation[i].time+
 					'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation[i].conversation_body+'&nbsp;&nbsp;<br><br>';
 				
@@ -185,7 +185,7 @@ function canceldelete() {
 				   
 				
 				    tmp +=
-					'<a href="#"><img src="'+data.conversation[i].profile_pic+'"  /></a>'+
+					'<a href="#"><img src="'+data.conversation[i].profile_pic+'"  width="35px" height="33px"/></a>'+
 					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><b>'+data.conversation[i].firstname+'&nbsp;'+data.conversation[i].lastname+'</b></a><span class="label label-info">'+data.conversation[i].time+
 					'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation[i].conversation_body+'&nbsp;&nbsp;<br><br>';
 				
@@ -223,7 +223,7 @@ function canceldelete() {
 			   
 			
 			    tmp += '<input type="checkbox" class="delete" value ="'+data.conversation[i].message_id+'"align="left"'+
-				'<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<img src="'+data.conversation[i].profile_pic+'"  /></a>'+
+				'<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;<img src="'+data.conversation[i].profile_pic+'"  width="35px" height="33px"/></a>'+
 				'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><b>'+data.conversation[i].firstname+'&nbsp;'+data.conversation[i].lastname+'</b></a><span class="label label-info">'+data.conversation[i].time+
 				'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.conversation[i].conversation_body+'&nbsp;&nbsp;<br><br>';
 			
@@ -325,7 +325,7 @@ function canceldelete() {
 					<fieldset>
 						<a href="#"> <!-- <a href="profile?profile_id=<s:property value="profile_id"/>"> -->
 							&nbsp;&nbsp;&nbsp;&nbsp;<img
-							src="<s:property value="profile_pic"/>" align="left" />&nbsp;<b><s:property
+							src="<s:property value="profile_pic"/>" align="left" width="35px" height="33px"/>&nbsp;<b><s:property
 									value="firstname" />&nbsp;<s:property value="lastname" /></b></a> <span
 							class="label label-info"><s:property value="time" /></span><br>&nbsp;&nbsp;&nbsp;&nbsp;
 						<s:property value="conversation_body" />
