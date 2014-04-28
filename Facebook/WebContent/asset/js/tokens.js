@@ -387,7 +387,7 @@
         this.suggestionsHolder.css(this._getSuggestionPosition()).show();
       }
     },
-    _hideSuggestions : function() {
+    _hideSuggestions : function(){
       if(this.cancelBlur) {
         this.cancelBlur = false;
         return false;
