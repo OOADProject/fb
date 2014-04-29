@@ -213,7 +213,9 @@ $(document).ready(function() {
 					style=" width: 50%; float:left; margin-left:-80px;margin-top:3px;">
 					<u style="font-size:16px;color: rgb(80, 110, 250); font-weight: bold;  "><s:property value="eventTitle" /></u>
 
-					<br> <a href="/Facebook/module03/Call_To_geteductaiondata"
+					<br> 
+					
+					<a href="/Facebook/module02/loadProfilePage?profileId=<s:property value="eventOwnerId"  />"
 						style="color: rgb(82, 110, 166); padding-top:10px; "><s:property
 							value="eventOwnerName" /></a> is Hosting
 				</div>
