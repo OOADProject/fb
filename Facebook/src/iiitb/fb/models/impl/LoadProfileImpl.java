@@ -103,7 +103,7 @@ public class LoadProfileImpl {
 		try {
 			while(settingSet.next()){
 
-				if(settingSet.getString("friendreqsetting").equalsIgnoreCase("Everyone")){
+				if(settingSet.getString("friendreqsetting").equalsIgnoreCase("Public")){
 					return 1;
 				}else{
 

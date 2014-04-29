@@ -233,7 +233,7 @@ $(document).ready(function(){
 					placeholder="Search for people.....">
 					
 					<!--  For search bar -->
-						<ul class="dropdown-menu" id="search" style="width:540px; margin-left:-5%; ">
+						<ul class="dropdown-menu" id="search" style="width:540px; margin-left:-5%; max-height:400px; overflow-y:auto; ">
 							
 						</ul>
 						
