@@ -35,6 +35,10 @@ public class PrepareFriendsCategory extends ActionSupport implements ModelDriven
 		UpdateFriendsCat ufc=new UpdateFriendsCat();
 		Map<String,Object> session = ActionContext.getContext().getSession();
 		User user=(User)session.get("user");
+		
+		/*
+		 * get the category names of the current user....if user has no category add two default categories
+		 */
 		if(ufc.FetchFriendCatList(user.getProfile_id(), obj))
 			return SUCCESS;
 		else return ERROR;

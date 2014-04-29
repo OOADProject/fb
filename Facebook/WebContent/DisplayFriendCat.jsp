@@ -44,6 +44,8 @@ var ajaxvar="nisha";
 </script>
 
  <script>
+ //On click of manage list, if list empty...it would not save
+ //Cannot create list of same name
  $(document).ready(function(){
  $("#makelist").on("keyup","#txtbox", function(e){
 	var flag=false;
@@ -51,7 +53,7 @@ var ajaxvar="nisha";
 	var parent = $(this).parents("#makelist");
 	var button = parent.find("#inviteSaveBtns");
 	//var hidden = parent.find("#hidden"); 
- 	var select="${catList}";
+ 	var select="${catList}";//List returned from action...[a, b, c]
  	//hidden.value=select;
 	if(content.length != 0){
  		flag=true;
@@ -131,6 +133,7 @@ var ajaxvar="nisha";
 	</div>
       <div id="news_feeds_div">
       <div style="background-color: white;padding: 3%;">
+      <!-- populate the friends category list -->
      <s:iterator value="catList" id="cat"><p><a href="/Facebook/module07/loadCategoryWall?category=<s:property/>"  ><img src="/Facebook/asset/images/newsfeed.png" height="15px">&nbsp;&nbsp;
      	<s:property/></a><br></p> 
       </s:iterator>  

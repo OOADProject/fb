@@ -17,6 +17,7 @@
 	href="/Facebook/asset/css/ProfileDisplay.css">
 
 <script type="text/javascript">
+<!-- block means show -->
 	function ShowWorkEducationForm()
 
 	{
@@ -482,6 +483,8 @@ function AddRelationshipStatus()
 					
 					var ele1= document.getElementById("afterdeletionaddrelationship");
 					ele1.style.display = "none";
+					
+				
 					
 					$('#addrelationshipdetails').css('display', 'block');
 					$('#adddisplaystatus').html(data.relationshipStatus);
