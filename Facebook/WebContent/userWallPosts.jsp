@@ -288,7 +288,7 @@
 								<div id="comment">
 									<img src="<s:property value="profilePicture"/>" width="32px"
 										height="32px" align="left" />
-								<s:url action="/Facebook/module02/gotoprofilepage" var="profileLink">
+								<s:url action="/Facebook/module02/loadProfilePage" var="profileLink" namespace="/module02">
 									<s:param name="profileId">
 										<s:property value="profileId"/>
 									</s:param>

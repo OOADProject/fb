@@ -35,7 +35,7 @@ public class CommentAction extends ActionSupport implements ModelDriven<UserComm
 		if(ci.commentWallPost(c)){
 			uc.setFullName(user.getFname()+" "+user.getLname());
 			uc.setProfileId(user.getProfile_id());
-			
+			uc.setProfilePicture(user.getProfilePic());
 			return SUCCESS;
 		}else{
 			return ERROR;

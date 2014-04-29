@@ -59,6 +59,9 @@ public class LoadProfileImpl {
 
 	public int isFriend(int currentProfileId, int profile_id) {
 		// TODO Auto-generated method stub
+		if(currentProfileId == profile_id){
+			return 3;
+		}
 		try {
 			DatabaseConnect dbc = new DatabaseConnect();
 

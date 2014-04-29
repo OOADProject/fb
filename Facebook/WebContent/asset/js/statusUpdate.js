@@ -13,7 +13,7 @@ $(document).ready(
 						type : 'POST',
 						url : '/Facebook/module06/commentWallPost.action?wallPostId='+$(y).val()+ "&commentText="+ $(x).val(),
 						success : function(data) {
-							var temp = '<div id="comment"><img src=\'<s:property value="#session.user.getProfilePic()"/>\' width="32px" height="32px" align="left" />'
+							var temp = '<div id="comment"><img src="'+data.profilePicture+'" width="32px" height="32px" align="left" />'
 								+ '<a href="/Facebook/module02/loadProfilePage?profileId='+data.profileId+'" id="full_name_comment">&nbsp;&nbsp;'
 								+ data.fullName
 								+ '</a>&nbsp;'

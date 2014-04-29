@@ -77,10 +77,10 @@
 	 <img src='<s:property value="user.getCoverpicFileName()"/>'  style="height:320px;width:100%; position: relative;z-index: 1;">	
 	
 	<p style="position: absolute; z-index: 100; left: 190px; top:280px; font-weight: bold; color: white; font-size: 20px;border: black; "><s:property value="user.getFname()"/>&nbsp;<s:property value="user.getLname()"/></p>
-			<s:if test="%{#session.user.getProfile_id() == #session.currentProfile}">
+<%-- 			<s:if test="%{#session.user.getProfile_id() == #session.currentProfile}">
 		
 				<input type="button" value="Update Info" style="background-color:rgb(251, 251, 252);position: absolute; font-size:12px; font-weight:bold; z-index: 100; left: 85%; bottom:3%;">
-			</s:if>
+			</s:if> --%>
 			
 	<s:if test="%{#session.user.getProfile_id() == #session.currentProfile}">
 	<div id="changecoverid" style="font-size: 12px; font-weight: bold; height:7%; width:12%; border:1px solid; background-color:rgb(251, 251, 252);  color: ; margin-top:-15%;  margin-left: 85%; z-index: 100; position: absolute;">

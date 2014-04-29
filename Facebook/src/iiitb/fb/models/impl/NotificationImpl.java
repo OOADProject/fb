@@ -262,7 +262,7 @@ public class NotificationImpl {
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = DatabaseConnect.getConnection();
 
-		String query = "select po.*,p.profile_pic,p.first_name,p.last_name "
+		String query = "select po.*,p.profile_pic,p.first_name,p.last_name,p.profile_id "
 				+ "from profile p, poke po where (p.profile_id = po.poke_from and po.poke_to=? and po.timestamp>?)";
 
 		PreparedStatement ps;

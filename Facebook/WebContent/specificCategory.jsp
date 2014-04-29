@@ -40,9 +40,7 @@ var ajaxvar="nisha";
 				success: function(data){
 					var i=1;	
 					$.each(data.friendlist, function(index, value){
-						$.ajax({
-							url : "/Facebook/module05/loadFriendst",
-							type: 'POST',
+
 						if(i%2!=0)						
 						{temp += '<input type="checkbox" value="'+value.profile_id+'" name="selected" style="position:relative;float:left;"/>&nbsp;<img src="'+value.profile_pic+'" height="20px" width="20px" style="position:relative;float:left;"/><h5 style="position:relative;float:left;">'+value.fname+' '+value.lname+'</h5>';
 						 i++;
@@ -371,8 +369,8 @@ var ajaxvar="nisha";
 								<div id="comment">
 									<img src="<s:property value="profilePicture"/>" width="32px"
 										height="32px" align="left" />
-									<s:url action="/Facebook/module02/gotoprofilepage"
-										var="profileLink">
+									<s:url action="loadProfilePage"
+										var="profileLink" namespace="/module02">
 										<s:param name="profileId">
 											<s:property value="profileId" />
 										</s:param>

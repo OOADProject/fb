@@ -113,7 +113,7 @@ $(document).ready(function() {
 			style="height: 60px; width: 300px; margin-left: 0px; margin-top: 15%;">
 			<img src='<s:property value="#session.user.getProfilePic()"/>'
 				height="50px" width="50px" align="left" />&nbsp;
-			<s:url action="/Facebook/module02/gotoprofilepage" var="profileLink">
+			<s:url action="loadProfilePage" var="profileLink" namespace="/module02">
 				<s:param name="profileId">
 					<s:property value="#session.user.getProfile_id()" />
 				</s:param>
@@ -274,7 +274,8 @@ $(document).ready(function() {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #6d84b4;">
-						
+						<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Invited Friends</h4>
 					</div>
 					<div class="modal-body">
@@ -311,7 +312,8 @@ $(document).ready(function() {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #6d84b4;">
-						
+						<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Going Friends</h4>
 					</div>
 					<div class="modal-body">
@@ -345,7 +347,8 @@ $(document).ready(function() {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header" style="background-color: #6d84b4;">
-						
+						<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
 						<h4 class="modal-title">May Be Going Friends</h4>
 					</div>
 					<div class="modal-body">
@@ -524,7 +527,7 @@ $(document).ready(function() {
 								<div id="comment">
 									<img src="<s:property value="profilePicture"/>" width="32px"
 										height="32px" align="left" />
-									<s:url action="/Facebook/module02/gotoprofilepage"
+									<s:url action="/Facebook/module02/loadProfilePage"
 										var="profileLink">
 										<s:param name="profileId">
 											<s:property value="profileId" />

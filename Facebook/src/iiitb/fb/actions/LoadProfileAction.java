@@ -34,6 +34,7 @@ public class LoadProfileAction extends ActionSupport {
 		wallPostsList = wpi.getUserWallPosts(((User)session.get("user")).getProfile_id(), profileId);
 		user=pimpl.getUser(profileId);
 		isFriend = pimpl.isFriend(profileId,((User)session.get("user")).getProfile_id());
+		System.out.println("is friend is : "+isFriend);
 		canSendFriendRequest = pimpl.canSendFriendRequest((int) session.get("currentProfile"), ((User)session.get("user")).getProfile_id());
 		if(user!=null)		
 		return SUCCESS;
