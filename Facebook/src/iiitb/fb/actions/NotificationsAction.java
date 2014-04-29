@@ -117,6 +117,8 @@ public class NotificationsAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	
+	//On clicking single notification displayed in notification list
 	public String loadSingleNotification(){
 		if(notificationType.equalsIgnoreCase("Likes") || notificationType.equalsIgnoreCase("Comment")){
 			WallPostImpl wpi = new WallPostImpl();

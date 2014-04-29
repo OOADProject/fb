@@ -11,6 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Profile Display</title>
 
+<script src="/Facebook/asset/js/jquery-1.9.1.min.js"  type="text/javascript"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="/Facebook/asset/css/ProfileDisplay.css">
 

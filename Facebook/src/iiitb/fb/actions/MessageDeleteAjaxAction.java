@@ -87,6 +87,8 @@ public class MessageDeleteAjaxAction {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User)session.get("user");
 		int profile_id = user.getProfile_id();
+		
+		//Array is sent from ajax as "," separated list
 		String[] messageId = message_ids.split(",");
 		//System.out.println("message length"+messageId.length);
 		

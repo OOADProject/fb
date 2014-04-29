@@ -51,7 +51,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 
 
 	public LoginAction() {
-		// TODO Auto-generated constructor stub
+		// Year,month,days drop down list being populated on Login.jsp
 		yearList = new ArrayList<String>();
 		monthList = new ArrayList<String>();
 		dayList = new ArrayList<String>();
@@ -113,7 +113,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 			e.printStackTrace();
 		}
 		
-		flag=ui.isValidUser(user);
+		flag=ui.isValidUser(user); // to check if user email already exist or not. 
 		if(flag)
 		{
 			user=ui.addUser(user); // To add user in database.
@@ -213,11 +213,11 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 
 
 
-	// For Login
+	// For Login of existing user
 	public String login(){
 		System.out.println(logged_in);
 		UserImpl ui = new UserImpl();
-		user=ui.loginCheck(user);
+		user=ui.loginCheck(user);//Check if username and password is valid
 		if(user==null)
 		{
 			loginerror="Username or password is not correct.";	
@@ -262,6 +262,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>,Sess
 	}
 	public String skipStep2()
 	{
+		//Store default profile pic in case user doent give any profile pic
 		UserImpl uimpl=new UserImpl();
 		user=(User)session.get("user");
 		user.setProfilePic("/Facebook/asset/images/profilepics/default.jpg");

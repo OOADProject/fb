@@ -24,6 +24,7 @@ public class LoadProfileAction extends ActionSupport {
 	private int isFriend;
 	private int canSendFriendRequest;
 	
+	//To load the profile of any user ,if the logged in user go to any other user's profile  
 	public String loadProfile()
 	{
 		LoadProfileImpl pimpl =new LoadProfileImpl();
@@ -33,8 +34,12 @@ public class LoadProfileAction extends ActionSupport {
 		WallPostImpl wpi = new WallPostImpl();
 		wallPostsList = wpi.getUserWallPosts(((User)session.get("user")).getProfile_id(), profileId);
 		user=pimpl.getUser(profileId);
+		
+		//to show add friend button or not
 		isFriend = pimpl.isFriend(profileId,((User)session.get("user")).getProfile_id());
 		System.out.println("is friend is : "+isFriend);
+		
+		//to check whether a user can send request to another user based on settings
 		canSendFriendRequest = pimpl.canSendFriendRequest((int) session.get("currentProfile"), ((User)session.get("user")).getProfile_id());
 		if(user!=null)		
 		return SUCCESS;

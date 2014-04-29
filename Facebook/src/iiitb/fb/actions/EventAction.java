@@ -128,6 +128,8 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		//get date and time and concatenate to save
 		String dtStr = new SimpleDateFormat("yyyy-MM-dd").format(newEvent.getEventDate()) ;
 		dtStr += " "+newEvent.getEventTime() ;
 		try {
@@ -140,6 +142,8 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 
 		
 		newEvent.setEventOwnerId(ownerId);
+		
+		//if you want to save event on the home page alongwith bday notification--display event 1day before
 		newEvent.setEventStart(	new Date(dt.getTime() - 1 * 24 * 3600 * 1000)) ;
 		newEvent.setEventEnd(dt);	
 		newEvent.setEventPhoto(" ");	
@@ -197,8 +201,7 @@ public class EventAction extends ActionSupport implements ModelDriven<Event> {
 		return SUCCESS;
 		
 	}
-	
-	
+		
 	public String showEventPage()	{
 		System.out.println(newEvent.getEventId());
 		//query database to get details of that event 

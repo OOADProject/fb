@@ -30,7 +30,7 @@ public class WallPostAction extends ActionSupport implements ModelDriven<WallPos
 			return ERROR;
 		}
 	}
-	
+	//loadung a wallpost
 	public String getWallPosts(){
 		
 		WallPostImpl wpi = new WallPostImpl();

@@ -62,6 +62,7 @@
 			<h5 style="font-weight: bold; color: rgb(106, 116, 128)">&nbsp;&nbsp;&nbsp;Do you Know <s:property value="user.fname" />?</h5>  
 		</div>
 		<br>
+		<!-- Depending on the value of isFriend, show different things like add friend button  -->
 		<div id="addFriendID">
 	<s:if test="%{isFriend == 0}">
 	

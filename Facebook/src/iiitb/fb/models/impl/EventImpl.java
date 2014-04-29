@@ -33,7 +33,7 @@ public class EventImpl {
 		ArrayList<Event> myEvents =new ArrayList<Event>();
 		//ArrayList<ArrayList<Event>> datewiseEventList = new ArrayList<ArrayList<Event>>();
 		ArrayList<Event> myallEvents =new ArrayList<Event>();
-		ArrayList<ArrayList<Event>> allEventList = new ArrayList<ArrayList<Event>>();
+		ArrayList<ArrayList<Event>> allEventList = new ArrayList<ArrayList<Event>>();//unused
 		ArrayList<Event> onDate =null;
 		Date eventDtTm; 
 		
@@ -44,7 +44,7 @@ public class EventImpl {
 		String now=new SimpleDateFormat("yyyy-MM-dd HH:MM:ss").format(System.currentTimeMillis());
 		System.out.println("current date " + now );
 
-
+        /*events without bdays*/
 		DatabaseConnect dc=new DatabaseConnect();
 		String getEventsQuery = "select e.* from event e,eventinvite ei where (e.profile_id="+profile_id+" or (ei.invite_id="+profile_id+" and ei.event_id=e.event_id)) and e.isBirthday=0 and e.event_date>='"+now+"' group by e.event_id order by e.event_date ";
 
@@ -69,6 +69,7 @@ public class EventImpl {
 				ev.setEventEnd(eventset.getTimestamp("event_end"));
 				ev.setEventPhoto(eventset.getString("event_photo"));
 				ev.setIsBirthday(eventset.getInt("isBirthday"));
+				
 				myEvents.add(ev);			
 
 			}
@@ -79,7 +80,7 @@ public class EventImpl {
 		}
 
 		
-		/*Sorted B'day list for a given profile id */
+		/*Sorted B'day list for a given profile id on the basis of month and date*/
 
 		class CustomComparator implements Comparator<Event> {
 			@Override
@@ -91,6 +92,7 @@ public class EventImpl {
 			}
 		}
 
+		/*get bday of friends */
 		String getBdayQuery = "select * from event e ,friends f where e.isBirthday=1 and f.profile_id='"+profile_id+"' and e.profile_id=f.friend_id";
 		ArrayList< Event> bDayList=new ArrayList<Event>();
 		ResultSet bDayset = dc.getData(getBdayQuery);
@@ -113,11 +115,12 @@ public class EventImpl {
 				ev.setEventEnd(bDayset.getTimestamp("event_end"));
 				ev.setEventPhoto(bDayset.getString("event_photo"));
 				ev.setIsBirthday(bDayset.getInt("isBirthday"));
+				
 				bDayList.add(ev);
 
 
 			}
-		}
+		} 
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -204,9 +207,11 @@ public class EventImpl {
 			}
 			
 		//	int len=onDate.get(0).getEventDate().length();
+			
+			/*datewiseEventMap  contains datewise eventlist */
 				datedEventMap.put(new SimpleDateFormat("MM-dd , EEEE").format(onDate.get(0).getEventDate()), onDate);
 				
-			allEventList.add(onDate);
+			allEventList.add(onDate); //unused
 
 		}
 

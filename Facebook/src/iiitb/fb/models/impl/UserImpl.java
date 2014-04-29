@@ -19,7 +19,7 @@ import iiitb.fb.models.User;
 
 public class UserImpl{
 
-	public boolean isValidUser(User user)//checking for valid user for registration. 
+	public boolean isValidUser(User user)//checking for email duplicacy.
 	{
 		System.out.println(user.getGender());
 		System.out.println(user.getBirthday());
@@ -124,6 +124,7 @@ public class UserImpl{
 			}
 			if(userpassword.equals(user.getPassword()))
 			{
+				//Retrieve and set all values for the user
 				String q="select profile_id,first_name,last_name,profile_pic,high_school,college,company_name from profile where login_id=(select login_id from login where email='"+user.getUserName()+"'or uname='"+user.getUserName()+"' )";
 				ResultSet rs1=db.getData(q);
 				while(rs1.next())
@@ -215,6 +216,7 @@ public class UserImpl{
 		db.updateData(query);
 	}
 	
+	//populating initial time stamp.
 	public void addNotificationClicked(User user)
 	{
 		DatabaseConnect db=new DatabaseConnect();
@@ -225,6 +227,7 @@ public class UserImpl{
 		db.updateData(query);
 	}
 	
+	//Assign username and password to the user.
 	public User assignUserNameAndId(User user )
 	{
 			DatabaseConnect db= new DatabaseConnect();

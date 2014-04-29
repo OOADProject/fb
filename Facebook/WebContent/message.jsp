@@ -209,7 +209,7 @@ function canceldelete() {
 }
 
 
-//when delete messages option is clicked from dropdown menu
+//when delete messages option is clicked from dropdown menu--gives the checkbox infront of every message
 	
 	function chkboxdelete() {
 	

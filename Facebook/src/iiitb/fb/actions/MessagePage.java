@@ -101,6 +101,7 @@ public class MessagePage extends ActionSupport implements ModelDriven<MessageNam
 		unreadMessages = mp.totalUnreadMessages(profile_id);
 		
 		friendslist = mp.getFriendsName(profile_id);
+		//conversation id is the profile id of the person whom which we are having conversation
 		conversation_id = mp.getFirstChatId(profile_id);
 		conversation = new ArrayList<MessageNameList>();
 		conversation = mp.getconversation(profile_id, conversation_id);

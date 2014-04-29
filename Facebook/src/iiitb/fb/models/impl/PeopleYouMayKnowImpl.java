@@ -23,6 +23,10 @@ public class PeopleYouMayKnowImpl {
 		boolean flag2=true;
 		try {
 		DatabaseConnect db=new DatabaseConnect();
+		/*
+		 * Get friends of current user's friends who are not current user's friend and current user has not sent friend request to them
+		 * ie Friend of Friend to whom friend request not sent
+		 * */
 		String query="select profile_id,profile_pic,first_name,last_name from profile p where profile_id in(select f2.friend_id from (select profile_id,friend_id from friends where profile_id="+user.getProfile_id()+") as f1,friends as f2"
 				+ " where((f1.friend_id=f2.profile_id) and (f2.friend_id!="+user.getProfile_id()+") and (f2.friend_id not in(select friend_id from friends where profile_id="+user.getProfile_id()+") and  f2.friend_id not in(select request_to from friendrequest where request_from="+user.getProfile_id()+")  )))";
 		ResultSet rs=db.getData(query);
@@ -37,6 +41,10 @@ public class PeopleYouMayKnowImpl {
 				PeopleList.add(f);
 			}
 			
+		/*
+		 * Not user friend and not friend request sent but have the same high school as current user
+		 * 
+		 * */
 		String queryByHighSchool="select profile_id,profile_pic,first_name,last_name from profile where profile_id in(select p1.profile_id from(select p.profile_id from profile as p where (p.high_school='"+user.getHighschool()+"' and p.profile_id!="+user.getProfile_id()+")) as p1 where(p1.profile_id not in(select profile_id from friends where friend_id="+user.getProfile_id()+")and p1.profile_id not in(select request_to from friendrequest where request_from="+user.getProfile_id()+")))";	
 			ResultSet rs1=db.getData(queryByHighSchool);
 			while(rs1.next())
@@ -60,6 +68,10 @@ public class PeopleYouMayKnowImpl {
 				flag=true;
 			}
 			
+			/*
+			 * Not user friend and not friend request sent but have the same college as current user
+			 * 
+			 * */
 			String queryByCollege="select profile_id,profile_pic,first_name,last_name from profile where profile_id in(select p1.profile_id from(select p.profile_id from profile as p where (p.college='"+user.getCollege()+"' and p.profile_id!="+user.getProfile_id()+")) as p1 where(p1.profile_id not in(select profile_id from friends where friend_id="+user.getProfile_id()+")and p1.profile_id not in(select request_to from friendrequest where request_from="+user.getProfile_id()+")))";	
 			ResultSet rs2=db.getData(queryByCollege);
 			while(rs2.next())
@@ -85,6 +97,10 @@ public class PeopleYouMayKnowImpl {
 				flag1=true;
 			}
 			
+			/*
+			 * Not user friend and not friend request sent but have the same hometown as current user
+			 * 
+			 * */
 			String queryByHometown="select profile_id,profile_pic,first_name,last_name from profile where profile_id in(select p1.profile_id from(select p.profile_id from profile as p where (p.hometown='"+user.getHometown()+"' and p.profile_id!="+user.getProfile_id()+")) as p1 where(p1.profile_id not in(select profile_id from friends where friend_id="+user.getProfile_id()+")and p1.profile_id not in(select request_to from friendrequest where request_from="+user.getProfile_id()+")))";
 			ResultSet rs3=db.getData(queryByHometown);
 			while(rs3.next())

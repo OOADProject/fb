@@ -123,6 +123,7 @@ public class NotificationImpl {
 		DatabaseConnect dbc = new DatabaseConnect();
 		//retrive the last read from notifications table 
 		Connection connection = DatabaseConnect.getConnection();
+		//get all the likes and their corresponding wallpost_id and profile details of the users who have liked it
 		String query = "select p.first_name,p.last_name,p.profile_id,p.profile_pic,temp.wallpost_id,temp.timestamp from"
 				+ " (select w.wallpost_id,l.profile_id,l.timestamp from wallpost w, likes l where (w.post_from=? or w.post_to=?) and w.wallpost_id=l.wallpost_id and l.profile_id!=? and l.timestamp>? order by l.timestamp desc) as temp, profile p"
 				+ " where temp.profile_id=p.profile_id order by wallpost_id,timestamp desc;";
@@ -133,7 +134,7 @@ public class NotificationImpl {
 			ps.setInt(3, profileId);
 
 			ps.setString(4, lastRead);
-
+			// list flag to check when to add notitification to the list
 			ResultSet rs = dbc.getData(ps);
 			if(rs.isBeforeFirst()){
 				Notification n = null;
@@ -156,6 +157,7 @@ public class NotificationImpl {
 
 					n.setNotificationText(n.getNotificationText()+rs.getString("first_name")+" "+rs.getString("last_name")+",");
 				}
+				//to add last notification
 				n.setNotificationText(n.getNotificationText()+" likes your wallpost");
 
 				likesNotificationsList.add(n);

@@ -44,6 +44,7 @@ public List<Friend> searchresult(String name, int profileId)
 
 public int isFriend(int friendProfileId, int profileId)
 {
+	//if isFriend=0---not friend, 1--friend, 2---friend request sent, 3---if current profile and profile id is same
 	int isFriend=0;
 	try {
 	DatabaseConnect db=new DatabaseConnect();

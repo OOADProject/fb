@@ -34,6 +34,7 @@ public class MessagePageImpl {
 		this.conversationList = conversationList;
 	}
 
+	//Get names of all the person with whom the current user have conversation sort by timestamp
 	public List<MessageNameList> getnames(int profile_id)
 	{
 		int i=0,j,flag=0,size;
@@ -113,6 +114,7 @@ public class MessagePageImpl {
 		System.out.println("in messagepageImpl getconversation()");
 
 		try{
+			//makes isread=1 to indicate message is read
 			db.updateData(" update facebook.messages set isread=1 where (sender_id="+profile_id+" and receiver_id="+conversation_id+") or  (sender_id="+conversation_id+" and receiver_id="+profile_id+")");
 			ResultSet rs2 = db.getData("select message_id,sender_id,message_text,timestamp from facebook.messages where ((sender_id="+profile_id+" and receiver_id="+conversation_id+") or (sender_id="+conversation_id+" and receiver_id="+profile_id+")) and "+profile_id+" in (visible1,visible2)  order by timestamp;");
 			while(rs2.next())
@@ -155,11 +157,19 @@ public class MessagePageImpl {
 		return conversationList;
 	}
 
+	//On passing the profile id, get the  name of the profile with whom last chat is done 
 	public String getFirstChatName(int Profile_id)
 	{
 
 		try
 		{
+			
+			/*
+			 * Visible1: sender_id
+			 * Visible2: receiver_id
+			 * initially both have profile-id, if anyone deletes message, then make it 0
+			 * While getting first message from db, sort by timestamp and visible1, visible2 should be not 0 
+			 * */
 			ResultSet rs5 = db.getData("select sender_id,receiver_id from facebook.messages where "+Profile_id+" in (sender_id , receiver_id) and "+Profile_id+" in (visible1,visible2) order by timestamp asc ");
 			while(rs5.next())
 			{
@@ -171,7 +181,8 @@ public class MessagePageImpl {
 					firstChatId = rs5.getInt("sender_id");
 
 			}
-
+			
+			//last element in rs5.next() would be firstchatId 
 			ResultSet rs6 = db.getData("select first_name,last_name from profile where profile_id ="+firstChatId+"");
 			while(rs6.next())
 			{
@@ -187,6 +198,7 @@ public class MessagePageImpl {
 		return firstChatName;
 	}
 
+	//On passing the profile id, get the  id of the profile with whom last chat is done
 	public Integer getFirstChatId(int Profile_id)
 	{
 
@@ -249,6 +261,11 @@ public class MessagePageImpl {
 	}
 
 
+	/*
+	 * Get names of the friends in the autocomplete 
+	 * 
+	 * */
+	
 	public ArrayList<String> getFriendsName(int profile_id)
 	{
 		ArrayList<String> friendsName = new ArrayList<String>();

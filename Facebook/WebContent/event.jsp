@@ -307,8 +307,8 @@ $("#inviteStatus2").click(function(event){
 							<br> When: &nbsp; &nbsp;<input type="text"
 								placeholder="click to show datepicker" id="example1"
 								name="eventDateTemp" required="true">(yyyy-mm-dd)  &nbsp; &nbsp;<input type="text"
-								placeholder="Add a time." name="eventTime" required="true"/> <br> <input
-								type="hidden" id="hiddenField" name="invitedFriendIds" required="true" /> <br>
+								placeholder="Add a time." name="eventTime" required="true"/> <br>
+								 <input 	type="hidden" id="hiddenField" name="invitedFriendIds" required="true" /> <br>
 							<p id="invitedCount"></p>
 
 						</div>

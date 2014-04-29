@@ -123,6 +123,8 @@ $(document).ready(function(){
 	<h5 align="center">People You May Know</h5>
 
 <hr>
+
+<!-- Division to show people you may know results -->
 <div id="peoplesContainerId" >
 
 </div>

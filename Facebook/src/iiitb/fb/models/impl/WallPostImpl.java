@@ -116,6 +116,7 @@ public class WallPostImpl {
 			ResultSet rs = dbc.getData(ps);
 			List<UserWallPost> postsList = new ArrayList<UserWallPost>();
 			while(rs.next()){
+				//ignore the wallposts which are realted to events
 				if(rs.getInt("event_id") == 0){
 					UserWallPost uwp = new UserWallPost();
 					uwp.setWallPostId(rs.getInt("wallpost_id"));
@@ -127,6 +128,8 @@ public class WallPostImpl {
 					uwp.setTimestamp(rs.getString("timestamp"));
 					uwp.setVisibility(rs.getString("visibility"));
 					uwp.setWallPostText(rs.getString("wallpost_text"));
+					
+					//get likes and comments for each wallpost through function call
 					uwp.setCommentsList(getComments(uwp.getWallPostId()));
 					uwp.setLikesList(getLikes(uwp.getWallPostId()));
 					if(isLiked == 1){
@@ -265,6 +268,10 @@ public class WallPostImpl {
 	public List<UserWallPost> getProfileWallPosts(){
 		return null;
 	}
+	
+	
+	
+	//get wallposts associated with a event
 	public List<UserWallPost> getEventWallPosts(int eventId){
 
 		DatabaseConnect dbc = new DatabaseConnect();
@@ -304,10 +311,12 @@ public class WallPostImpl {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+			 return null;
 		}
 	}
 	
+	
+	//get all wallposts associated with a friend category
 	public List<UserWallPost> getCategoryWallPosts(String categoryName, int profileId){
 		DatabaseConnect dbc = new DatabaseConnect();
 		Connection connection = DatabaseConnect.getConnection();

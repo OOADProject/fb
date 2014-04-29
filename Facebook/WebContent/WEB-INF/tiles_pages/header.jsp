@@ -232,6 +232,7 @@ $(document).ready(function(){
 				<input type="text" id="searchId" name="name" class="form-control"
 					placeholder="Search for people.....">
 					
+					<!--  For search bar -->
 						<ul class="dropdown-menu" id="search" style="width:540px; margin-left:-5%; ">
 							
 						</ul>

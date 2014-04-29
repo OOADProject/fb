@@ -78,6 +78,7 @@
 	</div>
 
 	<div id="news_feeds_div">
+	<!-- update status ka division hai -->
 		<div class="single_wallpost">
 			<img alt="error" style="margin-left: 2%;"
 				src="/Facebook/asset/images/update_status.png" align="left"
@@ -100,6 +101,7 @@
 					style="background-color: #5973A8; padding-left: 20px; padding-right: 20px;">Post</button>
 			</div>
 		</div>
+		<!-- wallposts collections ka division hai jisme sirf wallposts hai -->
 		<div id="wallposts_collection">
 			<div id="myModal" class="modal fade" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true"
@@ -124,6 +126,8 @@
 				</div>
 				<!-- /.modal-dialog -->
 			</div>
+			
+			<!-- iterator which prints the wallposts -->
 			<s:iterator value="wallPostsList">
 				<div class="single_wallpost">
 					<div id="wallpost_body">
@@ -147,6 +151,8 @@
 						<s:a href="%{profileLink}" id="full_name">
 							<s:property value="postFromName" />
 						</s:a>
+						<!-- jisko wallopst kiye hai uska naam with arrow -->
+						
 						<s:if test="%{postFrom != postTo}">
 									&nbsp;<img src="/Facebook/asset/images/right-normal.png" width="5px" height="7px">&nbsp;
 										<s:url action="/Facebook/module02/loadProfilePage" var="profileLink">
