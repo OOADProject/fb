@@ -90,13 +90,16 @@ public String uninvitedFriends()
 	return SUCCESS;
 }
 
+//To update the status of a invited friend whether he is going to the event or not
+
 public String updateJoinStatus()
 {
 //write query to update status in the eventinvite table for an invitee
+	System.out.println("m inside invitefriendaction to update join status: eventid" +eventId);
 	Map<String,Object> session = ActionContext.getContext().getSession();
 	User user = (User)session.get("user");
 	EventImpl ei =new EventImpl();
-	ei.updateJoinStat(user.getProfile_id(),joinStatus);
+	ei.updateJoinStat(user.getProfile_id(),joinStatus,eventId);
 	
 	
 	

@@ -58,7 +58,7 @@ public class EventImpl {
 				ev.setEventId(eventset.getInt("event_id"));
 				eventDtTm=eventset.getTimestamp("event_date");
 				ev.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(eventDtTm));
-				ev.setEventTime(new SimpleDateFormat("HH:MM aa").format(eventDtTm));									
+				ev.setEventTime(new SimpleDateFormat("hh:mm:ss").format(eventDtTm));									
 				ev.setEventId(eventset.getInt("event_id"));
 				ev.setEventTitle(eventset.getString("event_title"));
 				ev.setEventOwnerId(eventset.getInt("profile_id"));
@@ -104,7 +104,7 @@ public class EventImpl {
 				eventDtTm=bDayset.getTimestamp("event_date");
 				ev.setEventId(bDayset.getInt("event_id"));
 				ev.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(eventDtTm));
-				ev.setEventTime(new SimpleDateFormat("HH:MM aa").format(eventDtTm));									
+				ev.setEventTime(new SimpleDateFormat("hh:mm:ss").format(eventDtTm));									
 				ev.setEventId(bDayset.getInt("event_id"));
 				ev.setEventTitle(bDayset.getString("event_title"));
 				ev.setEventOwnerId(bDayset.getInt("profile_id"));
@@ -237,16 +237,18 @@ public class EventImpl {
 	{
 		DatabaseConnect dc=new DatabaseConnect();
 		Connection connection = dc.getConnection();
-		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+		
 		String getAddEventsQuery = "INSERT into event(profile_id,event_title,description,event_where,event_date,event_start,event_end,event_photo,isBirthday)" + "VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
+			
+			
 			PreparedStatement ps = connection.prepareStatement(getAddEventsQuery);
 			ps.setInt(1,newEvent.getEventOwnerId());
 			ps.setString(2,newEvent.getEventTitle());
 			ps.setString(3,newEvent.getDescription());
 			ps.setString(4,newEvent.getEvent_where());
-			ps.setString(5,sdf.format(newEvent.getEventDate()));
+			ps.setString(5,(sdf.format(newEvent.getEventDate())+" "+newEvent.getEventTime()));
 			ps.setString(6,sdf.format(newEvent.getEventStart()));
 			ps.setString(7,sdf.format(newEvent.getEventEnd()));
 			ps.setString(8,newEvent.getEventPhoto());
@@ -261,7 +263,10 @@ public class EventImpl {
 			if(rs.next()){
 				eventId =  rs.getInt("last_insert_id()");
 			}
-
+			
+			
+			//call method to make entry in eventinvite table
+			
 			addInvitedFriends(eventId,invited);
 			Map<String, Object> session = ActionContext.getContext().getSession();
 			User user = (User)session.get("user");
@@ -269,6 +274,7 @@ public class EventImpl {
 			newEvent.setEventDateHdr(new SimpleDateFormat("EEEE, MMMM dd yyyy").format(newEvent.getEventDate()));
 			return eventId;
 
+			
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -385,12 +391,13 @@ public class EventImpl {
 		return true;
 	}
 
-	/*change the jin status of invited person */
-public void updateJoinStat(int profile_id, String joinStatus)
+	/*change the join status of invited person whether he is going or not*/
+public void updateJoinStat(int profile_id, String joinStatus,int eventId)
 	
 	{
+	System.out.println("m inside update join status");
 		DatabaseConnect dc=new DatabaseConnect();
-		String query ="update eventinvite set status='"+joinStatus+"' where invite_id ='"+profile_id+"' ";
+		String query ="update eventinvite set status='"+joinStatus+"' where invite_id ='"+profile_id+"' and event_id='"+eventId+"'";
 		dc.updateData(query);
 		
 	

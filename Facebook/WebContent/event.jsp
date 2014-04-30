@@ -72,9 +72,10 @@
 	$("#inviteStatus").click(function(event){
 							
 							alert($("#inviteStatus").val());
+							alert($("#hiddeneventId").val());
 							var temp =$(this).val();
 							$.ajax({
-								url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp,
+								url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp+'&eventId='+$("#hiddeneventId").val(),
 								type : 'POST',
 								success : function(data) {
 									
@@ -91,9 +92,10 @@
 	$("#inviteStatus1").click(function(event){
 		
 		alert($("#inviteStatus1").val());
+		alert($("#hiddeneventId").val());
 		var temp1 =$("#inviteStatus1").val();
 		$.ajax({
-			url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp1,
+			url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp1+'&eventId='+$("#hiddeneventId").val(),
 			type : 'POST',
 			success : function(data) {
 				
@@ -109,9 +111,10 @@
 $("#inviteStatus2").click(function(event){
 		
 		alert($("#inviteStatus2").val());
+		alert($("#hiddeneventId").val());
 		var temp2 =$(this).val();
 		$.ajax({
-			url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp2,
+			url : "/Facebook/module05/changeJoinStatus?joinStatus="+temp2+'&eventId='+$("#hiddeneventId").val(),
 			type : 'POST',
 			success : function(data) {
 				
@@ -216,7 +219,9 @@ $("#inviteStatus2").click(function(event){
 														<img class="event-img"
 														src="<s:property value='eventPhoto'/>" />
 												</a></td>
-												<td><a
+												<td>
+												<input type="hidden" id="hiddeneventId" value="<s:property value="eventId"/>">
+												<a
 													href='/Facebook/module05/loadSpecificEvent?eventId=<s:property value="eventId"/>'><s:property
 															value="eventTitle" /></a></td>
 											</tr>
